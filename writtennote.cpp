@@ -3,8 +3,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
-#include <attachement.h>
-
 
 WrittenNote::WrittenNote()
 {
