@@ -22,6 +22,15 @@ void WrittenNote::saveWrittenNote(QString text)
     }
 }
 
+QDateTime WrittenNote::getTimestamp()
+{
+    return this->timestamp;
+}
+
+QList<QString> WrittenNote::getTags()
+{
+    return this->tags;
+}
 
 void WrittenNote::addAttachement(Attachement a)
 {

@@ -15,7 +15,7 @@ QString subject::getTeacher()
    return this->subject_teacher;
 }
 
-QList subject::getFrequentlyUsedTags()
+QList<QString> subject::getFrequentlyUsedTags()
 {
    return this->frequentlyUsedTags;
 }
@@ -25,17 +25,17 @@ int subject::getWrittenNotesSize()
    return this->notes.count();
 }
 
-QList subject::getWrittenNotes()
+QMap<QDateTime, WrittenNote> subject::getWrittenNotes()
 {
    return this->notes;
 }
 
-QList subject::getWrittenNotes(QDateTime date)
+QList<WrittenNote> subject::getWrittenNotes(QDateTime date)
 {
-   QList ChosenNotes = new QList();
-   for(auto n : this->notes.values())
+   QList<WrittenNote> ChosenNotes;
+   for(WrittenNote n : this->notes.values())
    {
-       if(n.timestamp - date <=  86400)
+       if((n.getTimestamp().msecsTo(date))*1000 <=  86400)
        {
            ChosenNotes.append(n);
        }
@@ -43,12 +43,12 @@ QList subject::getWrittenNotes(QDateTime date)
    return ChosenNotes;
 }
 
-QList subject::getWrittenNotes(QString tag)
+QList<WrittenNote> subject::getWrittenNotes(QString tag)
 {
-    QList ChosenNotes = new QList();
-    for(auto n : this->notes.values())
+    QList<WrittenNote> ChosenNotes;
+    for(WrittenNote n : this->notes.values())
     {
-        if(n.tags.contains(tag))
+        if(n.getTags().contains(tag))
         {
             ChosenNotes.append(n);
         }
@@ -56,17 +56,19 @@ QList subject::getWrittenNotes(QString tag)
     return ChosenNotes;
 }
 
-QList subject::getWrittenNotes(QList taglist)
+QList<WrittenNote> subject::getWrittenNotes(QList<QString> taglist)
 {
+    QList<WrittenNote> ChosenNotes;
 
+    return ChosenNotes;
 }
 
-QList subject::getWrittenNotesBetween(QDateTime DateFirst,QDateTime  DateLast)
+QList<WrittenNote> subject::getWrittenNotesBetween(QDateTime DateFirst,QDateTime  DateLast)
 {
-    QList ChosenNotes = new QList();
-    for(auto n : this->notes.values())
+    QList<WrittenNote> ChosenNotes;
+    for(WrittenNote n : this->notes.values())
     {
-        if(DateFirst <= n.timestamp && DateLast >= n.timestamp)
+        if(DateFirst <= n.getTimestamp() && DateLast >= n.getTimestamp())
         {
             ChosenNotes.append(n);
         }
@@ -74,7 +76,7 @@ QList subject::getWrittenNotesBetween(QDateTime DateFirst,QDateTime  DateLast)
     return ChosenNotes;
 }
 
-QList subject::getWrittenNotesWithWithout(tagList, tagList)
+QList<WrittenNote> subject::getWrittenNotesWithWithout(QList<QString> tagListWith,QList<QString> tagListWithout)
 {
 
 }
