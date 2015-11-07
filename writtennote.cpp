@@ -22,12 +22,12 @@ void WrittenNote::saveWrittenNote(QString text)
     }
 }
 
-QDateTime WrittenNote::getTimestamp()
+QDateTime WrittenNote::getTimestamp() const
 {
     return this->timestamp;
 }
 
-QList<QString> WrittenNote::getTags()
+QList<QString> WrittenNote::getTags() const
 {
     return this->tags;
 }

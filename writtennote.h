@@ -21,8 +21,8 @@ public:
     void saveWrittenNote(QString);
     void addAttachement(Attachement);
     void addTag(QString newTag);
-    QDateTime getTimestamp();
-    QList<QString> getTags();
+    QDateTime getTimestamp() const;
+    QList<QString> getTags() const;
     WrittenNote();
 };
 

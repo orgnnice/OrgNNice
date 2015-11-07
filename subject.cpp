@@ -5,84 +5,125 @@ subject::subject()
 
 }
 
-QString subject::getName()
+QString subject::getName(subject theSubject)
 {
-   return this->subject_name;
+   return theSubject.subject_name;
 }
 
-QString subject::getTeacher()
+QString subject::getTeacher(subject theSubject)
 {
-   return this->subject_teacher;
+   return theSubject.subject_teacher;
 }
 
-QList<QString> subject::getFrequentlyUsedTags()
+QList<QString> subject::getFrequentlyUsedTags(subject theSubject)
 {
-   return this->frequentlyUsedTags;
+   return theSubject.frequentlyUsedTags;
 }
 
-int subject::getWrittenNotesSize()
+int subject::getWrittenNotesSize(subject theSubject)
 {
-   return this->notes.count();
+   return theSubject.notes.count();
 }
 
-QMap<QDateTime, WrittenNote> subject::getWrittenNotes()
+QMap<QDateTime, WrittenNote> subject::getWrittenNotes(subject theSubject)
 {
-   return this->notes;
+   return theSubject.notes;
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QDateTime date)
+QList<WrittenNote> subject::getWrittenNotes(subject theSubject, QDateTime date)
 {
-   QList<WrittenNote> ChosenNotes;
-   for(WrittenNote n : this->notes.values())
+   QList<WrittenNote> chosenNotes;
+   for(WrittenNote n : theSubject.notes.values())
    {
        if((n.getTimestamp().msecsTo(date))*1000 <=  86400)
        {
-           ChosenNotes.append(n);
+           chosenNotes.append(n);
        }
    }
-   return ChosenNotes;
+   return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QString tag)
+QList<WrittenNote> subject::getWrittenNotes(subject theSubject, QString tag)
 {
-    QList<WrittenNote> ChosenNotes;
-    for(WrittenNote n : this->notes.values())
+    QList<WrittenNote> chosenNotes;
+    for(WrittenNote n : theSubject.notes.values())
     {
         if(n.getTags().contains(tag))
         {
-            ChosenNotes.append(n);
+            chosenNotes.append(n);
         }
     }
-    return ChosenNotes;
+    return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QList<QString> taglist)
+QList<WrittenNote> subject::getWrittenNotes(subject theSubject, QList<QString> taglist)
 {
-    QList<WrittenNote> ChosenNotes;
-
-    return ChosenNotes;
+    QList<WrittenNote> chosenNotes;
+    for(WrittenNote n : theSubject.notes.values())
+    {
+        int amount = 0;
+        for(QString tag : taglist)
+        {
+            if(n.getTags().contains(tag))
+            {
+                amount++;
+            } else
+            {
+                break;
+            }
+        }
+        if(amount == taglist.count())
+        {
+            chosenNotes.append(n);
+        }
+    }
+    return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotesBetween(QDateTime DateFirst,QDateTime  DateLast)
+QList<WrittenNote> subject::getWrittenNotesBetween(subject theSubject, QDateTime DateFirst,QDateTime  DateLast)
 {
-    QList<WrittenNote> ChosenNotes;
-    for(WrittenNote n : this->notes.values())
+    QList<WrittenNote> chosenNotes;
+    for(WrittenNote n : theSubject.notes.values())
     {
         if(DateFirst <= n.getTimestamp() && DateLast >= n.getTimestamp())
         {
-            ChosenNotes.append(n);
+            chosenNotes.append(n);
         }
     }
-    return ChosenNotes;
+    return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotesWithWithout(QList<QString> tagListWith,QList<QString> tagListWithout)
+QList<WrittenNote> subject::getWrittenNotesWithWithout(subject theSubject, QList<QString> tagListWith,QList<QString> tagListWithout)
 {
+    QList<WrittenNote> chosenNotes;
+    for(WrittenNote n : theSubject.notes.values())
+    {
+        int amountWith = 0;
+        int amountWithout = 0;
+        for(QString tag : tagListWith)
+        {
+            if(n.getTags().contains(tag))
+            {
+                amountWith++;
+            }
+        }
+        for(QString tag : tagListWithout)
+        {
+            if(n.getTags().contains(tag))
+            {
+                amountWithout++;
+            }
+        }
+        if(amountWith == tagListWith.count() && amountWithout == tagListWithout.count())
+        {
+            chosenNotes.append(n);
+        }
+    }
 
+    return chosenNotes;
 }
 
-void subject::addWrittenNote(WrittenNote wn)
+void subject::addWrittenNote(subject theSubject, WrittenNote wn)
 {
-    this->notes.insert(QDateTime::currentDateTime(), wn);
+    theSubject.notes.insert(QDateTime::currentDateTime(), wn);
 }
-
