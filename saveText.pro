@@ -23,4 +23,4 @@ HEADERS  += savetext.h \
     subject.h \
     attachement.h
 
-FORMS    += savetext.ui
+FORMS    +=
