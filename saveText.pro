@@ -16,12 +16,18 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
     writtennote.cpp \
     subject.cpp \
-    attachement.cpp
+    attachement.cpp \
+    mrichtextedit.cpp \
+    mtextedit.cpp \
+    test.cpp
 
 HEADERS  += \
     writtennote.h \
     subject.h \
-    attachement.h
+    attachement.h \
+    mrichtextedit.h \
+    mtextedit.h
 
 FORMS    += \
-    editor.ui
+    editor.ui \
+    mrichtextedit.ui
