@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,14 +14,14 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
-        savetext.cpp \
     writtennote.cpp \
     subject.cpp \
     attachement.cpp
 
-HEADERS  += savetext.h \
+HEADERS  += \
     writtennote.h \
     subject.h \
     attachement.h
 
-FORMS    +=
+FORMS    += \
+    editor.ui
