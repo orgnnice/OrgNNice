@@ -1,0 +1,19 @@
+alle Notes von **subjectname**
+
+select * from note where fk_schoolSubject = (select pk_id from schoolSubject where name = **subjectname**);
+
+alle Notes von **subjectname** mit **Datum**
+
+select * from note where fk_schoolSubject = (select pk_id from schoolSubject where name = **subjectname**) AND ts - **Datum** <= 86400;
+
+alle Notes von **subjectname** mit **Tag**/Taglist
+
+select * from note where fk_schoolSubject = (select pk_id from schoolSubject where name = **subjectname**) AND pk_id = (select nodeId from noteHasTag where TagId in (select pk_id from tag where tagname in (**Tag**)));
+
+alle Notes von **subjectname** mit **Taglist* aber ohne **nichtTaglist**
+
+select * from note where fk_schoolSubject = (select pk_id from schoolSubject where name = **subjectname**) AND pk_id = (select nodeId from noteHasTag where TagId in (select pk_id from tag where tagname in (**Taglist**) AND tagname NOT IN (**NichtTagList**)));
+
+alle Notes von **subjectname** von **1Datum** aber bis **2Datum**
+
+select * from note where fk_schoolSubject = (select pk_id from schoolSubject where name = **subjectname**) AND **1Datum** >= ts AND **2Datum** <= ts;
