@@ -15,7 +15,8 @@
 
 #include "mrichtextedit.h"
 
-int main(int argc, char **argv)
+/*
+ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
@@ -30,3 +31,4 @@ int main(int argc, char **argv)
 
     return app.exec();;
 }
+*/

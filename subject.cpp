@@ -1,5 +1,4 @@
 #include "subject.h"
-#include
 
 subject::subject()
 {
@@ -16,10 +15,6 @@ QString subject::getTeacher(subject theSubject)
    return theSubject.subject_teacher;
 }
 
-QList<QString> subject::getFrequentlyUsedTags(subject theSubject)
-{
-   return theSubject.frequentlyUsedTags;
-}
 
 int subject::getWrittenNotesSize(subject theSubject)
 {
@@ -29,6 +24,7 @@ int subject::getWrittenNotesSize(subject theSubject)
 QMap<QDateTime, WrittenNote> subject::getWrittenNotes(subject theSubject)
 {
    return theSubject.notes;
+
 }
 
 QList<WrittenNote> subject::getWrittenNotes(subject theSubject, QDateTime date)
@@ -41,6 +37,7 @@ QList<WrittenNote> subject::getWrittenNotes(subject theSubject, QDateTime date)
            chosenNotes.append(n);
        }
    }
+   //methode("select * from
    return chosenNotes;
 }
 

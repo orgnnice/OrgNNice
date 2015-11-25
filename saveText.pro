@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     attachement.cpp \
     mrichtextedit.cpp \
     mtextedit.cpp \
-    test.cpp
+    test.cpp \
+    dbhandler.cpp
 
 HEADERS  += \
     writtennote.h \
     subject.h \
     attachement.h \
     mrichtextedit.h \
-    mtextedit.h
+    mtextedit.h \
+    dbhandler.h
 
 FORMS    += \
     editor.ui \

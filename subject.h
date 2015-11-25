@@ -12,7 +12,6 @@ class subject
     QMap <QDateTime, WrittenNote> notes;
     QString subject_name;
     QString subject_teacher;
-    QList<QString> frequentlyUsedTags;
 
 
 public:
@@ -20,7 +19,6 @@ public:
 
     QString getName(subject theSubject);
     QString getTeacher(subject theSubject);
-    QList<QString> getFrequentlyUsedTags(subject theSubject);
     int getWrittenNotesSize(subject theSubject);
     QMap <QDateTime, WrittenNote> getWrittenNotes(subject theSubject);
     QList<WrittenNote> getWrittenNotes(subject theSubject, QDateTime Date);
