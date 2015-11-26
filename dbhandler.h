@@ -2,17 +2,27 @@
 #define DBHANDLER_H
 #include <QtSql/QtSql>
 #include <writtennote.h>
+#include <QFile>
 
 class DBHandler
 {
 private:
-    static QSqlDatabase db;
-
+    QSqlDatabase db;
+    QString resourcesFolder;
 public:
-    DBHandler();
+    DBHandler(QString resFolderPath);
+    void closeDatabase();
+    void createDatabaseIfNotExists();
+    bool queryNoReturn(QString query);
+    QList<WrittenNote> queryWithReturnNoteList(QString statement);
+    bool insertSubject(QString name, QString fk_teacherID);
+    bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
+    int insertTagAndReturnId(QString tag);
+    int insertAttechementAndReturnId(QString attachementPath);
+    int insertAndReturnID(QString statement);
+    int getLastIsertId(QSqlQuery query);
+    QString select (QString coulum, QString table, QString where);
 
-    void queryNoReturn(QString query);
-    List<WrittenNote> queryWithReturnNoteList(QString query);
 };
 
 #endif // DBHANDLER_H

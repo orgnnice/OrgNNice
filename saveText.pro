@@ -33,3 +33,6 @@ HEADERS  += \
 FORMS    += \
     editor.ui \
     mrichtextedit.ui
+
+DISTFILES += \
+    Defintions_info
