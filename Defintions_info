@@ -1,0 +1,25 @@
+Note:
+
+to attachements in the database:
+
+Create Statement for attachement:
+
+create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100))");
+
+filename is the name the file had on the user's file system.
+we proceed to copy this file to resources folder. the filename in this folder is id_filedname. This ensures, that two files havong the same name is not a problem.
+
+Example: User selects homework.doc and attatches it to a WrittenNote.
+the Note gets inserted into the database and the assigned id is 57.
+Then homework.doc gets copied to the resources-folder with the name 57_homework.doc
+
+There still is the problem, that 2 identical files could end up in the resources folder, which is not good regarding used space on the disk.
+
+
+<todo> To solve that problem a md5-hash could be saved in the database as well and on every insert, the md5-hash would be compared to those in teh database already.
+
+However in the current state of Developement, our focus os not on details like that.
+
+
+__
+
