@@ -10,6 +10,9 @@ class DBHandler
 private:
     QSqlDatabase db;
     QString resourcesFolder;
+    QList<QString> tagsFromNote(int noteid);
+    QList<Attachement> attachementsFromNote(int noteid);
+
 public:
     DBHandler(QString resFolderPath);
     void closeDatabase();

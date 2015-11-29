@@ -1,5 +1,4 @@
 #include "dbhandler.h"
-#include
 
 DBHandler::DBHandler(QString resFolderPath)
 {
@@ -61,15 +60,82 @@ bool DBHandler::queryNoReturn(QString statement)
     return query.isActive();
 }
 
+/**
+ * @brief DBHandler::queryWithReturnNoteList
+ * @param Statement An SQL query which is whished to be executed. Note: Has to select the whole row (*)
+ * @return A list of notes that got selected by Statement
+ */
 QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
 {
     qDebug() << "DBHandler -> queryWithReturnNoteList(" << statement << ");";
+
+    QList<WrittenNote> notes;
+    QSqlQuery query(db);
+    query.exec(statement);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString text = query.value(1).toString();
+        QList<Attachement> attachements = attachementsFromNote(id);
+        QList<QString> tags = tagsFromNote(id);
+        int saver = query.value(1).toInt();
+        QDateTime timestamp;
+        timestamp.addMSecs(saver);
+        notes.append(new WrittenNote(id,text,attachements, tags, timestamp));
+    }
+    return notes;
 }
 
+/**
+ * @brief DBHandler::tagsFromNote
+ * @return List of all Tags that were added to the given note_id
+ */
+QList<QString> DBHandler::tagsFromNote(int noteid)
+{
+    QList<QString> tags;
+    QSqlQuery query(db);
+    QString command = "SELECT tagname FROM tag WHERE pk_id in (SELECT fk_tag FROM noteHasTag WHERE fk_note = " + QString::number(noteid) + ")";
+    query.exec(command);
+    while (query.next())
+    {
+        tags.append(query.value(0).toString());
+    }
+    return tags;
+}
 
-QList<WrittenNote> DBHandler::queryWithReturnSubjectList(QString statement)
+/**
+ * @brief DBHandler::tagsFromNote
+ * @return List of all Attachements that were added to the given note_id
+ */
+QList<Attachement> DBHandler::attachementsFromNote(int noteid)
+{
+    QList<Attachement> attachs;
+    QSqlQuery query(db);
+    query.exec("SELECT tagname FROM tag WHERE pk_id in (SELECT fk_tag FROM noteHasTag WHERE fk_note = " + QString::number(noteid) +")");
+    while (query.next())
+    {
+        Attachement attach = Attachement(query.value(0).toString());
+        attachs.append(attach);
+    }
+    return attachs;
+}
+
+QList<subject> DBHandler::queryWithReturnSubjectList(QString statement)
 {
     qDebug() << "DBHandler -> queryWithReturnSubjectList(" << statement << ");";
+    QList<subject> subjects;
+    QSqlQuery query(db);
+    query.exec(statement);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE fk_schoolSubject = " + QString::number(id) + ")");
+
+        QString subject_name =  query.value(1).toString();
+
+        subjects.append(new subject(notes, subject_name));
+    }
+    return subjects;
 }
 
 
