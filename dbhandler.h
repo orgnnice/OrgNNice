@@ -2,6 +2,7 @@
 #define DBHANDLER_H
 #include <QtSql/QtSql>
 #include <writtennote.h>
+#include <subject.h>
 #include <QFile>
 
 class DBHandler
@@ -15,6 +16,8 @@ public:
     void createDatabaseIfNotExists();
     bool queryNoReturn(QString query);
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
+    QList<subject> queryWithReturnSubjectList(QString statement);
+
     bool insertSubject(QString name, QString fk_teacherID);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
     int insertTagAndReturnId(QString tag);
