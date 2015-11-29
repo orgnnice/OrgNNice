@@ -8,6 +8,14 @@ WrittenNote::WrittenNote()
 {
 
 }
+WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp)
+{
+    this->text = text;
+    this->timestamp = timestamp;
+    this->tags = tags;
+    this->attachements = attachements;
+}
+
 int id;
 void WrittenNote::saveWrittenNote(QString text)
 {
@@ -21,6 +29,9 @@ void WrittenNote::saveWrittenNote(QString text)
         stream << text;
     }
 }
+
+
+
 
 QDateTime WrittenNote::getTimestamp() const
 {
