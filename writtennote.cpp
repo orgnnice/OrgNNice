@@ -3,17 +3,18 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
-
+#include <dbhandler.h>
 WrittenNote::WrittenNote()
 {
 
 }
-WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp)
+WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp, DBHandler dbh)
 {
     this->text = text;
     this->timestamp = timestamp;
     this->tags = tags;
     this->attachements = attachements;
+    this->dbh = dbh;
 }
 
 int id;
@@ -21,13 +22,8 @@ void WrittenNote::saveWrittenNote(QString text)
 {
     this->text = text;
     this->timestamp = QDateTime::currentDateTime();
+    dbh.insertWrittenNote(this);
 
-    QFile file ( this->path );
-    if ( file.open(QIODevice::ReadWrite) )
-    {
-        QTextStream stream( &file );
-        stream << text;
-    }
 }
 
 

@@ -5,11 +5,11 @@
 
 class Attachement
 {
-    QString name;
-    QString pathWithoutName;
+    QString filename;
 
 public:
     Attachement();
+    Attachement(QString filename);
 };
 
 #endif // ATTACHEMENT_H

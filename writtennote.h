@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDateTime>
 #include <attachement.h>
+#include <dbhandler.h>
 
 
 class WrittenNote
@@ -14,16 +15,18 @@ private:
     QList<Attachement> attachements;
     QList<QString> tags;
     QDateTime timestamp;
+    DBHandler dbh;
 
 public:
+    WrittenNote();
+    WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp, DBHandler dbh);
     void setDate(QDateTime);
     void saveWrittenNote(QString);
     void addAttachement(Attachement);
     void addTag(QString newTag);
     QDateTime getTimestamp() const;
     QList<QString> getTags() const;
-    WrittenNote();
-    WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp);
+
 };
 
 #endif // WRITTENNOTE_H

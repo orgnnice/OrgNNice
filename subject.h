@@ -6,27 +6,31 @@
 #include <QDateTime>
 #include <writtennote.h>
 #include <QList>
-
+#include <dbhandler.h>
 class subject
 {
-    QMap <QDateTime, WrittenNote> notes;
-    QString subject_name;
-    QString subject_teacher;
 
+private:
+    QList <WrittenNote> notes;
+    QString subject_name;
+    DBHandler dbh;
 
 public:
     subject();
+    subject(QString name, DBHandler dbh);
 
-    QString getName(subject theSubject);
-    QString getTeacher(subject theSubject);
-    int getWrittenNotesSize(subject theSubject);
-    QMap <QDateTime, WrittenNote> getWrittenNotes(subject theSubject);
-    QList<WrittenNote> getWrittenNotes(subject theSubject, QDateTime Date);
-    QList<WrittenNote> getWrittenNotes(subject theSubject, QString tag);
-    QList<WrittenNote> getWrittenNotes(subject theSubject, QList<QString> taglist);
-    QList<WrittenNote> getWrittenNotesBetween(subject theSubject, QDateTime DateFrom, QDateTime DateTo);
-    QList<WrittenNote> getWrittenNotesWithWithout(subject theSubject, QList<QString> tagListWith,QList<QString> tagListWithout);
-    void addWrittenNote(subject theSubject, WrittenNote);
+
+    QString getName();
+    int getWrittenNotesSize();
+    QList<WrittenNote> getWrittenNotes();
+    QList<WrittenNote> getWrittenNotes(QDateTime Date);
+    QList<WrittenNote> getWrittenNotes(QString tag);
+    QList<WrittenNote> getWrittenNotes(QList<QString> taglist);
+    QList<WrittenNote> getWrittenNotesBetween(QDateTime DateFrom, QDateTime DateTo);
+    QList<WrittenNote> getWrittenNotesWithWithout(QList<QString> tagListWith,QList<QString> tagListWithout);
+    void addWrittenNote(WrittenNote note);
+
+
 };
 
 

@@ -10,6 +10,9 @@ class DBHandler
 private:
     QSqlDatabase db;
     QString resourcesFolder;
+    QList<QString> tagsFromNote(int noteid);
+    QList<Attachement> attachementsFromNote(int noteid);
+
 public:
     DBHandler(QString resFolderPath);
     void closeDatabase();
@@ -23,7 +26,6 @@ public:
     int insertTagAndReturnId(QString tag);
     int insertAttechementAndReturnId(QString attachementPath);
     int insertAndReturnID(QString statement);
-
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
 
