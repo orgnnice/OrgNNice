@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QWidget cSubDialog();
 };
 
 #endif // MAINWINDOW_H

@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     mtextedit.cpp \
     test.cpp \
     dbhandler.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    c_subject.cpp
 
 HEADERS  += \
     writtennote.h \
@@ -30,12 +31,14 @@ HEADERS  += \
     mrichtextedit.h \
     mtextedit.h \
     dbhandler.h \
-    mainwindow.h
+    mainwindow.h \
+    c_subject.h
 
 FORMS    += \
     editor.ui \
     mrichtextedit.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    c_subject.ui
 
 DISTFILES += \
     Defintions_info
