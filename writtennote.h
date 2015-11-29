@@ -13,7 +13,6 @@ private:
     QString text;
     QList<Attachement> attachements;
     QList<QString> tags;
-    QString path;
     QDateTime timestamp;
 
 public:
@@ -24,6 +23,7 @@ public:
     QDateTime getTimestamp() const;
     QList<QString> getTags() const;
     WrittenNote();
+    WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp);
 };
 
 #endif // WRITTENNOTE_H
