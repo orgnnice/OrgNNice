@@ -1,11 +1,12 @@
 #include "dbhandler.h"
-#include
+
 
 DBHandler::DBHandler(QString resFolderPath)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(resFolderPath + QDir::separator() + "orgnnice.db3");
     resourcesFolder = resFolderPath + QDir::separator() + "resources";
+    createDatabaseIfNotExists();
 }
 
 
@@ -63,11 +64,15 @@ bool DBHandler::queryNoReturn(QString statement)
 
 QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
 {
+    QList<WrittenNote>
     qDebug() << "DBHandler -> queryWithReturnNoteList(" << statement << ");";
+
 }
 
 
-QList<WrittenNote> DBHandler::queryWithReturnSubjectList(QString statement)
+
+
+QList<subject> DBHandler::queryWithReturnSubjectList(QString statement)
 {
     qDebug() << "DBHandler -> queryWithReturnSubjectList(" << statement << ");";
 }

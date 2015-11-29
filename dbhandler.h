@@ -23,6 +23,7 @@ public:
     int insertTagAndReturnId(QString tag);
     int insertAttechementAndReturnId(QString attachementPath);
     int insertAndReturnID(QString statement);
+
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
 
