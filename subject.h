@@ -6,20 +6,22 @@
 #include <QDateTime>
 #include <writtennote.h>
 #include <QList>
-#include <dbhandler.h>
+
+class DBHandler;
+
 class subject
 {
 
+    static DBHandler dbh;
 private:
     QList <WrittenNote> notes;
     QString subject_name;
-    DBHandler dbh;
 
 public:
     subject();
-    subject(QString name, DBHandler dbh);
+    subject(QString name, QList <WrittenNote> notes);
 
-
+    static void setDBH(DBHandler db_handler);
     QString getName();
     int getWrittenNotesSize();
     QList<WrittenNote> getWrittenNotes();
@@ -32,7 +34,5 @@ public:
 
 
 };
-
-
 
 #endif // SUBJECT_H

@@ -3,16 +3,28 @@
 #include <QTextEdit>
 #include <QtSql/QtSql>
 #include <dbhandler.h>
+#include <writtennote.h>
+#include <attachement.h>
+#include <mtextedit.h>
+#include <subject.h>
 
 
 int main(int argc, char **argv)
 {
- QApplication app (argc, argv);
- DBHandler dbh = DBHandler(QDir::homePath() + QDir::separator());
+
+    QApplication app (argc, argv);
+    DBHandler dbh = DBHandler(QDir::homePath() + QDir::separator());
+
+    //set the dbHandler
+    //subject::setDBH(dbh);
+
+    //get all subjects from the database with contents
+    QList<subject> allsubjects = dbh.queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 
 
 
- return app.exec();
+
+    return app.exec();
 
 }
 

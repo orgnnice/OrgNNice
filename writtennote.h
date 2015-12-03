@@ -4,28 +4,34 @@
 #include <QString>
 #include <QDateTime>
 #include <attachement.h>
-#include <dbhandler.h>
 
+
+class DBHandler;
 
 class WrittenNote
 {
+
+
+
 private:
+    static DBHandler dbh;
     int id;
     QString text;
     QList<Attachement> attachements;
     QList<QString> tags;
     QDateTime timestamp;
-    DBHandler dbh;
 
 public:
     WrittenNote();
-    WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp, DBHandler dbh);
+    WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp);
+    static void setDBH(DBHandler db_handler);
     void setDate(QDateTime);
     void saveWrittenNote(QString);
     void addAttachement(Attachement);
     void addTag(QString newTag);
     QDateTime getTimestamp() const;
     QList<QString> getTags() const;
+    QList<QString> getAttachement() const;
 
 };
 

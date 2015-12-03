@@ -4,17 +4,17 @@
 #include <QTextStream>
 #include <QDebug>
 #include <dbhandler.h>
+
 WrittenNote::WrittenNote()
 {
 
 }
-WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp, DBHandler dbh)
+WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp)
 {
     this->text = text;
     this->timestamp = timestamp;
     this->tags = tags;
     this->attachements = attachements;
-    this->dbh = dbh;
 }
 
 int id;
@@ -27,6 +27,11 @@ void WrittenNote::saveWrittenNote(QString text)
 }
 
 
+void WrittenNote::setDBH(DBHandler db_handler)
+{
+    dbh = db_handler;
+}
+
 
 
 QDateTime WrittenNote::getTimestamp() const
@@ -37,6 +42,11 @@ QDateTime WrittenNote::getTimestamp() const
 QList<QString> WrittenNote::getTags() const
 {
     return this->tags;
+}
+
+QList<Attachement> WrittenNote::getAttachement() const
+{
+    return this -> attachements;
 }
 
 void WrittenNote::addAttachement(Attachement a)

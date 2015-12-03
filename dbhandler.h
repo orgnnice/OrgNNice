@@ -1,10 +1,12 @@
 #ifndef DBHANDLER_H
 #define DBHANDLER_H
-#include <QtSql/QtSql>
-#include <writtennote.h>
-#include <subject.h>
-#include <QFile>
 
+#include <QtSql/QtSql>
+#include <QFile>
+#include <attachement.h>
+
+class WrittenNote;
+class subject;
 class DBHandler
 {
 private:
@@ -15,6 +17,7 @@ private:
 
 public:
     DBHandler(QString resFolderPath);
+    DBHandler();
     void closeDatabase();
     void createDatabaseIfNotExists();
     bool queryNoReturn(QString query);
@@ -23,6 +26,8 @@ public:
 
     bool insertSubject(QString name, QString fk_teacherID);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
+    bool insertWrittenNote(WrittenNote note);
+
     int insertTagAndReturnId(QString tag);
     int insertAttechementAndReturnId(QString attachementPath);
     int insertAndReturnID(QString statement);

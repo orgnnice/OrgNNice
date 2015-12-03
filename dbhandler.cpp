@@ -1,10 +1,13 @@
 #include "dbhandler.h"
+#include <writtennote.h>
+#include <subject.h>
 
 DBHandler::DBHandler(QString resFolderPath)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(resFolderPath + QDir::separator() + "orgnnice.db3");
     resourcesFolder = resFolderPath + QDir::separator() + "resources";
+    createDatabaseIfNotExists();
 }
 
 
@@ -120,10 +123,10 @@ QList<Attachement> DBHandler::attachementsFromNote(int noteid)
     return attachs;
 }
 
-QList<subject> DBHandler::queryWithReturnSubjectList(QString statement)
+QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
 {
     qDebug() << "DBHandler -> queryWithReturnSubjectList(" << statement << ");";
-    QList<subject> subjects;
+    QList<Subject> subjects;
     QSqlQuery query(db);
     query.exec(statement);
     while (query.next())
@@ -133,7 +136,7 @@ QList<subject> DBHandler::queryWithReturnSubjectList(QString statement)
 
         QString subject_name =  query.value(1).toString();
 
-        subjects.append(new subject(notes, subject_name));
+        subjects.append(new Subject(notes, subject_name));
     }
     return subjects;
 }
@@ -206,6 +209,48 @@ bool DBHandler::insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubje
     return noteId != -1;
 }
 
+bool DBHandler::insertWrittenNote(WrittenNote note)
+{
+    QList<QString> tags = note.getTags();
+    //next 5 lines only for debugging
+    QString tagString, attachementsString = "";
+    for(int i=0; i<note.getTags().size(); i++)
+    {
+        tagString += note.getTags()[i];
+    }
+    Attachement attachements = note.getAttachement();
+    for(int i = 0; i < attachements.size(); i++)
+    {
+        attachementsString += attachements[i] + " ";
+    }
+    qDebug() <<  "DBHandler -> insertWrittenNote(" << note.getText()  << ", " << note.getTs().toMSecsSinceEpoch() << ", " << tagString <<  ", " << attachementsString << ", " <<  note.getFk_schoolSubject() << ")";
+
+    //begin:
+
+    //insert note:
+    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + note.getText() + ", " + ts.toMSecsSinceEpoch() + ", " + note.getFk_schoolSubject() + ")");
+
+    //insert Tags
+    QList<QString>::iterator i;
+    for (i = tags.begin(); i != tags.end(); ++i)
+    {
+        int tagId = insertTagAndReturnId(*i);
+        //insert to noteHasTag-table
+        queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag), VALUES (" + QString::number(noteId) + ", " + QString::number(tagId));
+    }
+
+    //insert Attatchments
+    QList<QString>::iterator j;
+    for (j = attachements.begin(); j != tags.end(); ++j)
+    {
+        int attachementID = insertAttechementAndReturnId(*j);
+        //insert to noteHasAttachement-table
+        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
+    }
+
+
+    return noteId != -1;
+}
 
 /**
  * @brief DBHandler::insertTagAndReturnId

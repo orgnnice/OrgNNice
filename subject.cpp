@@ -1,33 +1,48 @@
 #include "subject.h"
-
-subject::subject()
+#include <dbhandler.h>
+Subject::Subject()
 {
+
+
+
 
 }
 
-QString subject::getName()
+
+Subject::Subject(QString name, QList <WrittenNote> notes){
+    this->subject_name = name;
+    this->notes = notes;
+}
+
+
+
+
+QString Subject::getName()
 {
    return subject_name;
 }
 
-QString subject::getTeacher(subject theSubject)
-{
-   return theSubject.subject_teacher;
-}
 
 
-int subject::getWrittenNotesSize()
+int Subject::getWrittenNotesSize()
 {
    return notes.count();
 }
 
-QList<WrittenNote> subject::getWrittenNotes()
+
+void Subject::setDBH(DB_luki_Handler db_handler)
+{
+    dbh = db_handler;
+}
+
+
+QList<WrittenNote> Subject::getWrittenNotes()
 {
    return notes;
 
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QDateTime date)
+QList<WrittenNote> Subject::getWrittenNotes(QDateTime date)
 {
    QList<WrittenNote> chosenNotes;
    for(WrittenNote n : notes.values())
@@ -41,7 +56,7 @@ QList<WrittenNote> subject::getWrittenNotes(QDateTime date)
    return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QString tag)
+QList<WrittenNote> Subject::getWrittenNotes(QString tag)
 {
     QList<WrittenNote> chosenNotes;
 
@@ -53,7 +68,7 @@ QList<WrittenNote> subject::getWrittenNotes(QString tag)
     return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotes(QList<QString> taglist)
+QList<WrittenNote> Subject::getWrittenNotes(QList<QString> taglist)
 {
     QList<WrittenNote> chosenNotes;
     for(WrittenNote n : notes))
@@ -77,7 +92,7 @@ QList<WrittenNote> subject::getWrittenNotes(QList<QString> taglist)
     return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTime  DateLast)
+QList<WrittenNote> Subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTime  DateLast)
 {
     QList<WrittenNote> chosenNotes;
     for(WrittenNote n : notes)
@@ -90,7 +105,7 @@ QList<WrittenNote> subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTim
     return chosenNotes;
 }
 
-QList<WrittenNote> subject::getWrittenNotesWithWithout(QList<QString> tagListWith, QList<QString> tagListWithout)
+QList<WrittenNote> Subject::getWrittenNotesWithWithout(QList<QString> tagListWith, QList<QString> tagListWithout)
 {
     QList<WrittenNote> chosenNotes;
     for(WrittenNote n : notes)
@@ -120,7 +135,7 @@ QList<WrittenNote> subject::getWrittenNotesWithWithout(QList<QString> tagListWit
     return chosenNotes;
 }
 
-void subject::addWrittenNote(WrittenNote note)
+void Subject::addWrittenNote(WrittenNote note)
 {
     notes.append(note);
 }
