@@ -168,7 +168,7 @@ bool DBHandler::insertSubject(QString name, QString fk_teacherID)
  * @param attachements
  * @return true, if everything was succesful, false when the note could not be inserted.
  */
-bool DBHandler::insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements)
+bool DBHandler::insertWrittenNote(WrittenNote note, int fk_schoolSubject)
 {
     //next 5 lines only for debugging
     QString tagString, attachementsString = "";
@@ -185,7 +185,7 @@ bool DBHandler::insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubje
     //begin:
 
     //insert note:
-    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + text + ", " + ts.toMSecsSinceEpoch() + ", " + fk_schoolSubject + ")");
+    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + note.text + ", " + note.timestamp.toMSecsSinceEpoch() + ", " + fk_schoolSubject + ")");
 
     //insert Tags
     QList<QString>::iterator i;
@@ -196,7 +196,7 @@ bool DBHandler::insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubje
         queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag), VALUES (" + QString::number(noteId) + ", " + QString::number(tagId));
     }
 
-    //insert Attatchments
+    //insert Attachments
     QList<QString>::iterator j;
     for (j = attachements.begin(); j != tags.end(); ++j)
     {
@@ -204,8 +204,6 @@ bool DBHandler::insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubje
         //insert to noteHasAttachement-table
         queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
     }
-
-
     return noteId != -1;
 }
 

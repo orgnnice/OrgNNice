@@ -29,9 +29,10 @@ public:
     void saveWrittenNote(QString);
     void addAttachement(Attachement);
     void addTag(QString newTag);
+    QString getContent() const;
     QDateTime getTimestamp() const;
     QList<QString> getTags() const;
-    QList<QString> getAttachement() const;
+    QList<Attachement> getAttachement() const;
 
 };
 

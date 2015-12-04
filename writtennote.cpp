@@ -23,7 +23,6 @@ void WrittenNote::saveWrittenNote(QString text)
     this->text = text;
     this->timestamp = QDateTime::currentDateTime();
     dbh.insertWrittenNote(this);
-
 }
 
 
@@ -32,7 +31,10 @@ void WrittenNote::setDBH(DBHandler db_handler)
     dbh = db_handler;
 }
 
-
+QString WrittenNote::getContent() const
+{
+    return this->text;
+}
 
 QDateTime WrittenNote::getTimestamp() const
 {
