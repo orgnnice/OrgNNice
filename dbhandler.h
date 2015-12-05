@@ -3,17 +3,16 @@
 
 #include <QtSql/QtSql>
 #include <QFile>
-#include <attachement.h>
 
 class WrittenNote;
-class subject;
+class Subject;
 class DBHandler
 {
 private:
     QSqlDatabase db;
     QString resourcesFolder;
     QList<QString> tagsFromNote(int noteid);
-    QList<Attachement> attachementsFromNote(int noteid);
+    QList<QString> attachementsFromNote(int noteid);
 
 public:
     DBHandler(QString resFolderPath);
@@ -22,11 +21,11 @@ public:
     void createDatabaseIfNotExists();
     bool queryNoReturn(QString query);
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
-    QList<subject> queryWithReturnSubjectList(QString statement);
+    QList<Subject> queryWithReturnSubjectList(QString statement);
 
     bool insertSubject(QString name, QString fk_teacherID);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
-    bool insertWrittenNote(WrittenNote note);
+    bool insertWrittenNote(WrittenNote note, int fk_Subject);
     bool updateWrittenNote(WrittenNote note, int fk_Subject);
 
     int insertTagAndReturnId(QString tag);

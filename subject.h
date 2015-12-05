@@ -9,18 +9,18 @@
 
 class DBHandler;
 
-class subject
+class Subject
 {
 
-    static DBHandler dbh;
+    //static DBHandler dbh;
 private:
     int id;
     QList <WrittenNote> notes;
     QString subject_name;
 
 public:
-    subject();
-    subject(QString name, QList <WrittenNote> notes);
+    Subject();
+    Subject(int id, QList <WrittenNote> notes, QString name);
 
     static void setDBH(DBHandler db_handler);
     QString getName();

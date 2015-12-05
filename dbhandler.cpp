@@ -70,6 +70,7 @@ bool DBHandler::queryNoReturn(QString statement)
  */
 QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
 {
+    WrittenNote * pNote;
     qDebug() << "DBHandler -> queryWithReturnNoteList(" << statement << ");";
 
     QList<WrittenNote> notes;
@@ -79,12 +80,13 @@ QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
     {
         int id = query.value(0).toInt();
         QString text = query.value(1).toString();
-        QList<Attachement> attachements = attachementsFromNote(id);
+        QList<QString> attachements = attachementsFromNote(id);
         QList<QString> tags = tagsFromNote(id);
         int saver = query.value(1).toInt();
         QDateTime timestamp;
         timestamp.addMSecs(saver);
-        notes.append(new WrittenNote(id,text,attachements, tags, timestamp));
+        pNote=new WrittenNote(id,text,attachements, tags, timestamp);
+        notes.append(*pNote);
     }
     return notes;
 }
@@ -110,21 +112,21 @@ QList<QString> DBHandler::tagsFromNote(int noteid)
  * @brief DBHandler::tagsFromNote
  * @return List of all Attachements that were added to the given note_id
  */
-QList<Attachement> DBHandler::attachementsFromNote(int noteid)
+QList<QString> DBHandler::attachementsFromNote(int noteid)
 {
-    QList<Attachement> attachs;
+    QList<QString> attachs;
     QSqlQuery query(db);
     query.exec("SELECT tagname FROM tag WHERE pk_id in (SELECT fk_tag FROM noteHasTag WHERE fk_note = " + QString::number(noteid) +")");
     while (query.next())
     {
-        Attachement attach = Attachement(query.value(0).toString());
-        attachs.append(attach);
+        attachs.append(query.value(0).toString());
     }
     return attachs;
 }
 
 QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
 {
+    Subject * pSubject;
     qDebug() << "DBHandler -> queryWithReturnSubjectList(" << statement << ");";
     QList<Subject> subjects;
     QSqlQuery query(db);
@@ -135,8 +137,8 @@ QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
         QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE fk_schoolSubject = " + QString::number(id) + ")");
 
         QString subject_name =  query.value(1).toString();
-
-        subjects.append(new Subject(id, notes, subject_name));
+        pSubject = new Subject(id, notes, subject_name);
+        subjects.append(*pSubject);
     }
     return subjects;
 }
@@ -172,24 +174,24 @@ bool DBHandler::insertWrittenNote(WrittenNote note, int fk_schoolSubject)
 {
     //next 5 lines only for debugging
     QString tagString, attachementsString = "";
-    for(int i=0; i<tags.size(); i++)
+    for(int i=0; i<note.getTags().size(); i++)
     {
-        tagString += tags[i];
+        tagString += note.getTags()[i];
     }
-    for(int i = 0; i < attachements.size(); i++)
+    for(int i = 0; i < note.getAttachement().size(); i++)
     {
-        attachementsString += attachements[i] + " ";
+        attachementsString += note.getAttachement()[i] + " ";
     }
-    qDebug() <<  "DBHandler -> insertWrittenNote(" << text  << ", " << ts.toMSecsSinceEpoch() << ", " << tagString <<  ", " << attachementsString << ", " <<  fk_schoolSubject << ")";
+    qDebug() <<  "DBHandler -> insertWrittenNote(" << note.getContent()  << ", " << note.getTimestamp().toMSecsSinceEpoch() << ", " << tagString <<  ", " << attachementsString << ", " <<  fk_schoolSubject << ")";
 
     //begin:
 
     //insert note:
-    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + note.text + ", " + note.timestamp.toMSecsSinceEpoch() + ", " + fk_schoolSubject + ")");
+    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + note.getContent() + ", " + note.getTimestamp().toMSecsSinceEpoch() + ", " + fk_schoolSubject + ")");
 
     //insert Tags
     QList<QString>::iterator i;
-    for (i = tags.begin(); i != tags.end(); ++i)
+    for (i = note.getTags().begin(); i != note.getTags().end(); ++i)
     {
         int tagId = insertTagAndReturnId(*i);
         //insert to noteHasTag-table
@@ -198,7 +200,7 @@ bool DBHandler::insertWrittenNote(WrittenNote note, int fk_schoolSubject)
 
     //insert Attachments
     QList<QString>::iterator j;
-    for (j = attachements.begin(); j != tags.end(); ++j)
+    for (j = note.getAttachement().begin(); j != note.getAttachement().end(); ++j)
     {
         int attachementID = insertAttechementAndReturnId(*j);
         //insert to noteHasAttachement-table
@@ -217,11 +219,11 @@ bool DBHandler::updateWrittenNote(WrittenNote note, int fk_schoolSubject)
 {
 
     //insert note:
-    int noteId = insertAndReturnID("UPDATE WrittenNote SET content = " + note.text + ", ts = " + note.timestamp.toMSecsSinceEpoch() + ", fk_schoolSubject = " + fk_schoolSubject + " WHERE pk_id = " + note.id + ")");
+    int noteId = insertAndReturnID("UPDATE WrittenNote SET content = " + note.getContent() + ", ts = " + note.getTimestamp().toMSecsSinceEpoch() + ", fk_schoolSubject = " + fk_schoolSubject + " WHERE pk_id = " + note.getId() + ")");
 
     //insert Tags
     QList<QString>::iterator i;
-    for (i = note.tags.begin(); i != note.tags.end(); ++i)
+    for (i = note.getTags().begin(); i != note.getTags().end(); ++i)
     {
         if(select("COUNT(tagname)", "tag", "where tagname = \""+ *i+"\"").toInt() < 0)
         {
@@ -233,7 +235,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note, int fk_schoolSubject)
 
     //insert Attachments
     QList<QString>::iterator j;
-    for (j = note.attachements.begin(); j != note.attachements.end(); ++j)
+    for (j = note.getAttachement().begin(); j != note.getAttachement().end(); ++j)
     {
         if(select("COUNT(filename)", "attachment", "where filename = \""+ *j +"\"").toInt() < 0)
         {
@@ -245,7 +247,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note, int fk_schoolSubject)
     return noteId != -1;
 }
 
-bool DBHandler::insertWrittenNote(WrittenNote note)
+/*bool DBHandler::insertWrittenNote(WrittenNote note)
 {
     QList<QString> tags = note.getTags();
     //next 5 lines only for debugging
@@ -286,7 +288,7 @@ bool DBHandler::insertWrittenNote(WrittenNote note)
 
 
     return noteId != -1;
-}
+}*/
 
 /**
  * @brief DBHandler::insertTagAndReturnId

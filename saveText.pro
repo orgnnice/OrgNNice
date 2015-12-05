@@ -16,7 +16,6 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += main.cpp\
     writtennote.cpp \
     subject.cpp \
-    attachement.cpp \
     mrichtextedit.cpp \
     mtextedit.cpp \
     test.cpp \
@@ -25,10 +24,10 @@ SOURCES += main.cpp\
 HEADERS  += \
     writtennote.h \
     subject.h \
-    attachement.h \
     mrichtextedit.h \
     mtextedit.h \
-    dbhandler.h
+    dbhandler.h \
+    main.h
 
 FORMS    += \
     editor.ui \
