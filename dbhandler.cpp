@@ -27,7 +27,7 @@ void DBHandler::createDatabaseIfNotExists()
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100)) unique");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
-        query.exec("create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100))");
+        query.exec("create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100) unique)");
         query.exec("create table IF NOT EXISTS noteHasAttachement (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_attachement INTEGER)");
         query.exec("create table IF NOT EXISTS teacher (pk_id INTEGER primary key AUTOINCREMENT, firstname varchar(100), lastname varchar(100))");
 
@@ -207,6 +207,44 @@ bool DBHandler::insertWrittenNote(WrittenNote note, int fk_schoolSubject)
     return noteId != -1;
 }
 
+/**
+ * @brief DBHandler::updateWrittenNote PROBLEM: NICHT MEHR VERWENDETE TAGS/Attachments BLEIBEN IN DER DATENBANK !!!!!!!!!!!FIX!!!!!!!!!!!!!
+ * @param note
+ * @param fk_schoolSubject
+ * @return
+ */
+bool DBHandler::updateWrittenNote(WrittenNote note, int fk_schoolSubject)
+{
+
+    //insert note:
+    int noteId = insertAndReturnID("UPDATE WrittenNote SET content = " + note.text + ", ts = " + note.timestamp.toMSecsSinceEpoch() + ", fk_schoolSubject = " + fk_schoolSubject + " WHERE pk_id = " + note.id + ")");
+
+    //insert Tags
+    QList<QString>::iterator i;
+    for (i = note.tags.begin(); i != note.tags.end(); ++i)
+    {
+        if(select("COUNT(tagname)", "tag", "where tagname = \""+ *i+"\"").toInt() < 0)
+        {
+            int tagId = insertTagAndReturnId(*i);
+            //insert to noteHasTag-table
+            queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag), VALUES (" + QString::number(noteId) + ", " + QString::number(tagId));
+        }
+    }
+
+    //insert Attachments
+    QList<QString>::iterator j;
+    for (j = note.attachements.begin(); j != note.attachements.end(); ++j)
+    {
+        if(select("COUNT(filename)", "attachment", "where filename = \""+ *j +"\"").toInt() < 0)
+        {
+            int attachementID = insertAttechementAndReturnId(*j);
+            //insert to noteHasAttachement-table
+            queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
+        }
+    }
+    return noteId != -1;
+}
+
 bool DBHandler::insertWrittenNote(WrittenNote note)
 {
     QList<QString> tags = note.getTags();
@@ -260,7 +298,6 @@ int DBHandler::insertTagAndReturnId(QString tag)
     int tagId= -1;
     if(select("COUNT(tagname)", "tag", "where tagname = \""+ tag+"\"").toInt() > 0)
     {
-
         tagId =  insertAndReturnID("INSERT INTO tag(tagname) VALUES("+tag+")");
         qDebug() << "tag " << tag << "was inserted at" << tagId;
     }else

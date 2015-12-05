@@ -22,7 +22,7 @@ void WrittenNote::saveWrittenNote(QString text)
 {
     this->text = text;
     this->timestamp = QDateTime::currentDateTime();
-    dbh.insertWrittenNote(this);
+    dbh.updateWrittenNote(this, fk_Subject);
 }
 
 
