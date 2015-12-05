@@ -14,6 +14,7 @@ class subject
 
     static DBHandler dbh;
 private:
+    int id;
     QList <WrittenNote> notes;
     QString subject_name;
 
@@ -23,6 +24,7 @@ public:
 
     static void setDBH(DBHandler db_handler);
     QString getName();
+    int getId();
     int getWrittenNotesSize();
     QList<WrittenNote> getWrittenNotes();
     QList<WrittenNote> getWrittenNotes(QDateTime Date);

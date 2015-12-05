@@ -4,6 +4,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <dbhandler.h>
+#include <subject.h>
 
 WrittenNote::WrittenNote()
 {
@@ -18,11 +19,10 @@ WrittenNote::WrittenNote(QString text, QList<QString> tags, QList<Attachement> a
 }
 
 int id;
-void WrittenNote::saveWrittenNote(QString text)
+void WrittenNote::saveWrittenNote(subject ASubject)
 {
-    this->text = text;
-    this->timestamp = QDateTime::currentDateTime();
-    dbh.updateWrittenNote(this, fk_Subject);
+    subject temp = dbh.queryWithReturnSubjectList("select * from schoolSubject where name = " + ASubject.getName() + ")")[0];
+    dbh.updateWrittenNote(this, temp.getId());
 }
 
 

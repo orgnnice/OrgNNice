@@ -27,6 +27,7 @@ public:
     bool insertSubject(QString name, QString fk_teacherID);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
     bool insertWrittenNote(WrittenNote note);
+    bool updateWrittenNote(WrittenNote note, int fk_Subject);
 
     int insertTagAndReturnId(QString tag);
     int insertAttechementAndReturnId(QString attachementPath);

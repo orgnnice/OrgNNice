@@ -5,7 +5,7 @@
 #include <QDateTime>
 #include <attachement.h>
 
-
+class subject;
 class DBHandler;
 
 class WrittenNote
@@ -26,7 +26,7 @@ public:
     WrittenNote(QString text, QList<QString> tags, QList<Attachement> attachements, QDateTime timestamp);
     static void setDBH(DBHandler db_handler);
     void setDate(QDateTime);
-    void saveWrittenNote(QString);
+    void saveWrittenNote(subject);
     void addAttachement(Attachement);
     void addTag(QString newTag);
     QString getContent() const;

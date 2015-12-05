@@ -23,7 +23,7 @@ void DBHandler::createDatabaseIfNotExists()
     {
         qDebug() << "  Success: Database " << db.databaseName() << " successfully opend";
         QSqlQuery query(db);
-        query.exec("create table IF NOT EXISTS schoolSubject (pk_id INTEGER primary key AUTOINCREMENT, name varchar(100), fk_teacher INTEGER)");
+        query.exec("create table IF NOT EXISTS schoolSubject (pk_id INTEGER primary key AUTOINCREMENT, name varchar(100) unique, fk_teacher INTEGER)");
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100)) unique");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
@@ -136,7 +136,7 @@ QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
 
         QString subject_name =  query.value(1).toString();
 
-        subjects.append(new Subject(notes, subject_name));
+        subjects.append(new Subject(id, notes, subject_name));
     }
     return subjects;
 }
@@ -209,7 +209,7 @@ bool DBHandler::insertWrittenNote(WrittenNote note, int fk_schoolSubject)
 
 /**
  * @brief DBHandler::updateWrittenNote PROBLEM: NICHT MEHR VERWENDETE TAGS/Attachments BLEIBEN IN DER DATENBANK !!!!!!!!!!!FIX!!!!!!!!!!!!!
- * @param note
+ * @param note: The updated Writtennote
  * @param fk_schoolSubject
  * @return
  */

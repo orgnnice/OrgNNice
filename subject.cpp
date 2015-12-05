@@ -22,7 +22,10 @@ QString Subject::getName()
    return subject_name;
 }
 
-
+QString Subject::getId()
+{
+   return id;
+}
 
 int Subject::getWrittenNotesSize()
 {
