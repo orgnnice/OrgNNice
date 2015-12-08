@@ -7,7 +7,7 @@ Create Statement for attachement:
 create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100))");
 
 filename is the name the file had on the user's file system.
-we proceed to copy this file to resources folder. the filename in this folder is id_filedname. This ensures, that two files havong the same name is not a problem.
+we proceed to copy this file to resources folder. the filename in this folder is id_filedname. This ensures, that two files having the same name is not a problem.
 
 Example: User selects homework.doc and attatches it to a WrittenNote.
 the Note gets inserted into the database and the assigned id is 57.

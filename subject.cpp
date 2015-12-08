@@ -19,6 +19,27 @@ Subject::Subject(int id, QList <WrittenNote> notes, QString name){
 
 
 
+/**
+ * @brief Subject
+ * @param name
+ * insertes created Subject into database.
+ * returns and saves id.
+ */
+Subject::Subject(QString name)
+{
+    this->subject_name = name;
+    this->id = pDBh->insertSubject(name);
+    this->notes = QList<WrittenNote>();
+}
+
+
+
+
+QString Subject::toString()
+{
+    return ("name: " + getName() + "; Id: " + QString::number(getId()));
+}
+
 
 QString Subject::getName()
 {

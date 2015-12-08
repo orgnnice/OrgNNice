@@ -19,21 +19,29 @@ private:
     QList<QString> attachements;
     QList<QString> tags;
     QDateTime timestamp;
+    int subject_ID;
 
 public:
     WrittenNote();
     WrittenNote(int ID, QString text, QList<QString> attachements,QList<QString> tags,  QDateTime timestamp);
+
+    WrittenNote(QString content, QDateTime ts, QString subject_name);
+    WrittenNote(QString content, QDateTime ts, int subject_ID);
+
     static void setDBH(DBHandler db_handler);
     void setDate(QDateTime);
     void saveWrittenNote(Subject);
     void addAttachement(QString);
     void addTag(QString newTag);
+    void removeTag(QString tag);
     int getId();
     QString getContent();
     QDateTime getTimestamp();
     QList<QString> getTags();
     QList<QString> getAttachement();
 
+    int getSubject_ID() const;
+    void setSubject_ID(int value);
 };
 
 #endif // WRITTENNOTE_H

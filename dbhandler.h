@@ -23,13 +23,13 @@ public:
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
     QList<Subject> queryWithReturnSubjectList(QString statement);
 
-    bool insertSubject(QString name, QString fk_teacherID);
+    int insertSubject(QString name);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
-    bool insertWrittenNote(WrittenNote note, int fk_Subject);
-    bool updateWrittenNote(WrittenNote note, int fk_Subject);
+    bool insertWrittenNote(WrittenNote note);
+    bool updateWrittenNote(WrittenNote note);
 
     int insertTagAndReturnId(QString tag);
-    int insertAttechementAndReturnId(QString attachementPath);
+    int insertAttachementAndReturnId(QString attachementPath);
     int insertAndReturnID(QString statement);
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
