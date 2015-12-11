@@ -19,8 +19,14 @@ private:
     QString subject_name;
 
 public:
+
     Subject();
+    //to be called by the DBHandler
     Subject(int id, QList <WrittenNote> notes, QString name);
+
+
+    //to crate a new Subject.
+    Subject(QString name);
 
     static void setDBH(DBHandler db_handler);
     QString getName();
@@ -33,6 +39,7 @@ public:
     QList<WrittenNote> getWrittenNotesBetween(QDateTime DateFrom, QDateTime DateTo);
     QList<WrittenNote> getWrittenNotesWithWithout(QList<QString> tagListWith,QList<QString> tagListWithout);
     void addWrittenNote(WrittenNote note);
+    QString toString();
 
 
 };
