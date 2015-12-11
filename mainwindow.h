@@ -29,7 +29,7 @@ private:
     Ui::MainWindow *ui;
     QToolButton *addnewsub;
     c_subject *newWindow;
-    subject_detail *selSub;
+    //subject_detail *selSub;
     /*QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;

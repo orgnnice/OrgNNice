@@ -36,7 +36,6 @@ HEADERS  += \
     c_subject.h
 
 FORMS    += \
-    editor.ui \
     mrichtextedit.ui \
     mainwindow.ui \
     subject_detail.ui \

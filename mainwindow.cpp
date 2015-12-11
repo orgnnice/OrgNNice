@@ -49,7 +49,7 @@ void MainWindow::openNewWindow()
 
 void MainWindow::openSubject()
 {
-   selSub = new subject_detail(); // Be sure to destroy you window somewhere
-   selSub->show();
+   //selSub = new subject_detail(); // Be sure to destroy you window somewhere
+   //selSub->show();
 }
 
