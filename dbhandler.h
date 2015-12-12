@@ -33,7 +33,6 @@ public:
     int insertAndReturnID(QString statement);
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
-
 };
 
 #endif // DBHANDLER_H

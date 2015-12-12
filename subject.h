@@ -39,6 +39,8 @@ public:
     QList<WrittenNote> getWrittenNotesBetween(QDateTime DateFrom, QDateTime DateTo);
     QList<WrittenNote> getWrittenNotesWithWithout(QList<QString> tagListWith,QList<QString> tagListWithout);
     void addWrittenNote(WrittenNote note);
+    void deleteSubject();
+    void updateSubject();
     QString toString();
 
 
