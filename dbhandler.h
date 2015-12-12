@@ -33,6 +33,9 @@ public:
     int insertAndReturnID(QString statement);
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
+
+    void deleteUnusedTags();
+    void deleteUnusedAttachments();
 };
 
 #endif // DBHANDLER_H

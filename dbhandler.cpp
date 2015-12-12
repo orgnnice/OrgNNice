@@ -34,7 +34,7 @@ void DBHandler::createDatabaseIfNotExists()
 
         //Foreign Keys
 
-        query.exec("ALTER TABLE note ADD CONSTRAINT fk_schoolSubjectNote FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete cascade");
+        query.exec("ALTER TABLE note ADD CONSTRAINT fk_schoolSubjectNote FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete no action");
         query.exec("ALTER TABLE schoolSubject ADD CONSTRAINT schoolSubject FOREIGN KEY (fk_teacher) REFERENCES teacher (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Note FOREIGN KEY (fk_note) REFERENCES note (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Attachement FOREIGN KEY (fk_attachement) REFERENCES attachement (pk_id) on delete no action");
@@ -228,11 +228,10 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
 {
     qDebug() << "DBHandler->updateWrittenNote(" << note.getId() << ")";
 
-    int fk_Subject = note.getSubject_ID();
     int noteId = note.getId();
+
     //insert Tags
     queryNoReturn("DELETE FROM notehasTag where fk_note = " + QString::number(noteId) + ")");
-    QList<QString>::iterator i;
     for (QString tempTag : note.getTags())
     {
         qDebug() << "selectrückgabe toint:" << select("COUNT(tagname)", "tag", "tagname = '"+ tempTag +"'").toInt();
@@ -247,7 +246,6 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
 
     //insert Attachments
     queryNoReturn("DELETE FROM noteHasAttachement where fk_note = " + QString::number(noteId) + ")");
-    QList<QString>::iterator j;
     for (QString attachement : note.getAttachement())
     {
         QString attachementId = "-1";
@@ -470,6 +468,40 @@ int DBHandler::insertAndReturnID(QString statement)
     }
     qDebug() <<  "  Retutnvalue: " << id;
     return id;
+}
+
+void DBHandler::deleteUnusedTags()
+{
+    QList<int> tags;
+    QSqlQuery query(db);
+    query.exec("Select pk_id from tag");
+    while (query.next()) {
+        tags.append(query.value(0).Int);
+    }
+    for(int i = 0; i <= tags.length(); i ++)
+    {
+        if(select("COUNT(pk_id)", "noteHasTag", "fk_Tag = '"+ QString::number(tags[i]) +"'") <= 0)
+        {
+            query.exec("delete * from note where (pk_id = " + QString::number(tags[i]) + ")");
+        }
+    }
+}
+
+void DBHandler::deleteUnusedAttachments()
+{
+    QList<int> tags;
+    QSqlQuery query(db);
+    query.exec("Select pk_id from attachment");
+    while (query.next()) {
+        tags.append(query.value(0).Int);
+    }
+    for(int i = 0; i <= tags.length(); i ++)
+    {
+        if(select("COUNT(pk_id)", "noteHasAttachment", "fk_Tag = '"+ QString::number(tags[i]) +"'") <= 0)
+        {
+            query.exec("delete * from attachment where (pk_id = " + QString::number(tags[i]) + ")");
+        }
+    }
 }
 
 

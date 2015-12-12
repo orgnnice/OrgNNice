@@ -34,6 +34,7 @@ public:
     void addAttachement(QString);
     void addTag(QString newTag);
     void removeTag(QString tag);
+    void deleteWrittenNote();
     int getId();
     QString getContent();
     QDateTime getTimestamp();
