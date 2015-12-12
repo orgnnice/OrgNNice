@@ -495,7 +495,7 @@ void DBHandler::deleteUnusedAttachments()
     while (query.next()) {
         tags.append(query.value(0).Int);
     }
-    for(int i = 0; i <= tags.length(); i ++)
+    for(int i = 0; i < tags.length(); i ++)
     {
         if(select("COUNT(pk_id)", "noteHasAttachment", "fk_Tag = '"+ QString::number(tags[i]) +"'") <= 0)
         {
@@ -504,4 +504,25 @@ void DBHandler::deleteUnusedAttachments()
     }
 }
 
+void DBHandler::deleteWrittenNote(int id)
+{
+    queryNoReturn("delete * from WrittenNote where (pk_id = " + QString::number(id) + ")");
+    queryNoReturn("delete * from noteHasTag where (fk_note = " + QString::number(id) + ")");
+    queryNoReturn("delete * from noteHasAttachment where (fk_note = " + QString::number(id) + ")");
+}
+
+void DBHandler::deleteSubject(int id)
+{
+    queryNoReturn("delete * from schoolSubject where (pk_id = " + QString::number(id) + ")");
+    QList<int> note;
+    QSqlQuery query(db);
+    query.exec("Select pk_id note where (fk_schoolSubject = " + QString::number(id) + ")");
+    while (query.next()) {
+        note.append(query.value(0).Int);
+    }
+    for(int i = 0; i < note.length(); i ++)
+    {
+        deleteWrittenNote(note[i]);
+    }
+}
 

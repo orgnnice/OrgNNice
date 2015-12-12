@@ -70,9 +70,7 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
 
 
 void WrittenNote::deleteWrittenNote() {
-    pDBh->queryNoReturn("delete * from WrittenNote where (pk_id = " + QString::number(this->getId()) + ")");
-    pDBh->queryNoReturn("delete * from noteHasTag where (fk_note = " + QString::number(this->getId()) + ")");
-    pDBh->queryNoReturn("delete * from noteHasAttachment where (fk_note = " + QString::number(this->getId()) + ")");
+    pDBh->deleteWrittenNote(this->getId());
 }
 
 void WrittenNote::saveWrittenNote(Subject ASubject)

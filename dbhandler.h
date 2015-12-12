@@ -36,6 +36,8 @@ public:
 
     void deleteUnusedTags();
     void deleteUnusedAttachments();
+    void deleteWrittenNote(int id);
+    void deleteSubject(int id);
 };
 
 #endif // DBHANDLER_H
