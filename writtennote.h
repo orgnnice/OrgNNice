@@ -23,7 +23,7 @@ private:
 
 public:
     WrittenNote();
-    WrittenNote(int ID, QString text, QList<QString> attachements,QList<QString> tags,  QDateTime timestamp);
+    WrittenNote(int ID, QString text, QList<QString> attachements,QList<QString> tags,  QDateTime timestamp, int subject_ID);
 
     WrittenNote(QString content, QDateTime ts, QString subject_name);
     WrittenNote(QString content, QDateTime ts, int subject_ID);
@@ -34,11 +34,14 @@ public:
     void addAttachement(QString);
     void addTag(QString newTag);
     void removeTag(QString tag);
+    void removeAttachement(QString);
     int getId();
     QString getContent();
     QDateTime getTimestamp();
     QList<QString> getTags();
     QList<QString> getAttachement();
+
+    QString toString();
 
     int getSubject_ID() const;
     void setSubject_ID(int value);

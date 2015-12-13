@@ -23,8 +23,9 @@ int main(int argc, char **argv)
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     //    Subject(int id, QList <WrittenNote> notes, QString name);
 
-    Subject mathe = Subject("mathe");
-    allsubjects.append(mathe);
+
+    //Subject mathe = Subject("mathe");
+    //allsubjects.append(mathe);
     qDebug() << "allsubjects: " << allsubjects[0].toString();
     qDebug() << "allsubjects: ";
 
@@ -33,11 +34,19 @@ int main(int argc, char **argv)
 
     WrittenNote noteWithTags = WrittenNote();
 
-    WrittenNote note = WrittenNote("Testmitschrift", ts , "mathe");
-    note.addAttachement("/home/luki/text.txt");
-    note.addTag("fun");
+    WrittenNote note = allsubjects[0].getWrittenNotes()[0];
+
+    note.removeTag("fun");
 
 
+    for (Subject s : allsubjects)
+    {
+        qDebug() << "Subject: " << s.toString();
+        for (WrittenNote n : s.getWrittenNotes())
+        {
+            qDebug() << n.toString();
+        }
+    }
 
 
     //MainWindow w;

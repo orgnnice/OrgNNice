@@ -33,13 +33,14 @@ WrittenNote::WrittenNote()
  * To be called after selecting fron database.
  *
  */
-WrittenNote::WrittenNote(int id, QString text, QList<QString> attachements, QList<QString> tags, QDateTime timestamp)
+WrittenNote::WrittenNote(int id, QString text, QList<QString> attachements, QList<QString> tags, QDateTime timestamp, int subject_ID)
 {
     this->id = id;
     this->text = text;
     this->timestamp = timestamp;
     this->tags = tags;
     this->attachements = attachements;
+    this->subject_ID = subject_ID;
 }
 
 
@@ -68,6 +69,28 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
     pDBh->insertWrittenNote(*this);
 }
 
+
+QString WrittenNote::toString()
+{
+    QString retrunString = "ID: " + QString::number(getId()) + "; content: " + getContent() + "; sunbject-ID:" + QString::number(getSubject_ID()) + "; Timestamp" +  getTimestamp().toString();
+
+    QList<QString> tags = getTags();
+    QList<QString> attachements = getAttachement();
+    retrunString += "; Tags:";
+    for (QString t: tags)
+    {
+       retrunString += " " + t ;
+    }
+    retrunString += "; Attatchements:";
+
+    for (QString a: attachements)
+    {
+       retrunString +=  " " + a;
+    }
+
+    qDebug() << "  returns: " << retrunString;
+    return  retrunString + ";";
+}
 
 
 
@@ -124,4 +147,9 @@ void WrittenNote::removeTag(QString tag)
 {
     this->tags.removeAt(tags.indexOf(tag));
     pDBh->updateWrittenNote(*this);
+}
+
+void WrittenNote::removeAttachement(QString)
+{
+
 }

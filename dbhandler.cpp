@@ -83,16 +83,20 @@ QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
     QList<WrittenNote> notes;
     QSqlQuery query(db);
     query.exec(statement);
+
+    qDebug() << query.isActive();
     while (query.next())
     {
+        qDebug() << "adding note...";
         int id = query.value(0).toInt();
         QString text = query.value(1).toString();
         QList<QString> attachements = attachementsFromNote(id);
         QList<QString> tags = tagsFromNote(id);
-        int saver = query.value(1).toInt();
+        int saver = query.value(2).toInt();
         QDateTime timestamp;
         timestamp.addMSecs(saver);
-        pNote=new WrittenNote(id,text,attachements, tags, timestamp);
+        int subjID = query.value(3).toInt();
+        pNote=new WrittenNote(id,text,attachements, tags, timestamp, subjID);
         notes.append(*pNote);
     }
     return notes;
@@ -106,7 +110,7 @@ QList<QString> DBHandler::tagsFromNote(int noteid)
 {
     QList<QString> tags;
     QSqlQuery query(db);
-    QString command = "SELECT tagname FROM tag WHERE pk_id in (SELECT fk_tag FROM noteHasTag WHERE fk_note = " + QString::number(noteid) + ")";
+    QString command = "SELECT tagname FROM tag WHERE (pk_id in (SELECT fk_tag FROM noteHasTag WHERE (fk_note = " + QString::number(noteid) + ")))";
     query.exec(command);
     while (query.next())
     {
@@ -138,11 +142,11 @@ QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
     QList<Subject> subjects;
     QSqlQuery query(db);
     query.exec(statement);
+    qDebug()  << query.isActive();
     while (query.next())
     {
         int id = query.value(0).toInt();
-        QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE fk_schoolSubject = " + QString::number(id) + ")");
-
+        QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE (fk_schoolSubject = " + QString::number(id) + ")");
         QString subject_name =  query.value(1).toString();
         pSubject = new Subject(id, notes, subject_name);
         subjects.append(*pSubject);
@@ -231,7 +235,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
     int fk_Subject = note.getSubject_ID();
     int noteId = note.getId();
     //insert Tags
-    queryNoReturn("DELETE FROM notehasTag where fk_note = " + QString::number(noteId) + ")");
+    queryNoReturn("DELETE FROM notehasTag where (fk_note = " + QString::number(noteId) + ")");
     QList<QString>::iterator i;
     for (QString tempTag : note.getTags())
     {
@@ -246,7 +250,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
     }
 
     //insert Attachments
-    queryNoReturn("DELETE FROM noteHasAttachement where fk_note = " + QString::number(noteId) + ")");
+    queryNoReturn("DELETE FROM noteHasAttachement where (fk_note = " + QString::number(noteId) + ")");
     QList<QString>::iterator j;
     for (QString attachement : note.getAttachement())
     {
@@ -255,7 +259,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
         {
             attachementId = QString::number(insertAttachementAndReturnId(attachement));
         }else{
-            attachementId = select("pk_id","attachment","where filename = '"+ attachement +"'");
+            attachementId = select("pk_id","attachment","where (filename = '"+ attachement +"')");
         }
         queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement) VALUES (" + QString::number(noteId) + ", " + attachementId + ")");
     }
@@ -266,11 +270,11 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
     int noteId = insertAndReturnID("UPDATE WrittenNote SET content = " + note.getContent() + ", ts = " + note.getTimestamp().toMSecsSinceEpoch() + ", fk_schoolSubject = " + fk_schoolSubject + " WHERE pk_id = " + note.getId() + ")");
 
     //insert Tags
-    queryNoReturn("DELETE FROM notehasTag where fk_note = " + QString::number(noteId) + ")");
+    queryNoReturn("DELETE FROM notehasTag where (fk_note = " + QString::number(noteId) + ")");
     QList<QString>::iterator i;
     for (i = note.getTags().begin(); i != note.getTags().end(); ++i)
     {
-        if(select("COUNT(tagname)", "tag", "where tagname = \""+ *i+"\"").toInt() < 0)
+        if(select("COUNT(tagname)", "tag", "where (tagname = \""+ *i+"\"").toInt() < 0)
         {
             queryNoReturn("INSERT INTO tag (tagname) VALUES("+*i+")");
         }
@@ -346,13 +350,13 @@ int DBHandler::insertTagAndReturnId(QString tag)
 {
     qDebug() << "insertTagAndReturnId(" << tag << ")";
     int tagId= -1;
-    if(select("COUNT(tagname)", "tag", "where tagname = \""+ tag+"\"").toInt() > 0)
+    if(select("COUNT(tagname)", "tag", "where (tagname = '"+ tag+"')").toInt() > 0)
     {
         tagId =  insertAndReturnID("INSERT INTO tag(tagname) VALUES("+tag+")");
         qDebug() << "tag " << tag << "was inserted at" << tagId;
     }else
     {
-        tagId =  select("pk_id", "tag", "where tagname = \""+ tag+"\"").toInt();
+        tagId =  select("pk_id", "tag", "where (tagname = '"+ tag+"')").toInt();
         qDebug() << "tag " << tag << "allready exists at" << tagId;
     }
     return tagId;
@@ -424,7 +428,7 @@ QString DBHandler::select(QString coulum, QString table, QString where)
 
     qDebug() <<  "DBHandler -> select(" << coulum << ", " <<  table  << ", " << where;
     if (!where.startsWith("where")){
-        where = "WHERE " + where + "";
+        where = "WHERE (" + where + ")";
     }
     QSqlQuery query(db);
     qDebug() << "  Statement: " << "SELECT " + coulum + " FROM " + table + " " + where;

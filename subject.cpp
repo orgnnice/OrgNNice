@@ -60,7 +60,6 @@ int Subject::getWrittenNotesSize()
 QList<WrittenNote> Subject::getWrittenNotes()
 {
    return notes;
-
 }
 
 QList<WrittenNote> Subject::getWrittenNotes(QDateTime date)
