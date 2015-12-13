@@ -61,6 +61,13 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, QString subject_name)
 }
 
 
+
+void WrittenNote::setNoteID(int noteId)
+{
+    id = noteId;
+}
+
+
 WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
 {
     this->text = content;
@@ -87,12 +94,12 @@ QString WrittenNote::toString()
     {
        retrunString +=  " " + a;
     }
-
-    qDebug() << "  returns: " << retrunString;
     return  retrunString + ";";
 }
 
-
+void WrittenNote::deleteWrittenNote() {
+    pDBh->deleteWrittenNote(this->getId());
+}
 
 void WrittenNote::saveWrittenNote(Subject ASubject)
 {
@@ -140,7 +147,9 @@ void WrittenNote::addTag(QString newTag)
 {
     qDebug() << "WrittenNote->addTag->" << newTag;
     this->tags.append(newTag);
-    pDBh->updateWrittenNote(*this);
+    //<todo>
+    //messes up everything ->
+    pDBh->insertWrittenTagToNote(this->id, newTag);
 }
 
 void WrittenNote::removeTag(QString tag)

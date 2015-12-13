@@ -23,9 +23,19 @@ public:
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
     QList<Subject> queryWithReturnSubjectList(QString statement);
 
+
+    QList<Subject> getAllSubjects();
+    QList<WrittenNote> getAllNotesFromSubject(int subjectID);
+
+
+
     int insertSubject(QString name);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
     bool insertWrittenNote(WrittenNote note);
+
+    void insertWrittenTagToNote(int noteID, QString tag);
+
+
     bool updateWrittenNote(WrittenNote note);
 
     int insertTagAndReturnId(QString tag);
@@ -34,6 +44,11 @@ public:
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
 
+    void deleteUnusedTags();
+    void deleteUnusedAttachments();
+    void deleteWrittenNote(int id);
+    void deleteSubject(int id);
+    void removeAttachement(WrittenNote note, QString attachmentpath);
 };
 
 #endif // DBHANDLER_H

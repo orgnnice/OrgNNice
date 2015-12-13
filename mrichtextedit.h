@@ -26,6 +26,7 @@
 
 #include <QPointer>
 #include "ui_mrichtextedit.h"
+#include "writtennote.h"
 
 /**
  * @Brief A simple rich-text editor
@@ -34,7 +35,7 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
     Q_OBJECT
   public:
     MRichTextEdit(QWidget *parent = 0);
-
+    MRichTextEdit();
     QString toPlainText() const { return f_textedit->toPlainText(); }
     QString toHtml() const;
     QTextDocument *document() { return f_textedit->document(); }

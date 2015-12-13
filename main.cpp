@@ -24,34 +24,27 @@ int main(int argc, char **argv)
     //    Subject(int id, QList <WrittenNote> notes, QString name);
 
 
-    //Subject mathe = Subject("mathe");
-    //allsubjects.append(mathe);
-    qDebug() << "allsubjects: " << allsubjects[0].toString();
-    qDebug() << "allsubjects: ";
+    Subject mathe = Subject("mathe");
 
-    QDateTime ts = QDateTime::currentDateTime();
-
-
-    WrittenNote noteWithTags = WrittenNote();
-
-    WrittenNote note = allsubjects[0].getWrittenNotes()[0];
-
-    note.removeTag("fun");
+    WrittenNote note = WrittenNote("Mitschrift", QDateTime(), "mathe");
+    note.addTag("fun");
+    note.addAttachement("/home/luki/mitschrift.txt");
+    //    WrittenNote(QString content, QDateTime ts, QString subject_name);
+    allsubjects.append(mathe);
 
 
+    qDebug() << "iterate through everything:";
     for (Subject s : allsubjects)
     {
         qDebug() << "Subject: " << s.toString();
         for (WrittenNote n : s.getWrittenNotes())
         {
-            qDebug() << n.toString();
+            qDebug() << "note:" << n.toString();
         }
     }
 
 
-    //MainWindow w;
-    //w.show();
+    MainWindow w;
+    w.show();
     return app.exec();
 }
-
-
