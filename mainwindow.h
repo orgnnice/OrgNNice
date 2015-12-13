@@ -21,7 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
+private slots:
    void openNewWindow();
    void openSubject();
 
@@ -29,9 +29,15 @@ private:
     Ui::MainWindow *ui;
     QToolButton *addnewsub;
     c_subject *newWindow;
+<<<<<<< HEAD
+    subject_detail *selSub;
+    QPushButton *pushButton;
+    /*QPushButton *pushButton_2;
+=======
     //subject_detail *selSub;
     /*QPushButton *pushButton;
     QPushButton *pushButton_2;
+>>>>>>> 2df487ad78a9a9ea776444ab9ea8e42738e4bffc
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;

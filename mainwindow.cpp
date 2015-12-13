@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //connect(addnewsub, SIGNAL(click()), this, SLOT(openNewWindow()));
-    /*connect(pushButton, SIGNAL(click()), this, SLOT(openSubject()));
-    connect(pushButton_2, SIGNAL(click()), this, SLOT(openSubject()));
+    connect(pushButton, SIGNAL(click()), this, SLOT(openNewWindow()));
+    /*connect(pushButton_2, SIGNAL(click()), this, SLOT(openSubject()));
     connect(pushButton_3, SIGNAL(click()), this, SLOT(openSubject()));
     connect(pushButton_4, SIGNAL(click()), this, SLOT(openSubject()));
     connect(pushButton_5, SIGNAL(click()), this, SLOT(openSubject()));
@@ -43,8 +43,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::openNewWindow()
 {
-   newWindow = new c_subject(); // Be sure to destroy you window somewhere
-   newWindow->show();
+   /*newWindow = new c_subject(); // Be sure to destroy you window somewhere
+   newWindow->show();*/
+   pushButton->setText("Success");
 }
 
 void MainWindow::openSubject()
