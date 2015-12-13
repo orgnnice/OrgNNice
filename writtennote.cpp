@@ -69,7 +69,9 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
 }
 
 
-
+void WrittenNote::deleteWrittenNote() {
+    pDBh->deleteWrittenNote(this->getId());
+}
 
 void WrittenNote::saveWrittenNote(Subject ASubject)
 {

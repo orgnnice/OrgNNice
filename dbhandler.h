@@ -34,6 +34,10 @@ public:
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
 
+    void deleteUnusedTags();
+    void deleteUnusedAttachments();
+    void deleteWrittenNote(int id);
+    void deleteSubject(int id);
 };
 
 #endif // DBHANDLER_H

@@ -103,3 +103,14 @@ void Subject::addWrittenNote(WrittenNote note)
 {
     notes.append(note);
 }
+
+//Sill has to delete the objects out of note hastasg and note has Attachment
+void Subject::deleteSubject()
+{
+    pDBh->deleteSubject(this->getId());
+}
+
+void Subject::updateSubject()
+{
+    pDBh->queryNoReturn("update schoolSubject set name = " + this->getName() +"where (pk_id = " + QString::number(this->getId()) + ")");
+}

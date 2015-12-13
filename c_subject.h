@@ -2,6 +2,7 @@
 #define C_SUBJECT_H
 
 #include <QDialog>
+#include "ui_c_subject.h"
 
 namespace Ui {
 class c_subject;
