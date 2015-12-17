@@ -80,7 +80,17 @@ QList<WrittenNote> Subject::getWrittenNotes(QString tag)
 QList<WrittenNote> Subject::getWrittenNotes(QList<QString> taglist)
 {
     QList<WrittenNote> chosenNotes;
-//methode("select * from
+    QString selectCall = "select * from note where (fk_schoolSubject = (select pk_id from schoolSubject where (name = " + this->getName(); + " AND pk_id = (select nodeId from noteHasTag where (TagId in(select pk_id from tag where (tagname in (";
+
+    for (int i = 0; i < taglist.length(); i++)
+    {
+        if(i - 1 < taglist.length())
+        {
+            selectCall += taglist[i] + ", ";
+        } else {
+             selectCall += taglist[i]  + "))))))))";
+        }
+    }
     return chosenNotes;
 }
 
@@ -94,7 +104,28 @@ QList<WrittenNote> Subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTim
 QList<WrittenNote> Subject::getWrittenNotesWithWithout(QList<QString> tagListWith, QList<QString> tagListWithout)
 {
     QList<WrittenNote> chosenNotes;
-//methode("select * from
+    QString selectCall = "select * from note where (fk_schoolSubject = (select pk_id from schoolSubject where (name = " + this->getName() + " AND pk_id = (select nodeId from noteHasTag where (TagId in (select pk_id from tag where (tagname in (";
+
+    for (int i = 0; i < tagListWith.length(); i++)
+    {
+        if(i - 1 < tagListWith.length())
+        {
+            selectCall += tagListWith[i] + ", ";
+        } else {
+             selectCall += tagListWith[i]  + ")) AND tagname NOT IN (";
+        }
+    }
+
+    for (int i = 0; i < tagListWithout.length(); i++)
+    {
+        if(i - 1 < tagListWithout.length())
+        {
+            selectCall += tagListWithout[i] + ", ";
+        } else {
+             selectCall += tagListWithout[i] + ")))))))";
+        }
+    }
+    pDBh->queryWithReturnNoteList(selectCall);
     return chosenNotes;
 }
 
@@ -103,7 +134,7 @@ void Subject::addWrittenNote(WrittenNote note)
     notes.append(note);
 }
 
-//Sill has to delete the objects out of note hastasg and note has Attachment
+
 void Subject::deleteSubject()
 {
     pDBh->deleteSubject(this->getId());
