@@ -32,8 +32,9 @@ public:
 
     static void setDBH(DBHandler db_handler);
     void setDate(QDateTime);
-    void saveWrittenNote(Subject);
-    void addAttachement(QString);
+
+    void saveWrittenNote();
+    void addAttachement(QString attachement);
     void addTag(QString newTag);
     void removeTag(QString tag);
     void removeAttachement(QString);

@@ -31,9 +31,10 @@ public:
 
     int insertSubject(QString name);
     bool insertWrittenNote(QString text, QDateTime ts, int fk_schoolSubject, QList<QString> tags, QList<QString> attachements);
-    bool insertWrittenNote(WrittenNote note);
+    int insertWrittenNote(WrittenNote note);
 
     void insertWrittenTagToNote(int noteID, QString tag);
+    void insertAttachementToNote(int noteId, QString attachement);
 
 
     bool updateWrittenNote(WrittenNote note);
@@ -43,6 +44,9 @@ public:
     int insertAndReturnID(QString statement);
     int getLastIsertId(QSqlQuery query);
     QString select (QString coulum, QString table, QString where);
+
+
+
 
     void deleteUnusedTags();
     void deleteUnusedAttachments();

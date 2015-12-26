@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     dbhandler.cpp \
     mainwindow.cpp \
     subject_detail.cpp \
-    c_subject.cpp
+    c_subject.cpp \
+    todoitem.cpp
 
 HEADERS  += \
     writtennote.h \
@@ -33,7 +34,8 @@ HEADERS  += \
     main.h \
     mainwindow.h \
     subject_detail.h \
-    c_subject.h
+    c_subject.h \
+    todoitem.h
 
 FORMS    += \
     mrichtextedit.ui \

@@ -57,15 +57,12 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, QString subject_name)
     this->timestamp = ts;
     this->subject_ID = pDBh->select("pk_id", "SchoolSubject", "name='" + subject_name + "'").replace('"', "").toInt();
     qDebug() << "subject_id of " << subject_name << "is" << pDBh->select("pk_id", "SchoolSubject", "name='" + subject_name + "'");
-    pDBh->insertWrittenNote(*this);
+    this->id = pDBh->insertWrittenNote(*this);
 }
 
 
 
-void WrittenNote::setNoteID(int noteId)
-{
-    id = noteId;
-}
+
 
 
 WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
@@ -101,7 +98,7 @@ void WrittenNote::deleteWrittenNote() {
     pDBh->deleteWrittenNote(this->getId());
 }
 
-void WrittenNote::saveWrittenNote(Subject ASubject)
+void WrittenNote::saveWrittenNote()
 {
     pDBh->updateWrittenNote(*this);
 }
@@ -110,6 +107,12 @@ int WrittenNote::getId()
 {
     return this->id;
 }
+
+void WrittenNote::setNoteID(int noteId)
+{
+    this->id = noteId;
+}
+
 
 QString WrittenNote::getContent()
 {
@@ -131,26 +134,30 @@ QList<QString> WrittenNote::getAttachement()
     return this -> attachements;
 }
 
-void WrittenNote::addAttachement(QString a)
+void WrittenNote::addAttachement(QString attachement)
 {
-    this->attachements.append(a);
-    pDBh->updateWrittenNote(*this);
+    this->attachements.append(attachement);
+    pDBh->insertAttachementToNote(this->id, attachement);
+
 }
+
+
+
+void WrittenNote::addTag(QString newTag)
+{
+    qDebug() << "WrittenNote->addTag->" << QString::number(getId()) <<   " tag: " << newTag;
+    this->tags.append(newTag);
+    //<todo>
+    //messes up everything ->
+    pDBh->insertWrittenTagToNote(this->id, newTag);
+}
+
 
 void WrittenNote::setDate(QDateTime time)
 {
     this->timestamp = time;
 }
 
-
-void WrittenNote::addTag(QString newTag)
-{
-    qDebug() << "WrittenNote->addTag->" << newTag;
-    this->tags.append(newTag);
-    //<todo>
-    //messes up everything ->
-    pDBh->insertWrittenTagToNote(this->id, newTag);
-}
 
 void WrittenNote::removeTag(QString tag)
 {

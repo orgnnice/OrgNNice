@@ -24,9 +24,11 @@ public:
     //to be called by the DBHandler
     Subject(int id, QList <WrittenNote> notes, QString name);
 
-
     //to crate a new Subject.
     Subject(QString name);
+
+    void setSubjectName(QString name);
+
 
     static void setDBH(DBHandler db_handler);
     QString getName();

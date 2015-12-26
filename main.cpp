@@ -19,18 +19,63 @@ int main(int argc, char **argv)
     QApplication app (argc, argv);
     pDBh = new DBHandler(QDir::homePath());
 
+
     //get all subjects from the database with contents
-    QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
-    //    Subject(int id, QList <WrittenNote> notes, QString name);
+    //QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+    //Subject(int id, QList <WrittenNote> notes, QString name);
+
 
 
     Subject mathe = Subject("mathe");
 
-    WrittenNote note = WrittenNote("Mitschrift", QDateTime(), "mathe");
+
+    WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
+    WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");
+    mathe.setSubjectName("Chemie");
+    mathe.setSubjectName("Chemie");
+    mathe.setSubjectName("mathe");
+    mathe.setSubjectName("Chemie");
+    mathe.setSubjectName("Deutsch");
+    mathe.setSubjectName("Englisch");
+
+
     note.addTag("fun");
-    note.addAttachement("/home/luki/mitschrift.txt");
-    //    WrittenNote(QString content, QDateTime ts, QString subject_name);
-    allsubjects.append(mathe);
+    note.addTag("fun");
+    note2.addTag("fun");
+    note.removeTag("nonexistingTag");
+
+
+    note2.addTag("nofun");
+
+    note.addAttachement("/home/luki/neu.py");
+    note2.addAttachement("/home/luki/neu.py");
+    note2.addAttachement("/home/luki/neu2.py");
+
+    //note.addAttachement("/home/luki/mitschrift.txt");
+
+    QList<QString> taglistwith = QList<QString>();
+    QList<QString> taglistwithout = QList<QString>();
+
+
+
+
+
+    taglistwith.append("nofun");
+    taglistwith.append("spaß");
+
+
+    //QList<WrittenNote> notelist  = allsubjects[0].getWrittenNotesWithWithout(taglistwith, taglistwithout);
+
+    //QList<WrittenNote> notelist = allsubjects[0].getWrittenNotes(taglistwith);
+
+    /*
+    QList<WrittenNote> funNotes = allsubjects[0].getWrittenNotes(taglistwith);
+    qDebug() << "length of funnotes: " << QString::number(funNotes.length());
+    qDebug() << "All Notes with tags: 'fun' but without tags 'nofun' ";
+    for (WrittenNote n : funNotes)
+    {
+        qDebug() << "note:" << n.toString();
+    }
 
 
     qDebug() << "iterate through everything:";
@@ -43,7 +88,7 @@ int main(int argc, char **argv)
         }
     }
 
-
+*/
     MainWindow w;
     w.show();
     return app.exec();

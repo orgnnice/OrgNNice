@@ -29,7 +29,7 @@ void DBHandler::createDatabaseIfNotExists()
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100))");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
-        query.exec("create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100))");
+        query.exec("create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100) UNIQUE)");
         query.exec("create table IF NOT EXISTS noteHasAttachement (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_attachement INTEGER)");
 
         //Foreign Keys
@@ -44,6 +44,8 @@ void DBHandler::createDatabaseIfNotExists()
         //Unique
 
         query.exec("CREATE UNIQUE INDEX tag_tagname ON tag(tagname)");
+        query.exec("CREATE UNIQUE INDEX noteHasTag_unique ON noteHasTag(fk_note, fk_tag)");
+        query.exec("CREATE UNIQUE INDEX noteHasAttachement_unique ON noteHasAttachement(fk_note, fk_attachement)");
 
         qDebug() << "Tables in database: " << db.tables();
     }
@@ -131,7 +133,7 @@ QList<QString> DBHandler::attachementsFromNote(int noteid)
 {
     QList<QString> attachs;
     QSqlQuery query(db);
-    query.exec("SELECT tagname FROM tag WHERE pk_id in (SELECT fk_tag FROM noteHasTag WHERE fk_note = " + QString::number(noteid) +")");
+    query.exec("SELECT filename FROM attachement WHERE pk_id in (SELECT fk_attachement FROM noteHasAttachement WHERE fk_note = " + QString::number(noteid) +")");
     while (query.next())
     {
         attachs.append(query.value(0).toString());
@@ -152,7 +154,7 @@ QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
         int id = query.value(0).toInt();
         QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE (fk_schoolSubject = " + QString::number(id) + ")");
         QString subject_name =  query.value(1).toString();
-        pSubject = new Subject(id, notes, subject_name);
+        pSubject =  new Subject(id, notes, subject_name);
         subjects.append(*pSubject);
     }
     return subjects;
@@ -211,7 +213,7 @@ int DBHandler::insertSubject(QString name)
  * @param attachements
  * @return true, if everything was succesful, false when the note could not be inserted.
  */
-bool DBHandler::insertWrittenNote(WrittenNote note)
+int DBHandler::insertWrittenNote(WrittenNote note)
 {
     //next 9 lines only for debugging
     QString tagString, attachementsString = "";
@@ -229,14 +231,14 @@ bool DBHandler::insertWrittenNote(WrittenNote note)
 
     //insert note:
     int noteId = insertAndReturnID("INSERT INTO note (content, ts, fk_schoolSubject) VALUES ('" + note.getContent() + "', " + QString::number(note.getTimestamp().toMSecsSinceEpoch()) + ", " + QString::number(note.getSubject_ID()) + ")");
+    qDebug() << "NOTE ID selected is:" << QString::number(noteId);
     note.setNoteID(noteId);
+    qDebug() << "NOTE ID in programm is:" << QString::number(note.getId());
 
     //insert Tags
     for (QString tag :  note.getTags())
     {
-        int tagId = insertTagAndReturnId(tag);
-        //insert to noteHasTag-table
-        queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag), VALUES (" + QString::number(noteId) + ", " + QString::number(tagId));
+        insertWrittenTagToNote(noteId, tag);
     }
 
     //insert Attachments
@@ -246,7 +248,8 @@ bool DBHandler::insertWrittenNote(WrittenNote note)
         //insert to noteHasAttachement-table
         queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
     }
-    return noteId != -1;
+    qDebug() << "Note insertion was: " << (noteId != -1);
+    return noteId;
 }
 
 
@@ -255,11 +258,17 @@ bool DBHandler::insertWrittenNote(WrittenNote note)
 
 void DBHandler::insertWrittenTagToNote(int noteID, QString tag)
 {
+    qDebug() << "DBHandler::insertWrittenTagToNote"  << " params: " << QString::number(noteID) << ", " << tag;
     int tagId = insertTagAndReturnId(tag);
     queryNoReturn("INSERT INTO noteHasTag(fk_note, fk_tag) VALUES (" + QString::number(noteID) + ", " + QString::number(tagId) + ")");
 }
 
-
+void DBHandler::insertAttachementToNote(int noteId, QString attachement)
+{
+    qDebug() << "DBHandler::insertAttachementToNote"  << " params: " << QString::number(noteId) << ", " << attachement;
+    int attachementID = insertAttachementAndReturnId(attachement);
+    queryNoReturn("INSERT INTO noteHasAttachement(fk_note, fk_attachement) VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID) + ")");
+}
 
 
 
@@ -271,114 +280,38 @@ void DBHandler::insertWrittenTagToNote(int noteID, QString tag)
  */
 bool DBHandler::updateWrittenNote(WrittenNote note)
 {
-    qDebug() << "DBHandler->updateWrittenNote(" << note.getId() << ")";
+    qDebug() << "DBHandler->updateWrittenNote(" << note.toString() << ")";
+
 
     int noteId = note.getId();
-
+    if(noteId == -1){
+        return false;
+    }
     //insert Tags
-    queryNoReturn("DELETE FROM notehasTag where fk_note = " + QString::number(noteId) + ")");
+
+    queryNoReturn("DELETE FROM noteHasTag where fk_note = " + QString::number(noteId) + ")");
     for (QString tempTag : note.getTags())
     {
-        qDebug() << "selectrückgabe toint:" << select("COUNT(tagname)", "tag", "tagname = '"+ tempTag +"'").toInt();
-        if(select("COUNT(tagname)", "tag", "tagname = '"+ tempTag +"'").toInt() < 1)
-        {
-            queryNoReturn("INSERT INTO tag (tagname) VALUES('"+tempTag+"')");
-        }
-        qDebug() << "  tag: " << tempTag;
-        QString TagId = select("pk_id","tag","tagname = '"+ tempTag +"'").replace('"',"");
-        queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag) VALUES (" + QString::number(noteId) + "," + TagId+")");
+        insertWrittenTagToNote(note.getId(), tempTag);
     }
 
     //insert Attachments
     queryNoReturn("DELETE FROM noteHasAttachement where fk_note = " + QString::number(noteId) + ")");
     for (QString attachement : note.getAttachement())
     {
-        QString attachementId = "-1";
-        if(select("COUNT(filename)", "attachement", "filename = '"+ attachement +"'").toInt() < 1)
-        {
-            attachementId = QString::number(insertAttachementAndReturnId(attachement));
-        }else{
-            attachementId = select("pk_id","attachement","where (filename = '"+ attachement +"')");
-        }
-        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement) VALUES (" + QString::number(noteId) + ", " + attachementId + ")");
+        insertAttachementToNote(note.getId(), attachement);
     }
-    return noteId != -1;
+
+    //content
+    queryNoReturn("UPDATE note SET content = '" + note.getContent() + "' WHERE (pk_id = " + QString::number(note.getId()) +")");
+
+
+    //Date:
+    queryNoReturn("UPDATE note SET ts = " + note.getTimestamp().toString() + " WHERE (pk_id = " + QString::number(note.getId()) +")");
+
+    return true;
 }
-/*
-//insert note:
-    int noteId = insertAndReturnID("UPDATE WrittenNote SET content = " + note.getContent() + ", ts = " + note.getTimestamp().toMSecsSinceEpoch() + ", fk_schoolSubject = " + fk_schoolSubject + " WHERE pk_id = " + note.getId() + ")");
 
-    //insert Tags
-    queryNoReturn("DELETE FROM notehasTag where (fk_note = " + QString::number(noteId) + ")");
-    QList<QString>::iterator i;
-    for (i = note.getTags().begin(); i != note.getTags().end(); ++i)
-    {
-        if(select("COUNT(tagname)", "tag", "where (tagname = \""+ *i+"\"").toInt() < 0)
-        {
-            queryNoReturn("INSERT INTO tag (tagname) VALUES("+*i+")");
-        }
-        QString TagId = select("pk_id","tag","where tagname = \""+ *i+"\"");
-        queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + TagId);
-    }
-
-    //insert Attachments
-    queryNoReturn("DELETE FROM noteHasAttachement where fk_note = " + QString::number(noteId) + ")");
-    QList<QString>::iterator j;
-    for (j = note.getAttachement().begin(); j != note.getAttachement().end(); ++j)
-    {
-        if(select("COUNT(filename)", "attachement", "where filename = \""+ *j +"\"").toInt() < 0)
-        {
-            //insert to noteHasAttachement-table
-            queryNoReturn("INSERT INTO attachement (filename) VALUES("+*j+")");
-        }
-        QString AttachementId = select("pk_id","tag","where tagname = \""+ *j+"\"");
-        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + AttachementId);
-    }
-    return noteId != -1;
-*/
-
-/*bool DBHandler::insertWrittenNote(WrittenNote note)
-{
-    QList<QString> tags = note.getTags();
-    //next 5 lines only for debugging
-    QString tagString, attachementsString = "";
-    for(int i=0; i<note.getTags().size(); i++)
-    {
-        tagString += note.getTags()[i];
-    }
-    Attachement attachements = note.getAttachement();
-    for(int i = 0; i < attachements.size(); i++)
-    {
-        attachementsString += attachements[i] + " ";
-    }
-    qDebug() <<  "DBHandler -> insertWrittenNote(" << note.getText()  << ", " << note.getTs().toMSecsSinceEpoch() << ", " << tagString <<  ", " << attachementsString << ", " <<  note.getFk_schoolSubject() << ")";
-
-    //begin:
-
-    //insert note:
-    int noteId = insertAndReturnID("INSERT INTO WrittenNote (content, ts, fk_schoolSubject) VALUES (" + note.getText() + ", " + ts.toMSecsSinceEpoch() + ", " + note.getFk_schoolSubject() + ")");
-
-    //insert Tags
-    QList<QString>::iterator i;
-    for (i = tags.begin(); i != tags.end(); ++i)
-    {
-        int tagId = insertTagAndReturnId(*i);
-        //insert to noteHasTag-table
-        queryNoReturn("INSERT INTO noteHasTag (fk_note, fk_tag), VALUES (" + QString::number(noteId) + ", " + QString::number(tagId));
-    }
-
-    //insert Attatchments
-    QList<QString>::iterator j;
-    for (j = attachements.begin(); j != tags.end(); ++j)
-    {
-        int attachementID = insertAttechementAndReturnId(*j);
-        //insert to noteHasAttachement-table
-        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
-    }
-
-
-    return noteId != -1;
-}*/
 
 /**
  * @brief DBHandler::insertTagAndReturnId
@@ -391,7 +324,7 @@ int DBHandler::insertTagAndReturnId(QString tag)
     int tagId= -1;
     if(select("COUNT(tagname)", "tag", "where (tagname = '"+ tag+"')").toInt() < 1)
     {
-        tagId =  insertAndReturnID("INSERT INTO tag(tagname) VALUES("+tag+")");
+        tagId =  insertAndReturnID("INSERT INTO tag(tagname) VALUES('"+tag+"')");
         qDebug() << "tag " << tag << "was inserted at" << tagId;
     }else
     {
@@ -409,7 +342,7 @@ int DBHandler::insertTagAndReturnId(QString tag)
  * @brief DBHandler::insertAttechementAndReturnId
  * @param attachementPath
  * @return pk_id in database of the inserted Attachement.
- * @info copies the attachement as well.
+ *
  *
  */
 
@@ -417,11 +350,11 @@ int DBHandler::insertAttachementAndReturnId(QString attachementPath)
 {
     qDebug() << "DBHandler -> insertAttechementAndReturnId(" << attachementPath <<")";
 
-    QStringList pieces = attachementPath.split(QDir::separator());
-    QString name = pieces.value(pieces.length() - 1);
-
-
     int attatchmentId =  insertAndReturnID("INSERT INTO attachement(filename) VALUES('"+attachementPath+"')");
+    if (attatchmentId = -1){
+        attatchmentId = select("pk_id", "attachement", "filename = '" + attachementPath + "'").toInt();
+    }
+
     qDebug() << "Attatchement from " << attachementPath << " inserted at " << attatchmentId;
 
     //copying files would require more debugging and work. since time is short, the easy way will be good enough for now.
@@ -527,6 +460,7 @@ int DBHandler::insertAndReturnID(QString statement)
     }
     else{
         qDebug() <<  "  Statement failed. Error: " << query.lastError();
+
     }
     qDebug() <<  "  Retutnvalue: " << id;
     return id;

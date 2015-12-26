@@ -57,9 +57,20 @@ int Subject::getWrittenNotesSize()
 }
 
 
+
+void Subject::setSubjectName(QString name)
+{
+    if(this->subject_name != name)
+    {
+        this->subject_name = name;
+        pDBh->queryNoReturn("UPDATE schoolSubject SET NAME = '" + name + "' WHERE (pk_id = " + QString::number(this->id) + ")");
+    }
+}
+
+
 QList<WrittenNote> Subject::getWrittenNotes()
 {
-   return notes;
+   return this->notes;
 }
 
 QList<WrittenNote> Subject::getWrittenNotes(QDateTime date)
@@ -79,19 +90,20 @@ QList<WrittenNote> Subject::getWrittenNotes(QString tag)
 
 QList<WrittenNote> Subject::getWrittenNotes(QList<QString> taglist)
 {
-    QList<WrittenNote> chosenNotes;
-    QString selectCall = "select * from note where (fk_schoolSubject = (select pk_id from schoolSubject where (name = " + this->getName(); + " AND pk_id = (select nodeId from noteHasTag where (TagId in(select pk_id from tag where (tagname in (";
+    qDebug() <<"Subject -->  getWrittenNotes(QList<QString> taglist)";
+    QString selectCall = "select * from note where (fk_schoolSubject = " + QString::number(this->getId()) + " AND pk_id IN (select fk_note from noteHasTag where (fk_tag in (select pk_id from tag where (tagname IN (";
 
     for (int i = 0; i < taglist.length(); i++)
     {
-        if(i - 1 < taglist.length())
+        if(i + 1 < taglist.length())
         {
-            selectCall += taglist[i] + ", ";
+            selectCall += "'" + taglist[i] + "', ";
         } else {
-             selectCall += taglist[i]  + "))))))))";
+             selectCall += "'" + taglist[i]  + "'))))))";
         }
     }
-    return chosenNotes;
+    qDebug() << "selectcall:" << selectCall;
+    return pDBh->queryWithReturnNoteList(selectCall);
 }
 
 QList<WrittenNote> Subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTime  DateLast)
@@ -103,30 +115,31 @@ QList<WrittenNote> Subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTim
 
 QList<WrittenNote> Subject::getWrittenNotesWithWithout(QList<QString> tagListWith, QList<QString> tagListWithout)
 {
-    QList<WrittenNote> chosenNotes;
-    QString selectCall = "select * from note where (fk_schoolSubject = (select pk_id from schoolSubject where (name = " + this->getName() + " AND pk_id = (select nodeId from noteHasTag where (TagId in (select pk_id from tag where (tagname in (";
+    qDebug() <<"Subject -->  getWrittenNotesWithWithout";
 
+    QString selectCall = "select * from note where (fk_schoolSubject = " + QString::number(this->getId()) + " AND pk_id IN (select fk_note from noteHasTag where (fk_tag in (select pk_id from tag where (tagname IN (";
     for (int i = 0; i < tagListWith.length(); i++)
     {
-        if(i - 1 < tagListWith.length())
+        if(i + 1 < tagListWith.length())
         {
-            selectCall += tagListWith[i] + ", ";
+            selectCall += "'" + tagListWith[i] + "', ";
         } else {
-             selectCall += tagListWith[i]  + ")) AND tagname NOT IN (";
+             selectCall += "'" + tagListWith[i]  + "'))))) AND pk_id NOT IN (select fk_note from noteHasTag where (fk_tag in (select pk_id from tag where (tagname IN (";
         }
     }
+
 
     for (int i = 0; i < tagListWithout.length(); i++)
     {
-        if(i - 1 < tagListWithout.length())
+        if(i + 1 < tagListWithout.length())
         {
-            selectCall += tagListWithout[i] + ", ";
+            selectCall += "'" + tagListWithout[i] + "', ";
         } else {
-             selectCall += tagListWithout[i] + ")))))))";
+             selectCall += "'" + tagListWithout[i] + "'))))))";
         }
     }
-    pDBh->queryWithReturnNoteList(selectCall);
-    return chosenNotes;
+    qDebug() << "select call: "  << selectCall;
+    return pDBh->queryWithReturnNoteList(selectCall);
 }
 
 void Subject::addWrittenNote(WrittenNote note)
@@ -142,5 +155,5 @@ void Subject::deleteSubject()
 
 void Subject::updateSubject()
 {
-    pDBh->queryNoReturn("update schoolSubject set name = " + this->getName() +"where (pk_id = " + QString::number(this->getId()) + ")");
+
 }
