@@ -6,6 +6,7 @@
 #include <writtennote.h>
 #include <mtextedit.h>
 #include <subject.h>
+#include <todoitem.h>
 #include <mainwindow.h>
 #include "main.h"
 #include <QDebug>

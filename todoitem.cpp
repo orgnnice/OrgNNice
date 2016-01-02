@@ -1,4 +1,6 @@
 #include "todoitem.h"
+#include <dbhandler.h>
+#include "main.h"
 
 ToDoItem::ToDoItem()
 {
@@ -6,7 +8,7 @@ ToDoItem::ToDoItem()
 }
 
 
-//<todo> dbhandler is missing (insertTODOandReturnId or something like that).
+
 
 /**
  * @brief ToDoItem::ToDoItem
@@ -15,34 +17,47 @@ ToDoItem::ToDoItem()
  * @param deadline
  * @param done
  */
-ToDoItem::ToDoItem(QString fach_name, QString beschreibung, QDateTime deadline, bool done)
+ToDoItem::ToDoItem(int fach_id, QString beschreibung, QDateTime deadline, bool done)
 {
-    this->fach_name = fach_name;
+    this->fach_id = fach_id;
     this->beschreibung = beschreibung;
     this->deadline = deadline;
     this->done = done;
-
+    this->id = pDBh->insertTODOandReturnId(*this);
 }
+
+
+
+QString ToDoItem::toString()
+{
+    QString result = "TODO: ";
+    result += this->beschreibung + " | Deadline: " + this->deadline.toString() + " | Done: " + this->done + " | Fachname: " + this->fach_id + " | ID: " + QString::number(this->id);
+    return result;
+}
+
+
 
 QString ToDoItem::getFach_name()
 {
 
 }
 
+int ToDoItem::getFach_id()
+{
+    return this->fach_id;
+}
+
+
 QString ToDoItem::getBeschreibung()
 {
-
+    return this->beschreibung;
 }
 
 QDateTime ToDoItem::getDeadline()
 {
-
+    return this->deadline;
 }
 
-void ToDoItem::setFach_name(QString name)
-{
-
-}
 
 void ToDoItem::setBeschreibung(QString beschreibung)
 {

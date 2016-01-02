@@ -6,6 +6,7 @@
 
 class WrittenNote;
 class Subject;
+class ToDoItem;
 class DBHandler
 {
 private:
@@ -46,6 +47,7 @@ public:
     QString select (QString coulum, QString table, QString where);
 
 
+    int insertTODOandReturnId(ToDoItem todoItem);
 
 
     void deleteUnusedTags();

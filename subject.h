@@ -30,6 +30,7 @@ public:
     void setSubjectName(QString name);
 
 
+
     static void setDBH(DBHandler db_handler);
     QString getName();
     int getId();

@@ -1,6 +1,7 @@
 #include "dbhandler.h"
 #include <writtennote.h>
 #include <subject.h>
+#include <todoitem.h>
 
 DBHandler::DBHandler(QString folderPath)
 {
@@ -27,6 +28,9 @@ void DBHandler::createDatabaseIfNotExists()
         QSqlQuery query(db);
         query.exec("create table IF NOT EXISTS schoolSubject (pk_id INTEGER primary key AUTOINCREMENT, name varchar(100) unique)");
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
+
+        query.exec("create table IF NOT EXISTS todo (pk_id INTEGER primary key AUTOINCREMENT, beschreibung TEXT, deadline TIMESTAMP, done BOOLEAN, fk_schoolSubject INTEGER)");
+
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100))");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
         query.exec("create table IF NOT EXISTS attachement (pk_id INTEGER primary key  AUTOINCREMENT, filename varchar(100) UNIQUE)");
@@ -35,6 +39,7 @@ void DBHandler::createDatabaseIfNotExists()
         //Foreign Keys
 
         query.exec("ALTER TABLE note ADD CONSTRAINT fk_schoolSubjectNote FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete no action");
+        query.exec("ALTER TABLE todo ADD CONSTRAINT fk_schoolSubjectTODO FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete no action");
         query.exec("ALTER TABLE schoolSubject ADD CONSTRAINT schoolSubject FOREIGN KEY (fk_teacher) REFERENCES teacher (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Note FOREIGN KEY (fk_note) REFERENCES note (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Attachement FOREIGN KEY (fk_attachement) REFERENCES attachement (pk_id) on delete no action");
@@ -254,6 +259,14 @@ int DBHandler::insertWrittenNote(WrittenNote note)
 
 
 
+int DBHandler::insertTODOandReturnId(ToDoItem todoItem)
+{
+    qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
+
+    //insert ToDo
+    int id  = insertAndReturnID("INSERT INTO todo (beschreibung, deaadline, done, fk_schoolSubject) VALUES (" +  todoItem.getBeschreibung() + ", " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + "" +todoItem. getFach_id() + ")");
+    return id;
+}
 
 
 void DBHandler::insertWrittenTagToNote(int noteID, QString tag)
