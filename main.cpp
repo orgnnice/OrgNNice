@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 
     Subject mathe = Subject("mathe");
 
+    ToDoItem dothat = ToDoItem("mathe", "todohier", QDateTime(), false);
 
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
     WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");

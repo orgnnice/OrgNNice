@@ -11,28 +11,27 @@ class ToDoItem
 
 private:
     int id = -1;
-    int fach_id;
-    QString beschreibung;
+    int subject_id;
+    QString description;
     QDateTime deadline;
-
     bool done;
 
 public:
     ToDoItem();
-    ToDoItem(int fach_name, QString beschreibung, QDateTime deadline, bool done);
+    ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
 
 
-    QString getFach_name();
-    QString getBeschreibung();
+    QString getDescription();
     QDateTime getDeadline();
-    int getFach_id();
+    int getSubjectID();
+    bool getDone();
 
-    void setBeschreibung(QString beschreibung);
+    void setDescription(QString description);
     void setDeadline(QDateTime deadline);
     void setDone(bool done);
 
     QString toString();
-
+    int BooleantoInteger(bool complete);
 
 };
 

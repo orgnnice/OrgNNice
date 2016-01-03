@@ -26,10 +26,11 @@ void DBHandler::createDatabaseIfNotExists()
     {
         qDebug() << "  Success: Database " << db.databaseName() << " successfully opend";
         QSqlQuery query(db);
+
         query.exec("create table IF NOT EXISTS schoolSubject (pk_id INTEGER primary key AUTOINCREMENT, name varchar(100) unique)");
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
 
-        query.exec("create table IF NOT EXISTS todo (pk_id INTEGER primary key AUTOINCREMENT, beschreibung TEXT, deadline TIMESTAMP, done BOOLEAN, fk_schoolSubject INTEGER)");
+        query.exec("create table IF NOT EXISTS todo (pk_id INTEGER primary key AUTOINCREMENT, description TEXT, deadline TIMESTAMP, done INTEGER, fk_schoolSubject INTEGER)");
 
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100))");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
@@ -264,7 +265,7 @@ int DBHandler::insertTODOandReturnId(ToDoItem todoItem)
     qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
 
     //insert ToDo
-    int id  = insertAndReturnID("INSERT INTO todo (beschreibung, deaadline, done, fk_schoolSubject) VALUES (" +  todoItem.getBeschreibung() + ", " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + "" +todoItem. getFach_id() + ")");
+    int id  = insertAndReturnID("INSERT INTO todo (description, deadline, done, fk_schoolSubject) VALUES (" +  todoItem.getDescription() + ", " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "," + QString::number(todoItem. getSubjectID()) + ")");
     return id;
 }
 
@@ -286,7 +287,7 @@ void DBHandler::insertAttachementToNote(int noteId, QString attachement)
 
 
 /**
- * @brief DBHandler::updateWrittenNote PROBLEM: NICHT MEHR VERWENDETE TAGS/Attachments BLEIBEN IN DER DATENBANK !!!!!!!!!!!FIX!!!!!!!!!!!!!
+ * @brief DBHandler::updateWrittenNote PROBLEM: NICHT MEHR VERWENDETE TAGS/Attachments BLEIBEN IN DER DATENBANK !!!!!!!!!!!FIX!!!!!!!!!!!!! -> Methode deleteUnused aufrufen bei beendigung des Programms
  * @param note: The updated Writtennote
  * @param fk_schoolSubject
  * @return

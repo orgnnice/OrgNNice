@@ -17,12 +17,14 @@ ToDoItem::ToDoItem()
  * @param deadline
  * @param done
  */
-ToDoItem::ToDoItem(int fach_id, QString beschreibung, QDateTime deadline, bool done)
+ToDoItem::ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done)
 {
-    this->fach_id = fach_id;
-    this->beschreibung = beschreibung;
+    this->subject_id = pDBh->select("pk_id", "SchoolSubject", "name='" + subject_name + "'").replace('"', "").toInt();
+    qDebug() << "==========================================================" << this->subject_id;
+    this->description = description;
     this->deadline = deadline;
     this->done = done;
+    qDebug() << "DBHandler::insertTODOandReturnId"  << this->toString();
     this->id = pDBh->insertTODOandReturnId(*this);
 }
 
@@ -31,26 +33,33 @@ ToDoItem::ToDoItem(int fach_id, QString beschreibung, QDateTime deadline, bool d
 QString ToDoItem::toString()
 {
     QString result = "TODO: ";
-    result += this->beschreibung + " | Deadline: " + this->deadline.toString() + " | Done: " + this->done + " | Fachname: " + this->fach_id + " | ID: " + QString::number(this->id);
+    result += this->description + " | Deadline: " + this->deadline.toString() + " | Done: " + QString::number((this->getDone() > 0 ? 1 : 0)) + " | Fachname: " + QString::number(this->subject_id) + " | ID: " + QString::number(this->id);
     return result;
 }
 
-
-
-QString ToDoItem::getFach_name()
+int ToDoItem::BooleantoInteger(bool complete)
 {
+    switch(complete)
+    {
+    case true: return 1;
 
+    case false: return 0;
+    }
 }
 
-int ToDoItem::getFach_id()
+int ToDoItem::getSubjectID()
 {
-    return this->fach_id;
+    return this->subject_id;
 }
 
-
-QString ToDoItem::getBeschreibung()
+bool ToDoItem::getDone()
 {
-    return this->beschreibung;
+    return this->done;
+}
+
+QString ToDoItem::getDescription()
+{
+    return this->description;
 }
 
 QDateTime ToDoItem::getDeadline()
@@ -59,7 +68,7 @@ QDateTime ToDoItem::getDeadline()
 }
 
 
-void ToDoItem::setBeschreibung(QString beschreibung)
+void ToDoItem::setDescription(QString beschreibung)
 {
 
 }
