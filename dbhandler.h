@@ -48,7 +48,8 @@ public:
 
 
     int insertTODOandReturnId(ToDoItem todoItem);
-
+    void updateTODO(ToDoItem todoItem);
+    void deleteToDo(ToDoItem todoItem);
 
     void deleteUnusedTags();
     void deleteUnusedAttachments();

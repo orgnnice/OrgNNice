@@ -270,6 +270,20 @@ int DBHandler::insertTODOandReturnId(ToDoItem todoItem)
 }
 
 
+void DBHandler::updateTODO(ToDoItem todoItem)
+{
+    qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
+    queryNoReturn("UPDATE todo SET description = '" + todoItem.getDescription() + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
+    queryNoReturn("UPDATE todo SET deadline = '" + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
+    queryNoReturn("UPDATE todo SET done = '" + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
+    //queryNoReturn("UPDATE todo SET description = '" + todoItem.getDescription() + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
+}
+
+void DBHandler::deleteToDo(ToDoItem todoItem)
+{
+    queryNoReturn("DELETE FROM todo where (pk_id = " + QString::number(todoItem.getID()) + ")");
+}
+
 void DBHandler::insertWrittenTagToNote(int noteID, QString tag)
 {
     qDebug() << "DBHandler::insertWrittenTagToNote"  << " params: " << QString::number(noteID) << ", " << tag;

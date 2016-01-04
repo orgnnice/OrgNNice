@@ -20,7 +20,6 @@ ToDoItem::ToDoItem()
 ToDoItem::ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done)
 {
     this->subject_id = pDBh->select("pk_id", "SchoolSubject", "name='" + subject_name + "'").replace('"', "").toInt();
-    qDebug() << "==========================================================" << this->subject_id;
     this->description = description;
     this->deadline = deadline;
     this->done = done;
@@ -28,7 +27,16 @@ ToDoItem::ToDoItem(QString subject_name, QString description, QDateTime deadline
     this->id = pDBh->insertTODOandReturnId(*this);
 }
 
+void ToDoItem::updateToDoItem()
+{
 
+    pDBh->updateTODO(*this);
+}
+
+void ToDoItem::deleteToDoItem()
+{
+    pDBh->deleteToDo(*this);
+}
 
 QString ToDoItem::toString()
 {
@@ -37,14 +45,10 @@ QString ToDoItem::toString()
     return result;
 }
 
-int ToDoItem::BooleantoInteger(bool complete)
-{
-    switch(complete)
-    {
-    case true: return 1;
 
-    case false: return 0;
-    }
+int ToDoItem::getID()
+{
+    return this->id;
 }
 
 int ToDoItem::getSubjectID()
@@ -68,18 +72,18 @@ QDateTime ToDoItem::getDeadline()
 }
 
 
-void ToDoItem::setDescription(QString beschreibung)
+void ToDoItem::setDescription(QString description)
 {
-
+    this->description = description;
 }
 
 void ToDoItem::setDeadline(QDateTime deadline)
 {
-
+    this->deadline = deadline;
 }
 
 void ToDoItem::setDone(bool done)
 {
-
+    this->done = done;
 }
 

@@ -20,18 +20,20 @@ public:
     ToDoItem();
     ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
 
-
     QString getDescription();
     QDateTime getDeadline();
     int getSubjectID();
     bool getDone();
+    int getID();
+
+    void updateToDoItem();
+    void deleteToDoItem();
 
     void setDescription(QString description);
     void setDeadline(QDateTime deadline);
     void setDone(bool done);
 
     QString toString();
-    int BooleantoInteger(bool complete);
 
 };
 
