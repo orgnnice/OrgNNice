@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QPointer>
 #include "ui_mainwindow.h"
+#include "c_subject.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +26,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QPushButton *pushButton;
+    c_subject *newCre;
 };
 
 #endif // MAINWINDOW_H
