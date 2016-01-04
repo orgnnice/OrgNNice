@@ -265,7 +265,7 @@ int DBHandler::insertTODOandReturnId(ToDoItem todoItem)
     qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
 
     //insert ToDo
-    int id  = insertAndReturnID("INSERT INTO todo (description, deadline, done, fk_schoolSubject) VALUES (" +  todoItem.getDescription() + ", " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "," + QString::number(todoItem. getSubjectID()) + ")");
+    int id  = insertAndReturnID("INSERT INTO todo (description, deadline, done, fk_schoolSubject) VALUES ('" +  todoItem.getDescription() + "', " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "," + QString::number(todoItem. getSubjectID()) + ")");
     return id;
 }
 
