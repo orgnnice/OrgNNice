@@ -21,7 +21,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::openNewWindow()
 {
-    this->hide();
     newCre = new c_subject(); // Be sure to destroy you window somewhere
     newCre->show();
 }
