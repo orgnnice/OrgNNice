@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
-    QObject::connect(pushButton, SIGNAL (clicked()), this, SLOT (quit()));
 }
 
 MainWindow::~MainWindow()
@@ -16,10 +15,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*void MainWindow::openNewWindow()
+void MainWindow::openNewWindow()
 {
-
+ this->hide();
 }
-void MainWindow::openSubject()
+/*void MainWindow::openSubject()
 {
 }*/
