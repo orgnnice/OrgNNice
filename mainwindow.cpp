@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
-    pushButton = new QPushButton("My Button", this);
+    pushButton = new QPushButton("Create new Button", this);
     pushButton->setGeometry(QRect(QPoint(100, 100),
         QSize(200, 50)));
     QObject::connect(pushButton, SIGNAL (clicked()), this, SLOT (openNewWindow()));
