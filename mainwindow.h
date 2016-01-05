@@ -6,6 +6,8 @@
 #include <QPointer>
 #include "ui_mainwindow.h"
 #include "c_subject.h"
+#include "subject_detail.h"
+#include "mrichtextedit.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,12 +23,17 @@ public:
 
 private slots:
    void openNewWindow();
-   /*void openSubject();*/
+   void openSubject();
+   void openRTE();
 
 private:
     Ui::MainWindow *ui;
-    QPushButton *pushButton;
+    QPushButton *addnew;
+    QPushButton *detsub;
+    QPushButton *writn;
     c_subject *newCre;
+    Subject_detail *detSubject;
+    MRichTextEdit *rte;
 };
 
 #endif // MAINWINDOW_H
