@@ -10,15 +10,15 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Org'n'Nice");
     detsub= new QPushButton("Subject Detail", this);
     detsub->setGeometry(QRect(QPoint(250, 50),
-        QSize(200, 50)));
+        QSize(100, 50)));
     connect(detsub, SIGNAL (clicked()), this, SLOT (openSubject()));
     addnew= new QPushButton("New Subject", this);
     addnew->setGeometry(QRect(QPoint(350, 50),
-        QSize(200, 50)));
+        QSize(100, 50)));
     connect(addnew, SIGNAL (clicked()), this, SLOT (openNewWindow()));
     writn= new QPushButton("Text Edit", this);
-    writn->setGeometry(QRect(QPoint(500, 50),
-        QSize(200, 50)));
+    writn->setGeometry(QRect(QPoint(450, 50),
+        QSize(100, 50)));
     connect(writn, SIGNAL (clicked()), this, SLOT (openRTE()));
 }
 
@@ -39,6 +39,7 @@ void MainWindow::openSubject()
 }
 void MainWindow::openRTE()
 {
-    rte = new MRichTextEdit(); // Be sure to destroy you window somewhere
+    QDialog *dialog = new QDialog();
+    rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
     rte->show();
 }
