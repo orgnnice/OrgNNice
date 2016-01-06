@@ -13,7 +13,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, protected Ui::MainWindow
+class MainWindow : public QMainWindow, private Ui::MainWindow
 {
     Q_OBJECT
 
@@ -25,6 +25,20 @@ private slots:
    void openNewWindow();
    void openSubject();
    void openRTE();
+
+   void on_pushButton_10_clicked();
+
+   void on_addnew_clicked();
+
+   void on_pushButton_9_clicked();
+
+   void on_pushButton_4_clicked();
+
+   void on_pushButton_3_clicked();
+
+   void on_pushButton_8_clicked();
+
+   void on_pushButton_5_clicked();
 
 private:
     Ui::MainWindow *ui;

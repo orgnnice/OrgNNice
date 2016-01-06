@@ -15,6 +15,9 @@ public:
     explicit subject_detail(QWidget *parent = 0);
     ~subject_detail();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     Ui::subject_detail *ui;
 };
