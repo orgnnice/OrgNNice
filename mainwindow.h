@@ -7,7 +7,6 @@
 #include "ui_mainwindow.h"
 #include "c_subject.h"
 #include "subject_detail.h"
-#include "mrichtextedit.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,7 +23,6 @@ public:
 private slots:
    void openNewWindow();
    void openSubject();
-   void openRTE();
 
    void on_pushButton_10_clicked();
 
@@ -42,11 +40,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QPushButton *detsub;
-    QPushButton *writn;
     c_subject *newCre;
     subject_detail *detSubject;
-    MRichTextEdit *rte;
+
 };
 
 #endif // MAINWINDOW_H

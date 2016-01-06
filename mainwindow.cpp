@@ -25,12 +25,6 @@ void MainWindow::openSubject()
     detSubject = new subject_detail(); // Be sure to destroy you window somewhere
     detSubject->show();
 }
-void MainWindow::openRTE()
-{
-    QDialog *dialog = new QDialog();
-    rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
-    rte->show();
-}
 
 void MainWindow::on_pushButton_10_clicked()
 {
