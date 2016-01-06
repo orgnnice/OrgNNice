@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     addnew->setGeometry(QRect(QPoint(350, 50),
         QSize(100, 50)));
     connect(addnew, SIGNAL (clicked()), this, SLOT (openNewWindow()));
+    //connect(pushButton_3, SIGNAL (clicked()), this, SLOT (openSubject()));
     writn= new QPushButton("Text Edit", this);
     writn->setGeometry(QRect(QPoint(450, 50),
         QSize(100, 50)));
