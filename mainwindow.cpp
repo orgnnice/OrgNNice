@@ -12,9 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     detsub->setGeometry(QRect(QPoint(250, 50),
         QSize(100, 50)));
     connect(detsub, SIGNAL (clicked()), this, SLOT (openSubject()));
-    /*addnew= new QPushButton("New Subject", this);
+    addnew= new QPushButton("New Subject", this);
     addnew->setGeometry(QRect(QPoint(350, 50),
-        QSize(100, 50)));*/
+        QSize(100, 50)));
     connect(addnew, SIGNAL (clicked()), this, SLOT (openNewWindow()));
     writn= new QPushButton("Text Edit", this);
     writn->setGeometry(QRect(QPoint(450, 50),
