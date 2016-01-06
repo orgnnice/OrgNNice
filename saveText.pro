@@ -35,7 +35,8 @@ HEADERS  += \
     mainwindow.h \
     subject_detail.h \
     c_subject.h \
-    todoitem.h
+    todoitem.h \
+    ui_mainwindow.h
 
 FORMS    += \
     mrichtextedit.ui \

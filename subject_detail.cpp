@@ -1,14 +1,14 @@
 #include "subject_detail.h"
 #include "ui_subject_detail.h"
 
-Subject_detail::Subject_detail(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Subject_detail)
+subject_detail::subject_detail(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::subject_detail)
 {
     ui->setupUi(this);
 }
 
-Subject_detail::~Subject_detail()
+subject_detail::~subject_detail()
 {
     delete ui;
 }

@@ -34,7 +34,7 @@ void MainWindow::openNewWindow()
 }
 void MainWindow::openSubject()
 {
-    detSubject = new Subject_detail(); // Be sure to destroy you window somewhere
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
     detSubject->show();
 }
 void MainWindow::openRTE()

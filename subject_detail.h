@@ -1,22 +1,22 @@
 #ifndef SUBJECT_DETAIL_H
 #define SUBJECT_DETAIL_H
 
-#include <QWidget>
+#include <QMainWindow>
 
 namespace Ui {
-class Subject_detail;
+class subject_detail;
 }
 
-class Subject_detail : public QWidget
+class subject_detail : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit Subject_detail(QWidget *parent = 0);
-    ~Subject_detail();
+    explicit subject_detail(QWidget *parent = 0);
+    ~subject_detail();
 
 private:
-    Ui::Subject_detail *ui;
+    Ui::subject_detail *ui;
 };
 
 #endif // SUBJECT_DETAIL_H

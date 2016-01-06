@@ -13,7 +13,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, protected Ui::MainWindow
 {
     Q_OBJECT
 
@@ -28,11 +28,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QPushButton *addnew;
+    //QPushButton *addnew;
     QPushButton *detsub;
     QPushButton *writn;
     c_subject *newCre;
-    Subject_detail *detSubject;
+    subject_detail *detSubject;
     MRichTextEdit *rte;
 };
 
