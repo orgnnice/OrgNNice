@@ -860,21 +860,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>addnew</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>showFullScreen()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>931</x>
-     <y>67</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>399</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

@@ -28,7 +28,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    //QPushButton *addnew;
     QPushButton *detsub;
     QPushButton *writn;
     c_subject *newCre;
