@@ -11,6 +11,7 @@
 #include "main.h"
 #include <QDebug>
 #include <QDateTime>
+#include <waitforlist.h>
 
 DBHandler* pDBh;
 
@@ -29,11 +30,11 @@ int main(int argc, char **argv)
 
     Subject mathe = Subject("mathe");
 
-    ToDoItem dothat = ToDoItem("mathe", "BITTE LÖSCHEN", QDateTime(), false);
-    dothat.setDescription("LÖSCHEN");
-    dothat.setDone(true);
-    dothat.updateToDoItem();
-    dothat.deleteToDoItem();
+    WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
+    waitfor.setDescription("BITTE DAS IS JZ EINE NEUE WARTEDINGSDA");
+    waitfor.setDone(true);
+    waitfor.updateWaitFor();
+    waitfor.deleteWaitFor();
 
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
     WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");
