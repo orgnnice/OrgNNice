@@ -2,6 +2,7 @@
 #include <writtennote.h>
 #include <subject.h>
 #include <todoitem.h>
+#include <waitforlist.h>
 
 DBHandler::DBHandler(QString folderPath)
 {
@@ -31,6 +32,8 @@ void DBHandler::createDatabaseIfNotExists()
         query.exec("create table IF NOT EXISTS note (pk_id INTEGER primary key AUTOINCREMENT, content TEXT, ts TIMESTAMP, fk_schoolSubject INTEGER)");
 
         query.exec("create table IF NOT EXISTS todo (pk_id INTEGER primary key AUTOINCREMENT, description TEXT, deadline TIMESTAMP, done INTEGER, fk_schoolSubject INTEGER)");
+        query.exec("create table IF NOT EXISTS waitfor (pk_id INTEGER primary key AUTOINCREMENT, description TEXT, done INTEGER, fk_schoolSubject INTEGER)");
+
 
         query.exec("create table IF NOT EXISTS tag (pk_id INTEGER primary key AUTOINCREMENT, tagname varchar(100))");
         query.exec("create table IF NOT EXISTS noteHasTag (pk_id INTEGER primary key AUTOINCREMENT, fk_note INTEGER, fk_tag INTEGER)");
@@ -40,7 +43,8 @@ void DBHandler::createDatabaseIfNotExists()
         //Foreign Keys
 
         query.exec("ALTER TABLE note ADD CONSTRAINT fk_schoolSubjectNote FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete no action");
-        query.exec("ALTER TABLE todo ADD CONSTRAINT fk_schoolSubjectTODO FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete no action");
+        query.exec("ALTER TABLE waitfor ADD CONSTRAINT fk_schoolSubjectWaitFor FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete cascade");
+        query.exec("ALTER TABLE todo ADD CONSTRAINT fk_schoolSubjectTODO FOREIGN KEY (fk_schoolSubject) REFERENCES schoolSubject (pk_id) on delete cascade");
         query.exec("ALTER TABLE schoolSubject ADD CONSTRAINT schoolSubject FOREIGN KEY (fk_teacher) REFERENCES teacher (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Note FOREIGN KEY (fk_note) REFERENCES note (pk_id) on delete no action");
         query.exec("ALTER TABLE noteHasAttachement ADD CONSTRAINT cst_noteHasAttachement_Attachement FOREIGN KEY (fk_attachement) REFERENCES attachement (pk_id) on delete no action");
@@ -258,21 +262,33 @@ int DBHandler::insertWrittenNote(WrittenNote note)
     return noteId;
 }
 
+int DBHandler::insertWaitForandReturnId(WaitForList WaitForItem)
+{
+    int id  = insertAndReturnID("INSERT INTO waitfor (description, done, fk_schoolSubject) VALUES ('" +  WaitForItem.getDescription() + "', " + QString::number(WaitForItem.getDone() > 0 ? 1 : 0) + "," + QString::number(WaitForItem.getSubjectID()) + ")");
+    return id;
+}
 
+void DBHandler::updateWaitFor(WaitForList WaitForItem)
+{
+    queryNoReturn("UPDATE waitfor SET description = '" + WaitForItem.getDescription() + "' WHERE (pk_id = " + QString::number(WaitForItem.getID()) +")");
+    queryNoReturn("UPDATE waitfor SET done = '" + QString::number(WaitForItem.getDone() > 0 ? 1 : 0) + "' WHERE (pk_id = " + QString::number(WaitForItem.getID()) +")");
+}
+
+void DBHandler::deleteWaitFor(WaitForList WaitforItem)
+{
+    qDebug() << "====================((((((=============================";
+    qDebug() << queryNoReturn("DELETE FROM waitfor where (pk_id = " + QString::number(WaitforItem.getID()) + ")");
+}
 
 int DBHandler::insertTODOandReturnId(ToDoItem todoItem)
 {
-    qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
-
-    //insert ToDo
-    int id  = insertAndReturnID("INSERT INTO todo (description, deadline, done, fk_schoolSubject) VALUES ('" +  todoItem.getDescription() + "', " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "," + QString::number(todoItem. getSubjectID()) + ")");
+    int id  = insertAndReturnID("INSERT INTO todo (description, deadline, done, fk_schoolSubject) VALUES ('" +  todoItem.getDescription() + "', " + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + ", " + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "," + QString::number(todoItem.getSubjectID()) + ")");
     return id;
 }
 
 
 void DBHandler::updateTODO(ToDoItem todoItem)
 {
-    qDebug() << "DBHandler::insertTODOandReturnId"  << todoItem.toString();
     queryNoReturn("UPDATE todo SET description = '" + todoItem.getDescription() + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
     queryNoReturn("UPDATE todo SET deadline = '" + QString::number(todoItem.getDeadline().currentMSecsSinceEpoch()) + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");
     queryNoReturn("UPDATE todo SET done = '" + QString::number(todoItem.getDone() > 0 ? 1 : 0) + "' WHERE (pk_id = " + QString::number(todoItem.getID()) +")");

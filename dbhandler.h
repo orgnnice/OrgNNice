@@ -7,6 +7,8 @@
 class WrittenNote;
 class Subject;
 class ToDoItem;
+class WaitForList;
+
 class DBHandler
 {
 private:
@@ -50,6 +52,10 @@ public:
     int insertTODOandReturnId(ToDoItem todoItem);
     void updateTODO(ToDoItem todoItem);
     void deleteToDo(ToDoItem todoItem);
+
+    int insertWaitForandReturnId(WaitForList WaitForItem);
+    void updateWaitFor(WaitForList WaitForItem);
+    void deleteWaitFor(WaitForList WaitforItem);
 
     void deleteUnusedTags();
     void deleteUnusedAttachments();
