@@ -3,18 +3,24 @@
 
 #include <QDialog>
 #include "ui_c_subject.h"
+#include "subject.h"
 
 namespace Ui {
 class c_subject;
 }
 
-class c_subject : public QDialog
+class c_subject : public QDialog, private Ui::c_subject
 {
     Q_OBJECT
 
 public:
     explicit c_subject(QWidget *parent = 0);
     ~c_subject();
+
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_clicked(QAbstractButton *button);
 
 private:
     Ui::c_subject *ui;

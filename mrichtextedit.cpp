@@ -41,6 +41,7 @@
 
 MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
     m_lastBlockList = 0;
     f_textedit->setTabStopWidth(40);
 
