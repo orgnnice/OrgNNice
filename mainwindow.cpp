@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QApplication>
+#include <subject.h>
+#include <dbhandler.h>
+#include <QGroupBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +16,26 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setSubList(QList<Subject> list)
+{
+    this->sublist = list;
+    qDebug() << "Subjectname: " << sublist[0].getName();
+    qDebug() << "Anzahl der Mitschriften:" << sublist[0].getWrittenNotesSize();
+    for(int i=0;i<sublist.length();i++){
+        qDebug() << "Subjectname: " << sublist[i].getName();
+        qDebug() << "Anzahl der Mitschriften:" << sublist[i].getWrittenNotesSize();
+        QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
+        QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
+        QLabel *desc = new QLabel("Mitschriften");
+        QVBoxLayout *verticalLayout = new QVBoxLayout;
+        verticalLayout->addWidget(anzahlnotes);
+        verticalLayout->addWidget(desc);
+        groupbox->setLayout(verticalLayout);
+        ui->gridLayout->addWidget(groupbox);
+
+    }
 }
 
 void MainWindow::openNewWindow()

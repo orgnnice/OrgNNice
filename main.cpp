@@ -96,9 +96,10 @@ int main(int argc, char **argv)
     }
 
 */
-    //QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+
+    QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
-    //w = new MainWindow(QList<Subject> allsubjects, new QWidget());
+    w.setSubList(allsubjects);
     w.show();
     return app.exec();
 }

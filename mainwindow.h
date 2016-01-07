@@ -7,6 +7,7 @@
 #include "ui_mainwindow.h"
 #include "c_subject.h"
 #include "subject_detail.h"
+#include "subject.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,10 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    QList<Subject> sublist;
+
+public slots:
+    void setSubList(QList<Subject> list);
 
 private slots:
    void openNewWindow();
@@ -37,6 +42,8 @@ private slots:
    void on_pushButton_8_clicked();
 
    void on_pushButton_5_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;
