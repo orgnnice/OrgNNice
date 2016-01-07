@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>818</width>
-    <height>528</height>
+    <width>820</width>
+    <height>540</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>820</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>820</width>
+    <height>540</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>subject_detail</string>
@@ -17,9 +29,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>30</x>
       <y>20</y>
-      <width>91</width>
+      <width>561</width>
       <height>21</height>
      </rect>
     </property>
@@ -86,6 +98,9 @@
          <width>50</width>
          <height>100</height>
         </size>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -291,7 +306,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../private-eye-lupe.png</normaloff>../private-eye-lupe.png</iconset>
+      <normaloff>private-eye-lupe.png</normaloff>private-eye-lupe.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -306,8 +321,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>818</width>
-     <height>21</height>
+     <width>820</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
