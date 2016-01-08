@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "mrichtextedit.h"
+#include "subject.h"
 
 namespace Ui {
 class subject_detail;
@@ -15,6 +16,10 @@ class subject_detail : public QMainWindow
 public:
     explicit subject_detail(QWidget *parent = 0);
     ~subject_detail();
+    Subject subdet;
+
+public slots:
+    void setSubDet(Subject cur);
 
 private slots:
 
