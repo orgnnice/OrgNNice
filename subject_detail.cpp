@@ -14,6 +14,13 @@ subject_detail::~subject_detail()
     delete ui;
 }
 
+void subject_detail::setSubDet(Subject cur)
+{
+    this->subdet = cur;
+    qDebug() << "Subjectname: " << subdet.getName();
+    qDebug() << "Anzahl der Mitschriften:" << subdet.getWrittenNotesSize();
+}
+
 void subject_detail::on_pushButton_2_clicked()
 {
     //QDialog *dialog = new QDialog();
