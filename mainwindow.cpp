@@ -28,9 +28,12 @@ void MainWindow::openSubject()
 void MainWindow::setSubList(QList<Subject> list)
 {
     this->sublist = list;
+    int a = 2;
+    int line = 0;
+    int pos = 0;
     qDebug() << "Subjectname: " << sublist[0].getName();
     qDebug() << "Anzahl der Mitschriften:" << sublist[0].getWrittenNotesSize();
-    for(int i=0;i<sublist.length();i++){
+    for(int i=0;i<sublist.length();i++){        
         qDebug() << "Subjectname: " << sublist[i].getName();
         qDebug() << "Anzahl der Mitschriften:" << sublist[i].getWrittenNotesSize();
 
@@ -38,6 +41,7 @@ void MainWindow::setSubList(QList<Subject> list)
         font1.setPointSize(14);
         QFont font2;
         font2.setPointSize(50);
+
         QPushButton *pButton = new QPushButton("Anzeigen");
         QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
         groupbox->setFont(font1);
@@ -50,8 +54,14 @@ void MainWindow::setSubList(QList<Subject> list)
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
         verticalLayout->addWidget(pButton);
-        groupbox->setLayout(verticalLayout);
-        ui->gridLayout->addWidget(groupbox);
+        groupbox->setLayout(verticalLayout);        
+        if(i > a){
+            a *= 2;
+            line++;
+            pos = 0;
+        }
+        ui->gridLayout->addWidget(groupbox,line,pos,1,1);
+        pos++;
         connect(pButton, SIGNAL (clicked()), this, SLOT (openSubject()));
 
     }
