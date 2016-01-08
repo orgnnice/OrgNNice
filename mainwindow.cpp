@@ -18,6 +18,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::openSubject()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->setSubDet(sel);
+    detSubject->show();
+}
+
 void MainWindow::setSubList(QList<Subject> list)
 {
     this->sublist = list;
@@ -31,7 +38,7 @@ void MainWindow::setSubList(QList<Subject> list)
         font1.setPointSize(14);
         QFont font2;
         font2.setPointSize(50);
-
+        QPushButton *pButton = new QPushButton("Anzeigen");
         QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
         groupbox->setFont(font1);
         QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
@@ -42,8 +49,10 @@ void MainWindow::setSubList(QList<Subject> list)
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
+        verticalLayout->addWidget(pButton);
         groupbox->setLayout(verticalLayout);
         ui->gridLayout->addWidget(groupbox);
+        connect(pButton, SIGNAL (clicked()), this, SLOT (openSubject()));
 
     }
 }
@@ -52,11 +61,6 @@ void MainWindow::openNewWindow()
 {
     newCre = new c_subject(); // Be sure to destroy you window somewhere
     newCre->show();
-}
-void MainWindow::openSubject()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
 }
 
 void MainWindow::on_pushButton_10_clicked()

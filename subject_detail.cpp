@@ -1,5 +1,6 @@
 #include "subject_detail.h"
 #include "ui_subject_detail.h"
+#include <QDebug>
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
