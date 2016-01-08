@@ -26,9 +26,19 @@ void MainWindow::setSubList(QList<Subject> list)
     for(int i=0;i<sublist.length();i++){
         qDebug() << "Subjectname: " << sublist[i].getName();
         qDebug() << "Anzahl der Mitschriften:" << sublist[i].getWrittenNotesSize();
+
+        QFont font1;
+        font1.setPointSize(14);
+        QFont font2;
+        font2.setPointSize(50);
+
         QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
+        groupbox->setFont(font1);
         QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
+        anzahlnotes->setAlignment(Qt::AlignCenter);
+        anzahlnotes->setFont(font2);
         QLabel *desc = new QLabel("Mitschriften");
+        desc->setAlignment(Qt::AlignCenter);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
