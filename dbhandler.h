@@ -13,12 +13,12 @@ class DBHandler
 {
 private:
     QSqlDatabase db;
-    QString resourcesFolder;
+    //QString resourcesFolder;
     QList<QString> tagsFromNote(int noteid);
     QList<QString> attachementsFromNote(int noteid);
 
 public:
-    DBHandler(QString resFolderPath);
+    DBHandler(QString resFolderPath, QString dbName);
     DBHandler();
     void closeDatabase();
     void createDatabaseIfNotExists();

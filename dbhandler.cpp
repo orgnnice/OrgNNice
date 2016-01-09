@@ -4,11 +4,11 @@
 #include <todoitem.h>
 #include <waitforlist.h>
 
-DBHandler::DBHandler(QString folderPath)
+DBHandler::DBHandler(QString folderPath, QString dbName)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(folderPath + QDir::separator() + "orgnnice.db3");
-    resourcesFolder = folderPath + QDir::separator() + "resources";
+    db.setDatabaseName(folderPath + QDir::separator() + dbName);
+    //resourcesFolder = folderPath + QDir::separator() + "resources";
     QDir folder = QDir(folderPath);
     folder.mkdir("resources");
     createDatabaseIfNotExists();

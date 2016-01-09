@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 {
 
     QApplication app (argc, argv);
-    pDBh = new DBHandler(QDir::homePath());
+    pDBh = new DBHandler(QDir::homePath(), "orgnnice.db3");
 
 
     //get all subjects from the database with contents
