@@ -17,6 +17,8 @@ private:
 public:
     WaitForList();
     WaitForList(QString subject_name, QString description, bool done);
+    WaitForList(int id, QString description, bool done, int subject_id);
+
 
     QString getDescription();
     int getSubjectID();

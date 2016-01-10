@@ -20,11 +20,17 @@ public:
     ToDoItem();
     ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
 
+    //dbhandler konstructor
+    ToDoItem(int id, QString description, QDateTime deadline, bool done, int subject_id);
+
     QString getDescription();
     QDateTime getDeadline();
     int getSubjectID();
     bool getDone();
     int getID();
+
+
+
 
     void updateToDoItem();
     void deleteToDoItem();
