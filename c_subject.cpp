@@ -2,6 +2,7 @@
 #include "ui_c_subject.h"
 #include <subject.h>
 #include <qdebug.h>
+#include <QProcess>
 
 c_subject::c_subject(QWidget *parent) :
     QDialog(parent),
@@ -22,4 +23,6 @@ void c_subject::on_buttonBox_accepted()
     Subject awesomeNewSubject = Subject(ui->subname->text());
     qDebug() << "hierr" << ui->subname->text();
     this->close();
+    qApp->quit();
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }

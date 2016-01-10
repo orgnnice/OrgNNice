@@ -20,6 +20,8 @@ void subject_detail::setSubDet(Subject cur)
     this->subdet = cur;
     qDebug() << "Subjectname: " << subdet.getName();
     qDebug() << "Anzahl der Mitschriften:" << subdet.getWrittenNotesSize();
+    ui->label->setText(subdet.getName());
+    ui->label_1->setText("Anzahl der Mitschriften: "+QString::number(subdet.getWrittenNotesSize()));
 }
 
 void subject_detail::on_pushButton_2_clicked()
@@ -39,8 +41,8 @@ void subject_detail::on_pushButton_6_clicked()
 void subject_detail::on_pushButton_4_clicked()
 {
     //QDialog *dialog = new QDialog();
-    rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
-    rte->show();
+    //rte = new MRichTextEdit(); // Be sure to destroy you window somewhere
+    //rte->show();
 }
 
 void subject_detail::on_pushButton_3_clicked()

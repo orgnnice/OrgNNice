@@ -21,12 +21,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QList<Subject> sublist;
-    Subject sel;
+    Subject selected;
 
 public slots:
     void setSubList(QList<Subject> list);
 
-    void openSubject();
+    void subDetail();
 
 private slots:
    void openNewWindow();
