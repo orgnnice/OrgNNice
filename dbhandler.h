@@ -25,7 +25,8 @@ public:
     bool queryNoReturn(QString query);
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
     QList<Subject> queryWithReturnSubjectList(QString statement);
-
+    QList<ToDoItem> queryWithReturnToDoItemList(QString statement);
+    QList<WaitForList> queryWithReturnWaitForListList(QString statement);
 
     QList<Subject> getAllSubjects();
     QList<WrittenNote> getAllNotesFromSubject(int subjectID);
