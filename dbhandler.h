@@ -13,19 +13,20 @@ class DBHandler
 {
 private:
     QSqlDatabase db;
-    QString resourcesFolder;
+    //QString resourcesFolder;
     QList<QString> tagsFromNote(int noteid);
     QList<QString> attachementsFromNote(int noteid);
 
 public:
-    DBHandler(QString resFolderPath);
+    DBHandler(QString resFolderPath, QString dbName);
     DBHandler();
     void closeDatabase();
     void createDatabaseIfNotExists();
     bool queryNoReturn(QString query);
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
     QList<Subject> queryWithReturnSubjectList(QString statement);
-
+    QList<ToDoItem> queryWithReturnToDoItemList(QString statement);
+    QList<WaitForList> queryWithReturnWaitForListList(QString statement);
 
     QList<Subject> getAllSubjects();
     QList<WrittenNote> getAllNotesFromSubject(int subjectID);

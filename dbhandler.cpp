@@ -4,11 +4,11 @@
 #include <todoitem.h>
 #include <waitforlist.h>
 
-DBHandler::DBHandler(QString folderPath)
+DBHandler::DBHandler(QString folderPath, QString dbName)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(folderPath + QDir::separator() + "orgnnice.db3");
-    resourcesFolder = folderPath + QDir::separator() + "resources";
+    db.setDatabaseName(folderPath + QDir::separator() + dbName);
+    //resourcesFolder = folderPath + QDir::separator() + "resources";
     QDir folder = QDir(folderPath);
     folder.mkdir("resources");
     createDatabaseIfNotExists();
@@ -114,6 +114,71 @@ QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
     return notes;
 }
 
+
+/**
+ * @brief DBHandler::queryWithReturnToDoItemList, <todo> test it
+ * @param statement
+ * @return
+ */
+QList<ToDoItem> DBHandler::queryWithReturnToDoItemList(QString statement)
+{
+    qDebug() << "DBHandler -> queryWithReturnToDoItemList(" << statement << ");";
+
+    ToDoItem * pToDo;
+
+    QList<ToDoItem> toDos;
+    QSqlQuery query(db);
+    query.exec(statement);
+    qDebug() << "statement was: " << query.isActive();
+    while (query.next())
+    {
+        qDebug() << "adding ToDo...";
+        int id = query.value(0).toInt();
+        QString description = query.value(1).toString();
+        int saver = query.value(2).toInt();
+        QDateTime deadline;
+        deadline.addMSecs(saver);
+        bool done = (query.value(3).toInt() == 0) ? false : true;
+        int subjID = query.value(4).toInt();
+        pToDo=new ToDoItem (id, description, deadline, done, subjID);
+        toDos.append(*pToDo);
+    }
+    return toDos;
+}
+
+/**
+ * @brief DBHandler::queryWithReturnWaitForListList  <todo> to be tested
+ * @param statement
+ * @return
+ */
+QList<WaitForList> DBHandler::queryWithReturnWaitForListList(QString statement)
+{
+    qDebug() << "DBHandler -> queryWithReturnWaitForListList(" << statement << ");";
+
+
+    WaitForList * WaitFor;
+
+    QList<WaitForList> WaitFors;
+    QSqlQuery query(db);
+    query.exec(statement);
+    qDebug() << "statement was: " << query.isActive();
+    while (query.next())
+    {
+        qDebug() << "adding WaitFor...";
+        int id = query.value(0).toInt();
+        QString description = query.value(1).toString();
+        bool done = (query.value(2).toInt() == 0) ? false : true;
+        int subjID = query.value(3).toInt();
+        WaitFor=new WaitForList (id, description, done, subjID);
+        WaitFors.append(*WaitFor);
+    }
+    return WaitFors;
+}
+
+
+
+
+
 /**
  * @brief DBHandler::tagsFromNote
  * @return List of all Tags that were added to the given note_id
@@ -169,6 +234,8 @@ QList<Subject> DBHandler::queryWithReturnSubjectList(QString statement)
     }
     return subjects;
 }
+
+
 
 
 

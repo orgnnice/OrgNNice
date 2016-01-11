@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     subject_detail.cpp \
     c_subject.cpp \
     todoitem.cpp \
-    waitforlist.cpp
+    waitforlist.cpp \
+    exportimport.cpp
 
 HEADERS  += \
     writtennote.h \
@@ -39,7 +40,8 @@ HEADERS  += \
     todoitem.h \
     ui_mainwindow.h \
     ui_c_subject.h \
-    waitforlist.h
+    waitforlist.h \
+    exportimport.h
 
 FORMS    += \
     mrichtextedit.ui \

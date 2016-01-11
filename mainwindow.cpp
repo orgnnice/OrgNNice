@@ -18,12 +18,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openSubject()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->setSubDet(sel);
-    detSubject->show();
-}
 
 void MainWindow::setSubList(QList<Subject> list)
 {
@@ -31,6 +25,7 @@ void MainWindow::setSubList(QList<Subject> list)
     int a = 2;
     int line = 0;
     int pos = 0;
+    selected = sublist[0];
     qDebug() << "Subjectname: " << sublist[0].getName();
     qDebug() << "Anzahl der Mitschriften:" << sublist[0].getWrittenNotesSize();
     for(int i=0;i<sublist.length();i++){        
@@ -71,7 +66,7 @@ void MainWindow::setSubList(QList<Subject> list)
         }
         ui->gridLayout->addWidget(groupbox,line,pos,1,1);
         pos++;
-        connect(pButton, SIGNAL (clicked()), this, SLOT (openSubject()));
+        connect(pButton, SIGNAL (clicked()), this, SLOT (subDetail()));
 
     }
 }
@@ -80,6 +75,12 @@ void MainWindow::openNewWindow()
 {
     newCre = new c_subject(); // Be sure to destroy you window somewhere
     newCre->show();
+}
+
+void MainWindow::subDetail(){
+    detSubject = new subject_detail();
+    detSubject->setSubDet(selected);
+    detSubject->show();
 }
 
 void MainWindow::on_pushButton_10_clicked()

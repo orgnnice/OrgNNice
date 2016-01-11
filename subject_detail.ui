@@ -29,15 +29,15 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>561</width>
-      <height>21</height>
+      <x>40</x>
+      <y>10</y>
+      <width>131</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>18</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -56,33 +56,18 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="4">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Mitschift_Göthe</string>
+     <item row="0" column="3">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="6">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Mitschift_Göthe</string>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Mitschift_Göthe</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Mitschift_Göthe</string>
-       </property>
-      </widget>
+      </spacer>
      </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="pushButton_2">
@@ -91,7 +76,8 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>mitschirft.png</normaloff>mitschirft.png</iconset>
+         <normaloff>mitschirft.png</normaloff>
+         <normalon>mitschirft.png</normalon>mitschirft.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -101,13 +87,6 @@
        </property>
        <property name="autoExclusive">
         <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Mitschift_Göthe</string>
        </property>
       </widget>
      </item>
@@ -137,80 +116,10 @@
        </property>
       </spacer>
      </item>
-     <item row="2" column="0">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="3">
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="6">
-      <widget class="QPushButton" name="pushButton_3">
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_5">
        <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>mitschirft.png</normaloff>mitschirft.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>50</width>
-         <height>100</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>mitschirft.png</normaloff>mitschirft.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>50</width>
-         <height>100</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>mitschirft.png</normaloff>mitschirft.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>50</width>
-         <height>100</height>
-        </size>
+        <string>Neue Mitschrift</string>
        </property>
       </widget>
      </item>
@@ -221,7 +130,8 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>mitschirft.png</normaloff>mitschirft.png</iconset>
+         <normaloff>mitschirft.png</normaloff>
+         <normalon>mitschirft.png</normalon>mitschirft.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -231,19 +141,34 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="pushButton_8">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Mitschrift Nr. 1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Mitschrift Nr. 2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QPushButton" name="pushButton_4">
        <property name="font">
         <font>
-         <pointsize>24</pointsize>
+         <pointsize>40</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>+</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>../plus-24-512.png</normaloff>../plus-24-512.png</iconset>
+         <normaloff>plus-24-512.png</normaloff>
+         <normalon>plus-24-512.png</normalon>plus-24-512.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -253,7 +178,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="3" column="0">
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -315,6 +240,24 @@
      </size>
     </property>
    </widget>
+   <widget class="QLabel" name="label_1">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>26</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Anzahl Mitschriften: 5</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -322,7 +265,7 @@
      <x>0</x>
      <y>0</y>
      <width>820</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
