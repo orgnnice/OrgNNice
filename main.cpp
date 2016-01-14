@@ -31,6 +31,42 @@ int main(int argc, char **argv)
 
     Subject mathe = Subject("mathe");
 
+    WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
+    WaitForList waitfor2 = WaitForList("deutsch", "Warten auf bessere Zeiten", false);
+    QList <WaitForList> wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+    qDebug() << "-__--____---__-__-----------_--_--__======>>>>>>>> W a i t f o r - t e s t <<<<<<<<<<<<";
+    for(WaitForList wf : wfs)
+    {
+        qDebug() << "waitfor:" << wf.toString();
+    }
+
+//    ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
+    ToDoItem("mathe", "HÜ: 419a, 420b, 422f", QDateTime(), false);
+    ToDoItem("deutsch", "faust lesen bis 143", QDateTime(), true);
+    ToDoItem("deutsch", "buchbesprechung schreiben", QDateTime(), false);
+
+
+
+    waitfor.setDescription("BITTE DAS IS JZ EINE NEUE WARTEDINGSDA");
+    waitfor.setDone(true);
+    waitfor.updateWaitFor();
+    waitfor.deleteWaitFor();
+
+    wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+    QList <ToDoItem> todos =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+    qDebug() << "-__--____---__-__-----------_--_--__======>>>>>>>> 2. 0: !!!!!!W a i t f o r - t e s t <<<<<<<<<<<<";
+    for(WaitForList wf : wfs)
+    {
+        qDebug() << "waitfor:" << wf.toString();
+    }
+
+    qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> TODO  - t e s t <<<<<<<<<<<<";
+    for(ToDoItem todo : todos)
+    {
+        qDebug() << "waitfor:" << todo.toString();
+    }
+
+
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
     WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");
     mathe.setSubjectName("Chemie");

@@ -27,6 +27,23 @@ ToDoItem::ToDoItem(QString subject_name, QString description, QDateTime deadline
     this->id = pDBh->insertTODOandReturnId(*this);
 }
 
+/**
+ * @brief ToDoItem::ToDoItem to be called by DBHandler to select Todos from the database
+ * @param subject_id
+ * @param description
+ * @param deadline
+ * @param done
+ */
+ToDoItem::ToDoItem(int id, QString description, QDateTime deadline, bool done, int subject_id)
+{
+    this->subject_id = subject_id;
+    this->description = description;
+    this->deadline = deadline;
+    this->done = done;
+    this->id = id;
+}
+
+
 void ToDoItem::updateToDoItem()
 {
 

@@ -8,7 +8,12 @@ WaitForList::WaitForList()
 }
 
 
-
+/**
+ * @brief WaitForList::WaitForList to be called to insert a new WaitFor
+ * @param subject_name
+ * @param description
+ * @param done
+ */
 WaitForList::WaitForList(QString subject_name, QString description, bool done)
 {
     this->subject_id = pDBh->select("pk_id", "SchoolSubject", "name='" + subject_name + "'").replace('"', "").toInt();
@@ -16,6 +21,24 @@ WaitForList::WaitForList(QString subject_name, QString description, bool done)
     this->done = done;
     this->id = pDBh->insertWaitForandReturnId(*this);
 }
+
+
+/**
+ * @brief WaitForList::WaitForList To be called by DB Handler
+ * @param id
+ * @param description
+ * @param done
+ * @param subject_id
+ */
+WaitForList::WaitForList(int id, QString description, bool done, int subject_id)
+{
+    qDebug() << "WaitForList::WaitForList(int id, QString description, bool done, int subject_id)";
+    this->subject_id = subject_id;
+    this->description = description;
+    this->done = done;
+    this->id = id;
+}
+
 
 void WaitForList::updateWaitFor()
 {

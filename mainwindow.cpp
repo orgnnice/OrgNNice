@@ -18,12 +18,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::openSubject()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->setSubDet(sel);
-    detSubject->show();
-}
 
 void MainWindow::setSubList(QList<Subject> list)
 {
@@ -31,6 +25,7 @@ void MainWindow::setSubList(QList<Subject> list)
     int a = 2;
     int line = 0;
     int pos = 0;
+    selected = sublist[0];
     qDebug() << "Subjectname: " << sublist[0].getName();
     qDebug() << "Anzahl der Mitschriften:" << sublist[0].getWrittenNotesSize();
     for(int i=0;i<sublist.length();i++){        
@@ -41,28 +36,37 @@ void MainWindow::setSubList(QList<Subject> list)
         font1.setPointSize(14);
         QFont font2;
         font2.setPointSize(50);
+        QFont font3;
+        font3.setPointSize(10);
 
         QPushButton *pButton = new QPushButton("Anzeigen");
+        pButton->setFont(font3);
+        pButton->setMinimumSize(QSize(100, 32));
+        pButton->setMaximumSize(QSize(100, 32));
         QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
         groupbox->setFont(font1);
+        groupbox->setMinimumSize(QSize(200, 225));
+        groupbox->setMaximumSize(QSize(200, 225));
+        groupbox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
         anzahlnotes->setAlignment(Qt::AlignCenter);
         anzahlnotes->setFont(font2);
         QLabel *desc = new QLabel("Mitschriften");
+        desc->setFont(font3);
         desc->setAlignment(Qt::AlignCenter);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
-        verticalLayout->addWidget(pButton);
+        verticalLayout->addWidget(pButton, 0, Qt::AlignHCenter);
         groupbox->setLayout(verticalLayout);        
         if(i > a){
-            a *= 2;
+            a += 3;
             line++;
             pos = 0;
         }
         ui->gridLayout->addWidget(groupbox,line,pos,1,1);
         pos++;
-        connect(pButton, SIGNAL (clicked()), this, SLOT (openSubject()));
+        connect(pButton, SIGNAL (clicked()), this, SLOT (subDetail()));
 
     }
 }
@@ -71,6 +75,12 @@ void MainWindow::openNewWindow()
 {
     newCre = new c_subject(); // Be sure to destroy you window somewhere
     newCre->show();
+}
+
+void MainWindow::subDetail(){
+    detSubject = new subject_detail();
+    detSubject->setSubDet(selected);
+    detSubject->show();
 }
 
 void MainWindow::on_pushButton_10_clicked()
