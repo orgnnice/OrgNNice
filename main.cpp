@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QDateTime>
 #include <waitforlist.h>
+#include <exportimport.h>
 
 DBHandler* pDBh;
 
@@ -30,12 +31,6 @@ int main(int argc, char **argv)
 
     Subject mathe = Subject("mathe");
 
-    WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
-    waitfor.setDescription("BITTE DAS IS JZ EINE NEUE WARTEDINGSDA");
-    waitfor.setDone(true);
-    waitfor.updateWaitFor();
-    waitfor.deleteWaitFor();
-
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
     WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");
     mathe.setSubjectName("Chemie");
@@ -51,6 +46,8 @@ int main(int argc, char **argv)
     note2.addTag("fun");
     note.removeTag("nonexistingTag");
 
+    ExportImport test = ExportImport(QDir::homePath());
+    test.exportDatabase(false,true,false,false,"mathe");
 
     note2.addTag("nofun");
 

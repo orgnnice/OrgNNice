@@ -4,6 +4,7 @@
 
 ExportImport::ExportImport(QString folderPath)
 {
+    qDebug() << "SQLITE DATABSE CREATED";
     dbExImport = new DBHandler(QDir::homePath(), "orgnniceExImport.db3");
 }
 
@@ -25,10 +26,19 @@ int ExportImport::exportDatabase(bool all, bool todo, bool notes, bool waitFor, 
         if(all)
         {
             QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note");
+            for(int i = 0; i < noteList.length(); i++)
+            {
+                dbExImport->insertWrittenNote(noteList[i]);
+            }
         } else
         {
             if(notes)
             {
+                QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note");
+                for(int i = 0; i < noteList.length(); i++)
+                {
+                    dbExImport->insertWrittenNote(noteList[i]);
+                }
 
             }else if(todo)
             {
@@ -44,6 +54,7 @@ int ExportImport::exportDatabase(bool all, bool todo, bool notes, bool waitFor, 
 
 int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, bool waitFor, int subject)
 {
+    qDebug() << "EXPORT COMMAND EXECUTED";
     if(all)
     {
         QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note where(fk_schoolSubject = " + QString::number(subject) + ")");
