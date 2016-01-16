@@ -31,6 +31,8 @@ public:
     QList<Subject> getAllSubjects();
     QList<WrittenNote> getAllNotesFromSubject(int subjectID);
 
+    void DBHandlerStateDebugOut();
+
 
 
     int insertSubject(QString name);

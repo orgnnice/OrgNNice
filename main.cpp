@@ -47,13 +47,11 @@ int main(int argc, char **argv)
 
 
 
-    waitfor.setDescription("BITTE DAS IS JZ EINE NEUE WARTEDINGSDA");
-    waitfor.setDone(true);
-    waitfor.updateWaitFor();
-    waitfor.deleteWaitFor();
 
     wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
     QList <ToDoItem> todos =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+
+    /*
     qDebug() << "-__--____---__-__-----------_--_--__======>>>>>>>> 2. 0: !!!!!!W a i t f o r - t e s t <<<<<<<<<<<<";
     for(WaitForList wf : wfs)
     {
@@ -65,6 +63,7 @@ int main(int argc, char **argv)
     {
         qDebug() << "waitfor:" << todo.toString();
     }
+    */
 
 
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
@@ -81,9 +80,6 @@ int main(int argc, char **argv)
     note.addTag("fun");
     note2.addTag("fun");
     note.removeTag("nonexistingTag");
-
-    ExportImport test = ExportImport(QDir::homePath());
-    test.exportDatabase(false,true,false,false,"mathe");
 
     note2.addTag("nofun");
 
@@ -130,6 +126,14 @@ int main(int argc, char **argv)
 
 */
 
+
+    qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t <<<<<<<<<<<<";
+
+    ExportImport test = ExportImport(QDir::homePath());
+    test.exportDatabase(true,false,false,false,"mathe");
+
+    qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t ENDE<<<<<<<<<<<<";
+    pDBh->DBHandlerStateDebugOut();
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
     w.setSubList(allsubjects);

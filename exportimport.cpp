@@ -1,10 +1,20 @@
 #include "exportimport.h"
 #include "main.h"
 #include "writtennote.h"
+#include "subject.h"
+#include "waitforlist.h"
+#include "todoitem.h"
+
+//#define debug
 
 ExportImport::ExportImport(QString folderPath)
 {
+    qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t <<<<<<<<<<<<";
     qDebug() << "SQLITE DATABSE CREATED";
+    QString file = (QDir::homePath() + QDir::separator() + "orgnniceExImport.db3");
+    QByteArray bafile = file.toLatin1();
+    const char *c_str2 = bafile.data();
+    remove(c_str2);
     dbExImport = new DBHandler(QDir::homePath(), "orgnniceExImport.db3");
 }
 
@@ -17,66 +27,74 @@ ExportImport::ExportImport(QString folderPath)
  */
 int ExportImport::exportDatabase(bool all, bool todo, bool notes, bool waitFor, QString subject)
 {
+    QList<Subject> allSubjects;
     if(subject != "")
     {
-        dbExImport->insertSubject(subject);
-        return exportDatabasewithSubject(all, todo, notes, waitFor, pDBh->select("pk_id", "SchoolSubject", "name='" + subject + "'").replace('"', "").toInt());
+        allSubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject where (name = '" + subject + "')");
     } else
     {
-        if(all)
-        {
-            QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note");
-            for(int i = 0; i < noteList.length(); i++)
-            {
-                dbExImport->insertWrittenNote(noteList[i]);
-            }
-        } else
-        {
-            if(notes)
-            {
-                QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note");
-                for(int i = 0; i < noteList.length(); i++)
-                {
-                    dbExImport->insertWrittenNote(noteList[i]);
-                }
+        allSubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+    }
 
-            }else if(todo)
-            {
-
-            } else if(waitFor)
-            {
-
-            }
-
-        }
+    for(Subject chosenSub : allSubjects)
+    {
+        dbExImport->insertSubject(chosenSub.getName());
+        int exportSubID = dbExImport->select("pk_id", "schoolSubject", "name = '" + chosenSub.getName() + "'").toInt();
+        exportDatabasewithSubject(all, todo, notes, waitFor, chosenSub.getId(), exportSubID);
     }
 }
 
-int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, bool waitFor, int subject)
+int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, bool waitFor, int subject, int exportSubID)
 {
     qDebug() << "EXPORT COMMAND EXECUTED";
     if(all)
     {
         QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note where(fk_schoolSubject = " + QString::number(subject) + ")");
-        for(int i = 0; i < noteList.length(); i++)
+        for(WrittenNote note : noteList)
         {
-            dbExImport->insertWrittenNote(noteList[i]);
+            note.setSubject_ID(exportSubID);
+            dbExImport->insertWrittenNote(note);
+        }
+
+        QList<ToDoItem> todoList = pDBh->queryWithReturnToDoItemList("select * from todo where(fk_schoolSubject = " + QString::number(subject) + ")");
+        for(ToDoItem todo : todoList)
+        {
+            todo.setSubjectID(exportSubID);
+            dbExImport->insertTODOandReturnId(todo);
+        }
+
+        QList<WaitForList> waitForList = pDBh->queryWithReturnWaitForListList("select * from waitfor where(fk_schoolSubject = " + QString::number(subject) + ")");
+        for(WaitForList waitfor : waitForList)
+        {
+            waitfor.setSubjectID(exportSubID);
+            dbExImport->insertWaitForandReturnId(waitfor);
         }
     } else
     {
         if(notes)
         {
             QList<WrittenNote> noteList = pDBh->queryWithReturnNoteList("select * from note where(fk_schoolSubject = " + QString::number(subject) + ")");
-            for(int i = 0; i < noteList.length(); i++)
+            for(WrittenNote note : noteList)
             {
-                dbExImport->insertWrittenNote(noteList[i]);
+                note.setSubject_ID(exportSubID);
+                dbExImport->insertWrittenNote(note);
             }
         } else if(todo)
         {
-
+            QList<ToDoItem> todoList = pDBh->queryWithReturnToDoItemList("select * from todo where(fk_schoolSubject = " + QString::number(subject) + ")");
+            for(ToDoItem todo : todoList)
+            {
+                todo.setSubjectID(exportSubID);
+                dbExImport->insertTODOandReturnId(todo);
+            }
         } else if(waitFor)
         {
-
+            QList<WaitForList> waitForList = pDBh->queryWithReturnWaitForListList("select * from waitfor where(fk_schoolSubject = " + QString::number(subject) + ")");
+            for(WaitForList waitfor : waitForList)
+            {
+                waitfor.setSubjectID(exportSubID);
+                dbExImport->insertWaitForandReturnId(waitfor);
+            }
         }
     }
 }
