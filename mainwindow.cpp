@@ -37,6 +37,7 @@ void MainWindow::setSubList(QList<Subject> list)
         QFont font2;
         font2.setPointSize(50);
 
+        QSignalMapper* signalMapper = new QSignalMapper(this);
         QPushButton *pButton = new QPushButton("Anzeigen");
         QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
         groupbox->setFont(font1);
@@ -57,7 +58,9 @@ void MainWindow::setSubList(QList<Subject> list)
         }
         ui->gridLayout->addWidget(groupbox,line,pos,1,1);
         pos++;
-        connect(pButton, SIGNAL (clicked()), this, SLOT (subDetail()));
+        connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(pButton, i);
+        connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(subDetail(int)));
 
     }
 }
@@ -68,9 +71,10 @@ void MainWindow::openNewWindow()
     newCre->show();
 }
 
-void MainWindow::subDetail(){
+void MainWindow::subDetail(int index){
+    qDebug() << index;
     detSubject = new subject_detail();
-    detSubject->setSubDet(selected);
+    detSubject->setSubDet(sublist[index]);
     detSubject->show();
 }
 

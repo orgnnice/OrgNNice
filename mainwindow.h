@@ -26,7 +26,6 @@ public:
 public slots:
     void setSubList(QList<Subject> list);
 
-    void subDetail();
 
 private slots:
    void openNewWindow();
@@ -44,6 +43,8 @@ private slots:
    void on_pushButton_8_clicked();
 
    void on_pushButton_5_clicked();
+
+   void subDetail(int index);
 
 
 
