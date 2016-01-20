@@ -55,6 +55,11 @@ void ToDoItem::deleteToDoItem()
     pDBh->deleteToDo(*this);
 }
 
+void ToDoItem::setSubjectID(int id)
+{
+    this->subject_id = id;
+}
+
 QString ToDoItem::toString()
 {
     QString result = "TODO: ";

@@ -89,4 +89,9 @@ void WaitForList::setDone(bool done)
     this->done = done;
 }
 
+void WaitForList::setSubjectID(int id)
+{
+    this->subject_id = id;
+}
+
 

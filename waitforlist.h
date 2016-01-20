@@ -30,6 +30,7 @@ public:
 
     void setDescription(QString description);
     void setDone(bool done);
+    void setSubjectID(int id);
 
     QString toString();
 };

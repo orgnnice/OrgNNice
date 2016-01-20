@@ -6,7 +6,7 @@
 
 DBHandler::DBHandler(QString folderPath, QString dbName)
 {
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE", dbName);
     db.setDatabaseName(folderPath + QDir::separator() + dbName);
     //resourcesFolder = folderPath + QDir::separator() + "resources";
     QDir folder = QDir(folderPath);
@@ -64,6 +64,11 @@ void DBHandler::createDatabaseIfNotExists()
         qDebug() << "  Error: Database \"" << db.databaseName() << "\" did not open";
     }
 
+}
+
+void DBHandler::DBHandlerStateDebugOut()
+{
+    qDebug() << "  Database \"" << db.databaseName();
 }
 
 

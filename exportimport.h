@@ -15,7 +15,7 @@ public:
 
 
     int exportDatabase(bool all, bool todo, bool notes, bool waitFor, QString subject);
-    int exportDatabasewithSubject(bool all, bool todo, bool notes, bool waitFor, int subject);
+    int exportDatabasewithSubject(bool all, bool todo, bool notes, bool waitFor, int subject, int exportSubID);
 };
 
 #endif // EXPORTIMPORT_H

@@ -38,6 +38,7 @@ public:
     void setDescription(QString description);
     void setDeadline(QDateTime deadline);
     void setDone(bool done);
+    void setSubjectID(int id);
 
     QString toString();
 
