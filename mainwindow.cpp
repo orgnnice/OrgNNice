@@ -18,7 +18,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::setSubList(QList<Subject> list)
 {
     this->sublist = list;
@@ -127,4 +126,10 @@ void MainWindow::on_pushButton_5_clicked()
 {
     detSubject = new subject_detail(); // Be sure to destroy you window somewhere
     detSubject->show();
+}
+
+void MainWindow::on_toDobut_clicked()
+{
+    toList = new toDo();
+    toList->show();
 }

@@ -8,6 +8,7 @@
 #include "c_subject.h"
 #include "subject_detail.h"
 #include "subject.h"
+#include <todo.h>
 
 namespace Ui {
 class MainWindow;
@@ -25,7 +26,6 @@ public:
 
 public slots:
     void setSubList(QList<Subject> list);
-
 
 private slots:
    void openNewWindow();
@@ -46,12 +46,17 @@ private slots:
 
    void subDetail(int index);
 
+   void on_pushButton_clicked();
 
+   void on_toDo_clicked();
+
+   void on_toDobut_clicked();
 
 private:
     Ui::MainWindow *ui;
     c_subject *newCre;
     subject_detail *detSubject;
+    toDo *toList;
 
 };
 

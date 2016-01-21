@@ -88,29 +88,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-radius: 1px;</string>
-       </property>
+      <widget class="QPushButton" name="toDobut">
        <property name="text">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>Search...</string>
+        <string>ToDo-Listen</string>
        </property>
       </widget>
      </item>
