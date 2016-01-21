@@ -28,6 +28,7 @@ void subject_detail::on_pushButton_2_clicked()
 {
     //QDialog *dialog = new QDialog();
     rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
+    rte->setText(QString("<h1>Du bist die Dümmste Person dieser Welt!</h1>"));
     rte->show();
 }
 
@@ -35,6 +36,7 @@ void subject_detail::on_pushButton_6_clicked()
 {
     //QDialog *dialog = new QDialog();
     rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
+    rte->setText(QString("Du bist die Dümmste Person dieser Welt!"));
     rte->show();
 }
 
@@ -49,6 +51,7 @@ void subject_detail::on_pushButton_3_clicked()
 {
     //QDialog *dialog = new QDialog();
     rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
+    rte->setText(QString("Du bist die Dümmste Person dieser Welt!"));
     rte->show();
 }
 
@@ -62,6 +65,7 @@ void subject_detail::on_pushButton_5_clicked()
     this->setMinimumHeight(400);
     this->show();*/
     //QDialog *dialog = new QDialog();
-    rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
+    rte = new MRichTextEdit(this);
+    rte->setText(QString("Du bist die Dümmste Person dieser Welt!"));
     rte->show();
 }
