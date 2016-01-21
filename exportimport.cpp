@@ -53,6 +53,8 @@ int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, boo
         for(WrittenNote note : noteList)
         {
             note.setSubject_ID(exportSubID);
+            qDebug()<<"insertiertes Note:" << note.toString();
+
             dbExImport->insertWrittenNote(note);
         }
 
@@ -77,6 +79,7 @@ int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, boo
             for(WrittenNote note : noteList)
             {
                 note.setSubject_ID(exportSubID);
+                qDebug()<<"insertiertes Note:" << note.toString();
                 dbExImport->insertWrittenNote(note);
             }
         } else if(todo)
