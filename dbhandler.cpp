@@ -328,7 +328,8 @@ int DBHandler::insertWrittenNote(WrittenNote note)
     {
         int attachementID = insertAttachementAndReturnId(attachement);
         //insert to noteHasAttachement-table
-        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement), VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID));
+        qDebug() << "" << "INSERT INTO noteHasAttachement (fk_note, fk_attachement) VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID) + ")";
+        queryNoReturn("INSERT INTO noteHasAttachement (fk_note, fk_attachement) VALUES (" + QString::number(noteId) + ", " + QString::number(attachementID) + ")");
     }
     qDebug() << "Note insertion was: " << (noteId != -1);
     return noteId;
