@@ -40,6 +40,7 @@ HEADERS  += \
     todoitem.h \
     ui_mainwindow.h \
     ui_c_subject.h \
+    ui_subject_detail.h \
     waitforlist.h \
     exportimport.h
 
