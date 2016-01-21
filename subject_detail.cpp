@@ -1,6 +1,7 @@
 #include "subject_detail.h"
 #include "ui_subject_detail.h"
 #include <QDebug>
+#include <QDialog>
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -26,10 +27,11 @@ void subject_detail::setSubDet(Subject cur)
 
 void subject_detail::on_pushButton_2_clicked()
 {
-    //QDialog *dialog = new QDialog();
-    rte = new MRichTextEdit(this); // Be sure to destroy you window somewhere
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Org'n'Nice");
+    rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
     rte->setText(QString("<h1>Du bist die Dümmste Person dieser Welt!</h1>"));
-    rte->show();
+    dialog->show();
 }
 
 void subject_detail::on_pushButton_6_clicked()
