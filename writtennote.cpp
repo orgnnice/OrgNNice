@@ -73,6 +73,14 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
     pDBh->insertWrittenNote(*this);
 }
 
+void WrittenNote::setText(QString text){
+    this->text = text;
+}
+
+QString WrittenNote::setText(){
+    return text;
+}
+
 
 QString WrittenNote::toString()
 {
