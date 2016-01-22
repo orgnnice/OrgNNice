@@ -11,10 +11,6 @@ ExportImport::ExportImport(QString folderPath)
 {
     qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t <<<<<<<<<<<<";
     qDebug() << "SQLITE DATABSE CREATED";
-    QString file = (QDir::homePath() + QDir::separator() + "orgnniceExImport.db3");
-    QByteArray bafile = file.toLatin1();
-    const char *c_str2 = bafile.data();
-    remove(c_str2);
     dbExImport = new DBHandler(QDir::homePath(), "orgnniceExImport.db3");
 }
 
@@ -27,6 +23,11 @@ ExportImport::ExportImport(QString folderPath)
  */
 int ExportImport::exportDatabase(bool all, bool todo, bool notes, bool waitFor, QString subject)
 {
+    QString file = (QDir::homePath() + QDir::separator() + "orgnniceExImport.db3");
+    QByteArray bafile = file.toLatin1();
+    const char *c_str2 = bafile.data();
+    remove(c_str2);
+
     QList<Subject> allSubjects;
     if(subject != "")
     {
