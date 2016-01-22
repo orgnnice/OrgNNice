@@ -88,6 +88,20 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="import_2">
+       <property name="text">
+        <string>Import</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="export_2">
+       <property name="text">
+        <string>Export</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="toDobut">
        <property name="text">
         <string>ToDo-Listen</string>

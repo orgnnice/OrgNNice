@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QApplication>
 #include <subject.h>
+#include <exportdialog.h>
 #include <dbhandler.h>
 #include <QGroupBox>
 
@@ -132,4 +133,10 @@ void MainWindow::on_toDobut_clicked()
 {
     toList = new toDo();
     toList->show();
+}
+
+void MainWindow::on_export_2_clicked()
+{
+    exportDia = new ExportDialog();
+    exportDia->show();
 }

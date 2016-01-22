@@ -15,6 +15,9 @@ public:
     explicit new_toDo(QWidget *parent = 0);
     ~new_toDo();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::new_toDo *ui;
 };

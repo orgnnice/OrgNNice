@@ -9,6 +9,7 @@
 #include "subject_detail.h"
 #include "subject.h"
 #include <todo.h>
+#include "exportdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -52,11 +53,14 @@ private slots:
 
    void on_toDobut_clicked();
 
+   void on_export_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     c_subject *newCre;
     subject_detail *detSubject;
     toDo *toList;
+    ExportDialog *exportDia;
 
 };
 
