@@ -101,3 +101,50 @@ int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, boo
         }
     }
 }
+
+/**
+ * @brief ExportImport::exportDatabase
+ * @param all
+ * @param todo
+ * @param waitFor
+ * @param subject
+ */
+int ExportImport::importDatabase()
+{
+    QList<Subject> allSubjects;
+    allSubjects = dbExImport->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+
+    for(Subject chosenSub : allSubjects)
+    {
+        pDBh->insertSubject(chosenSub.getName());
+        int exportSubID = pDBh->select("pk_id", "schoolSubject", "name = '" + chosenSub.getName() + "'").toInt();
+        importDatabasewithSubject(chosenSub.getId(), exportSubID);
+    }
+}
+
+int ExportImport::importDatabasewithSubject(int subject, int exportSubID)
+{
+    qDebug() << "EXPORT COMMAND EXECUTED";
+    QList<WrittenNote> noteList = dbExImport->queryWithReturnNoteList("select * from note where(fk_schoolSubject = " + QString::number(subject) + ")");
+    for(WrittenNote note : noteList)
+    {
+        note.setSubject_ID(exportSubID);
+        qDebug()<<"insertiertes Note:" << note.toString();
+        pDBh->insertWrittenNote(note);
+    }
+    QList<ToDoItem> todoList = dbExImport->queryWithReturnToDoItemList("select * from todo where(fk_schoolSubject = " + QString::number(subject) + ")");
+    for(ToDoItem todo : todoList)
+    {
+        todo.setSubjectID(exportSubID);
+        pDBh->insertTODOandReturnId(todo);
+    }
+    QList<WaitForList> waitForList = dbExImport->queryWithReturnWaitForListList("select * from waitfor where(fk_schoolSubject = " + QString::number(subject) + ")");
+    for(WaitForList waitfor : waitForList)
+    {
+        waitfor.setSubjectID(exportSubID);
+        pDBh->insertWaitForandReturnId(waitfor);
+    }
+}
+
+
+
