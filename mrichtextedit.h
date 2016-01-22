@@ -36,6 +36,7 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
   public:
     MRichTextEdit(QWidget *parent = 0);
     MRichTextEdit();
+    WrittenNote selt;
     QString toPlainText() const { return f_textedit->toPlainText(); }
     QString toHtml() const;
     QTextDocument *document() { return f_textedit->document(); }
@@ -44,6 +45,7 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
 
   public slots:
     void setText(const QString &text);
+    void setNote(WrittenNote cur);
 
   protected slots:
     void setPlainText(const QString &text) { f_textedit->setPlainText(text); }
@@ -92,6 +94,9 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
                           ParagraphMonospace };
 
     QPointer<QTextList> m_lastBlockList;
+private slots:
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
 };
 
 #endif

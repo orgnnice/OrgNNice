@@ -40,6 +40,11 @@ public:
     void removeAttachement(QString);
     void deleteWrittenNote();
     int getId();
+
+    void setText(QString text);
+    QString getText(QString text);
+
+
     void setNoteID(int noteId);
     QString getContent();
     QDateTime getTimestamp();

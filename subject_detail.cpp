@@ -66,6 +66,7 @@ void subject_detail::textDet(int index){
     dialog->setWindowTitle("Org'n'Nice");
     rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
     rte->setText(noteList[index].getContent());
+    rte->setNote(noteList[index]);
     dialog->show();
 }
 
