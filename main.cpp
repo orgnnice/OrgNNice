@@ -22,13 +22,14 @@ int main(int argc, char **argv)
     QApplication app (argc, argv);
     pDBh = new DBHandler(QDir::homePath(), "orgnnice.db3");
 
-
+    ExportImport EXI = ExportImport(QDir::homePath());
+    EXI.importDatabase();
     //get all subjects from the database with contents
     //QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     //Subject(int id, QList <WrittenNote> notes, QString name);
 
 
-
+/*
     Subject mathe = Subject("mathe");
 
     WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
@@ -63,7 +64,7 @@ int main(int argc, char **argv)
     {
         qDebug() << "waitfor:" << todo.toString();
     }
-    */
+
 
 
     WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
@@ -125,6 +126,7 @@ int main(int argc, char **argv)
     }
 
 */
+    /*
 
 
     qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t <<<<<<<<<<<<";
@@ -134,9 +136,11 @@ int main(int argc, char **argv)
 
     qDebug() << "!!!   !!!!  !!    !!!!!   !!!!! >>>>>>>> EXPORT  - t e s t ENDE<<<<<<<<<<<<";
     pDBh->DBHandlerStateDebugOut();
+
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
     w.setSubList(allsubjects);
     w.show();
+*/
     return app.exec();
 }
