@@ -2,6 +2,7 @@
 #include "ui_subject_detail.h"
 #include <QDebug>
 #include <QDialog>
+#include <QSignalMapper>
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -27,11 +28,12 @@ void subject_detail::setSubDet(Subject cur)
     int a = 2;
     int line = 0;
     int col = 0;
-    QList<WrittenNote> noteList = subdet.getWrittenNotes();
+    noteList = subdet.getWrittenNotes();
     QString dateformat = "dd.MM.yyyy";
 
     for(int i=0;i<subdet.getWrittenNotesSize();i++){
         QPushButton *pButton = new QPushButton();
+        QSignalMapper* signalMapper = new QSignalMapper(this);
         QIcon icon;
         icon.addFile(QStringLiteral("mitschirft.png"), QSize(), QIcon::Normal, QIcon::On);
         pButton->setIcon(icon);
@@ -53,7 +55,18 @@ void subject_detail::setSubDet(Subject cur)
         }
         ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
         col++;
+        connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(pButton, i);
+        connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(textDet(int)));
     }
+}
+
+void subject_detail::textDet(int index){
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Org'n'Nice");
+    rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
+    rte->setText(noteList[index].getContent());
+    dialog->show();
 }
 
 void subject_detail::on_pushButton_2_clicked()

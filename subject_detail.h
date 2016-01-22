@@ -17,9 +17,11 @@ public:
     explicit subject_detail(QWidget *parent = 0);
     ~subject_detail();
     Subject subdet;
+    QList<WrittenNote> noteList;
 
 public slots:
     void setSubDet(Subject cur);
+    void textDet(int list);
 
 private slots:
 
