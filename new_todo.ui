@@ -61,7 +61,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QDateEdit" name="dateEdit"/>
+     <widget class="QDateTimeEdit" name="dateTimeEdit"/>
     </item>
     <item>
      <spacer name="verticalSpacer_3">

@@ -10,6 +10,7 @@
 #include "subject.h"
 #include <todo.h>
 #include "exportdialog.h"
+#include "todoitem.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ public:
     ~MainWindow();
     QList<Subject> sublist;
     Subject selected;
+    QList<ToDoItem> todoItems;
 
 public slots:
     void setSubList(QList<Subject> list);

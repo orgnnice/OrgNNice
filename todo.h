@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <new_todo.h>
+#include "todoitem.h"
 
 namespace Ui {
 class toDo;
@@ -15,6 +16,10 @@ class toDo : public QDialog
 public:
     explicit toDo(QWidget *parent = 0);
     ~toDo();
+    QList<ToDoItem> toItems;
+
+public slots:
+    void setItemList(QList<ToDoItem> current);
 
 private slots:
     void on_addnew_clicked();

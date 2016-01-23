@@ -48,7 +48,8 @@ HEADERS  += \
     exportimport.h \
     todo.h \
     new_todo.h \
-    exportdialog.h
+    exportdialog.h \
+    ui_todo.h
 
 FORMS    += \
     mrichtextedit.ui \

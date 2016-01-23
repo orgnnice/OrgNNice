@@ -132,6 +132,7 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_toDobut_clicked()
 {
     toList = new toDo();
+    toList->toItems = todoItems;
     toList->show();
 }
 

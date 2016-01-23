@@ -15,6 +15,9 @@ public:
     explicit ExportDialog(QWidget *parent = 0);
     ~ExportDialog();
 
+private slots:
+    void on_buttonBox_rejected();
+
 private:
     Ui::ExportDialog *ui;
 };

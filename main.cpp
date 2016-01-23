@@ -138,6 +138,7 @@ int main(int argc, char **argv)
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
     w.setSubList(allsubjects);
+    w.todoItems = todos;
     w.show();
 
     return app.exec();
