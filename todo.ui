@@ -113,7 +113,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Fertig bis</string>
+       <string>Fällig bis</string>
       </property>
      </widget>
     </item>
@@ -131,7 +131,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Tätigkeit</string>
+       <string>Aufgabe</string>
       </property>
      </widget>
     </item>

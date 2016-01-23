@@ -38,6 +38,7 @@
 #include <QPlainTextEdit>
 #include <QMenu>
 #include <QDialog>
+#include <qdebug.h>
 
 MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     setupUi(this);
@@ -565,6 +566,10 @@ void MRichTextEdit::indent(int delta) {
     cursor.endEditBlock();
 }
 
+void MRichTextEdit::setNote(WrittenNote cur) {
+    this->selt = cur;
+}
+
 void MRichTextEdit::setText(const QString& text) {
     if (text.isEmpty()) {
         setPlainText(text);
@@ -591,3 +596,16 @@ void MRichTextEdit::insertImage() {
 }
 
 
+
+void MRichTextEdit::on_buttonBox_rejected()
+{
+    this->parent()->close();
+}
+
+void MRichTextEdit::on_buttonBox_accepted()
+{
+    qDebug() << selt.getContent();
+    selt.setText(f_textedit->toPlainText());
+    selt.saveWrittenNote();
+    this->parent()->close();
+}
