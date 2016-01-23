@@ -41,8 +41,8 @@ public:
     void deleteWrittenNote();
     int getId();
 
-    void setText(QString text);
-    QString getText(QString text);
+    void setContent(QString text);
+    QString getText();
 
 
     void setNoteID(int noteId);

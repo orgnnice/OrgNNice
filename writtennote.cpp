@@ -73,13 +73,16 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
     pDBh->insertWrittenNote(*this);
 }
 
-void WrittenNote::setText(QString text){
+void WrittenNote::setContent(QString text){
     this->text = text;
+
+    //change content of Note in Database
+
+    pDBh->queryNoReturn("UPDATE note SET content = '" + text + "' WHERE (pk_id = " + QString::number(this->id) +")");
+
+
 }
 
-QString WrittenNote::setText(){
-    return text;
-}
 
 
 QString WrittenNote::toString()
