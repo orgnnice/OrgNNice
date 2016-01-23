@@ -599,13 +599,13 @@ void MRichTextEdit::insertImage() {
 
 void MRichTextEdit::on_buttonBox_rejected()
 {
-    this->parent()->close();
+    this->parentWidget()->close();
 }
 
 void MRichTextEdit::on_buttonBox_accepted()
 {
     qDebug() << selt.getContent();
-    selt.setText(f_textedit->toPlainText());
-    selt.saveWrittenNote();
-    this->parent()->close();
+    qDebug() << f_textedit->toPlainText();
+    selt.setContent(f_textedit->toPlainText());
+    this->parentWidget()->close();
 }
