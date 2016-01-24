@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>331</width>
-    <height>321</height>
+    <height>283</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>20</y>
      <width>291</width>
-     <height>281</height>
+     <height>251</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -116,6 +116,19 @@
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -163,21 +176,14 @@
         <item>
          <widget class="QCheckBox" name="checkBox">
           <property name="text">
-           <string>ToDo-Liste exportieren</string>
+           <string>ToDo Liste exportieren</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_2">
           <property name="text">
-           <string>CheckBox</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_3">
-          <property name="text">
-           <string>CheckBox</string>
+           <string>Warten Auf Liste exportieren</string>
           </property>
          </widget>
         </item>
