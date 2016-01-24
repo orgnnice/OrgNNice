@@ -1,6 +1,8 @@
 #include "todo.h"
 #include "ui_todo.h"
 #include "qdebug.h"
+#include "main.h"
+#include "qcheckbox.h"
 
 toDo::toDo(QWidget *parent) :
     QDialog(parent),
@@ -48,7 +50,9 @@ void toDo::setItemList(QList<ToDoItem> current)
         label_desc->setFont(font1);
 
         horizontalLayout->addWidget(label_desc, 0, Qt::AlignTop);
-
+        int a = toItems[i].getSubjectID();
+        //QString z = pDBh->select("name", "SchoolSubject", "pk_id='" + a + "'").replace('"',"");
+        //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
         QLabel *label_subj = new QLabel("Fachname");
         label_subj->setMinimumSize(QSize(100, 50));
         label_subj->setMaximumSize(QSize(16777215, 50));
