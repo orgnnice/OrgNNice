@@ -1,6 +1,9 @@
 #include "waitfor.h"
 #include "ui_waitfor.h"
 #include "qcheckbox.h"
+#include "dbhandler.h"
+#include "main.h"
+#include "subject.h"
 
 WaitFor::WaitFor(QWidget *parent) :
     QDialog(parent),
@@ -41,7 +44,7 @@ void WaitFor::setItemList(QList<WaitForList> current)
         int a = waitItems[i].getSubjectID();
         //QString z = pDBh->select("name", "SchoolSubject", "pk_id='" + a + "'").replace('"',"");
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
-        QLabel *label_subj = new QLabel("Fachname");
+        QLabel *label_subj = new QLabel(pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a)));
         label_subj->setMinimumSize(QSize(100, 50));
         label_subj->setMaximumSize(QSize(16777215, 50));
         label_subj->setFont(font1);
