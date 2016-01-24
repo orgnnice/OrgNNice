@@ -12,6 +12,7 @@
 #include "waitfor.h"
 #include "exportdialog.h"
 #include "todoitem.h"
+#include "waitforlist.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,7 @@ public:
     QList<Subject> sublist;
     Subject selected;
     QList<ToDoItem> todoItems;
+    QList<WaitForList> waitItems;
 
 public slots:
     void setSubList(QList<Subject> list);

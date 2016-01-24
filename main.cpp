@@ -30,8 +30,8 @@ int main(int argc, char **argv)
 
     Subject mathe = Subject("mathe");
 
-    WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
-    WaitForList waitfor2 = WaitForList("deutsch", "Warten auf bessere Zeiten", false);
+    //WaitForList waitfor = WaitForList("mathe", "Warten auf Mitra", false);
+    //WaitForList waitfor2 = WaitForList("deutsch", "Warten auf bessere Zeiten", false);
     QList <WaitForList> wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
     qDebug() << "-__--____---__-__-----------_--_--__======>>>>>>>> W a i t f o r - t e s t <<<<<<<<<<<<";
     for(WaitForList wf : wfs)
@@ -138,6 +138,7 @@ int main(int argc, char **argv)
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
     w.todoItems = todos;
+    w.waitItems = wfs;
     w.setSubList(allsubjects);
     w.show();
 

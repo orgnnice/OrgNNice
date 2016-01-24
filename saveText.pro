@@ -55,7 +55,8 @@ HEADERS  += \
     ui_todo.h \
     waitfor.h \
     new_waitfor.h \
-    c_writtennote.h
+    c_writtennote.h \
+    ui_waitfor.h
 
 FORMS    += \
     mrichtextedit.ui \

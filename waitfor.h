@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "waitfor.h"
 #include "new_waitfor.h"
+#include "waitforlist.h"
 
 namespace Ui {
 class WaitFor;
@@ -16,6 +17,10 @@ class WaitFor : public QDialog
 public:
     explicit WaitFor(QWidget *parent = 0);
     ~WaitFor();
+    QList<WaitForList> waitItems;
+
+public slots:
+    void setItemList(QList<WaitForList> current);
 
 private slots:
     void on_addnew_3_clicked();
