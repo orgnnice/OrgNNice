@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>331</width>
-    <height>283</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>20</x>
      <y>20</y>
      <width>291</width>
-     <height>251</height>
+     <height>266</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -173,6 +173,13 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="checkBox_3">
+          <property name="text">
+           <string>Mitschriften exportieren</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QCheckBox" name="checkBox">
           <property name="text">
