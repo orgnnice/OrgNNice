@@ -132,6 +132,7 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_toDobut_clicked()
 {
     toList = new toDo();
+    toList->toItems = todoItems;
     toList->show();
 }
 
@@ -139,4 +140,11 @@ void MainWindow::on_export_2_clicked()
 {
     exportDia = new ExportDialog();
     exportDia->show();
+}
+
+void MainWindow::on_waitForbut_clicked()
+{
+    waitList = new WaitFor();
+    waitList->show();
+
 }

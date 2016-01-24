@@ -102,9 +102,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="waitForbut">
+       <property name="text">
+        <string>Wait for List</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="toDobut">
        <property name="text">
-        <string>ToDo-Listen</string>
+        <string>ToDo List</string>
        </property>
       </widget>
      </item>

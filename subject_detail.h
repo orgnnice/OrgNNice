@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "mrichtextedit.h"
 #include "subject.h"
+#include "c_writtennote.h"
 
 namespace Ui {
 class subject_detail;
@@ -35,9 +36,12 @@ private slots:
 
     void on_pushButton_5_clicked();
 
+    void on_addnew_clicked();
+
 private:
     Ui::subject_detail *ui;
     MRichTextEdit *rte;
+    C_WrittenNote *newWrittenNote;
 };
 
 #endif // SUBJECT_DETAIL_H

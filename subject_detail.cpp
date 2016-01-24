@@ -116,3 +116,9 @@ void subject_detail::on_pushButton_5_clicked()
     rte->setText(QString("Du bist die Dümmste Person dieser Welt!"));
     rte->show();
 }
+
+void subject_detail::on_addnew_clicked()
+{
+    newWrittenNote = new C_WrittenNote(); // Be sure to destroy you window somewhere
+    newWrittenNote->show();
+}
