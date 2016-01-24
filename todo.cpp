@@ -1,5 +1,6 @@
 #include "todo.h"
 #include "ui_todo.h"
+#include "qdebug.h"
 
 toDo::toDo(QWidget *parent) :
     QDialog(parent),
@@ -23,9 +24,10 @@ void toDo::on_addnew_clicked()
 void toDo::setItemList(QList<ToDoItem> current)
 {
     this->toItems = current;
-    for(int i=0;i<current.length();i++)
+    qDebug() << toItems.length();
+    for(int i=0;i<toItems.length();i++)
     {
-        qDebug() << "Aufgabe: " << current[i].getDescription();
+        qDebug() << "Aufgabe: " << toItems[i].getDescription();
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(7);
@@ -33,14 +35,14 @@ void toDo::setItemList(QList<ToDoItem> current)
         QFont font1;
         font1.setPointSize(11);
 
-        QLabel *label_date = new QLabel(current[i].getDeadline().toString());
+        QLabel *label_date = new QLabel(toItems[i].getDeadline().toString());
         label_date->setMinimumSize(QSize(0, 50));
         label_date->setMaximumSize(QSize(16777215, 50));
         label_date->setFont(font1);
 
         horizontalLayout->addWidget(label_date, 0, Qt::AlignTop);
 
-        QLabel *label_desc = new QLabel(current[i].getDescription());
+        QLabel *label_desc = new QLabel(toItems[i].getDescription());
         label_desc->setMinimumSize(QSize(450, 50));
         label_desc->setMaximumSize(QSize(16777215, 50));
         label_desc->setFont(font1);
