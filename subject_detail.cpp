@@ -3,6 +3,9 @@
 #include <QDebug>
 #include <QDialog>
 #include <QSignalMapper>
+#include "main.h"
+#include <QList>
+#include "subject.h"
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -24,7 +27,7 @@ void subject_detail::setSubDet(Subject cur)
     qDebug() << "Anzahl der Mitschriften:" << subdet.getWrittenNotesSize();
     ui->label->setText(subdet.getName());
     ui->label_1->setText("Anzahl der Mitschriften: "+QString::number(subdet.getWrittenNotesSize()));
-
+    //QList<Subject> all = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     int a = 2;
     int line = 0;
     int col = 0;

@@ -72,6 +72,7 @@ void MainWindow::setSubList(QList<Subject> list)
         connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(subDetail(int)));
 
     }
+    qDebug() << todoItems[0].toString();
 }
 
 void MainWindow::openNewWindow()
@@ -132,7 +133,7 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_toDobut_clicked()
 {
     toList = new toDo();
-    toList->toItems = todoItems;
+    toList->setItemList(todoItems);
     toList->show();
 }
 

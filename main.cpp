@@ -40,9 +40,9 @@ int main(int argc, char **argv)
     }
 
 //    ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
-    ToDoItem("mathe", "HÜ: 419a, 420b, 422f", QDateTime(), false);
+   /* ToDoItem("mathe", "HÜ: 419a, 420b, 422f", QDateTime(), false);
     ToDoItem("deutsch", "faust lesen bis 143", QDateTime(), true);
-    ToDoItem("deutsch", "buchbesprechung schreiben", QDateTime(), false);
+    ToDoItem("deutsch", "buchbesprechung schreiben", QDateTime(), false);*/
 
 
 
@@ -137,8 +137,8 @@ int main(int argc, char **argv)
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
     MainWindow w;
-    w.setSubList(allsubjects);
     w.todoItems = todos;
+    w.setSubList(allsubjects);
     w.show();
 
     return app.exec();
