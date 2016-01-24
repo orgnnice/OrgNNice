@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     exportimport.cpp \
     todo.cpp \
     new_todo.cpp \
-    exportdialog.cpp
+    exportdialog.cpp \
+    waitfor.cpp \
+    new_waitfor.cpp
 
 HEADERS  += \
     writtennote.h \
@@ -49,7 +51,9 @@ HEADERS  += \
     todo.h \
     new_todo.h \
     exportdialog.h \
-    ui_todo.h
+    ui_todo.h \
+    waitfor.h \
+    new_waitfor.h
 
 FORMS    += \
     mrichtextedit.ui \
@@ -58,7 +62,9 @@ FORMS    += \
     c_subject.ui \
     todo.ui \
     new_todo.ui \
-    exportdialog.ui
+    exportdialog.ui \
+    waitfor.ui \
+    new_waitfor.ui
 
 DISTFILES += \
     Defintions_info

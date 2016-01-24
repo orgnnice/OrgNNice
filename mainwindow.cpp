@@ -141,3 +141,10 @@ void MainWindow::on_export_2_clicked()
     exportDia = new ExportDialog();
     exportDia->show();
 }
+
+void MainWindow::on_waitForbut_clicked()
+{
+    waitList = new WaitFor();
+    waitList->show();
+
+}

@@ -8,7 +8,8 @@
 #include "c_subject.h"
 #include "subject_detail.h"
 #include "subject.h"
-#include <todo.h>
+#include "todo.h"
+#include "waitfor.h"
 #include "exportdialog.h"
 #include "todoitem.h"
 
@@ -57,11 +58,14 @@ private slots:
 
    void on_export_2_clicked();
 
+   void on_waitForbut_clicked();
+
 private:
     Ui::MainWindow *ui;
     c_subject *newCre;
     subject_detail *detSubject;
     toDo *toList;
+    WaitFor *waitList;
     ExportDialog *exportDia;
 
 };
