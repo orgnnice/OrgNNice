@@ -41,7 +41,8 @@ void subject_detail::setSubDet(Subject cur)
         pButton->setAutoExclusive(false);
         pButton->setMaximumWidth(60);
         pButton->setMaximumHeight(100);
-        QLabel *labelFilename = new QLabel(noteList[i].getContent());
+        qDebug() << noteList[i].getTimestamp();
+        QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("DD"));
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
@@ -65,7 +66,7 @@ void subject_detail::textDet(int index){
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle("Org'n'Nice");
     rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
-    rte->setText(noteList[index].getContent());
+    rte->setText(noteList[index].getContent().replace("^", "'"));
     rte->setNote(noteList[index]);
     dialog->show();
 }

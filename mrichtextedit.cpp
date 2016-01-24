@@ -606,6 +606,6 @@ void MRichTextEdit::on_buttonBox_accepted()
 {
     qDebug() << selt.getContent();
     qDebug() << f_textedit->toHtml();
-    selt.setContent(f_textedit->toHtml());
+    selt.setContent(f_textedit->toHtml().replace("'", "^"));
     this->parentWidget()->close();
 }
