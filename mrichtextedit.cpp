@@ -605,7 +605,7 @@ void MRichTextEdit::on_buttonBox_rejected()
 void MRichTextEdit::on_buttonBox_accepted()
 {
     qDebug() << selt.getContent();
-    qDebug() << f_textedit->toPlainText();
-    selt.setContent(f_textedit->toPlainText());
+    qDebug() << f_textedit->toHtml();
+    selt.setContent(f_textedit->toHtml());
     this->parentWidget()->close();
 }
