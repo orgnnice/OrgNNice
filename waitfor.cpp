@@ -36,8 +36,8 @@ void WaitFor::setItemList(QList<WaitForList> current)
         font1.setPointSize(11);
 
         QLabel *label_desc = new QLabel(waitItems[i].getDescription());
-        label_desc->setMinimumSize(QSize(450, 50));
-        label_desc->setMaximumSize(QSize(16777215, 50));
+        label_desc->setMinimumSize(QSize(450, 25));
+        label_desc->setMaximumSize(QSize(16777215, 25));
         label_desc->setFont(font1);
 
         horizontalLayout->addWidget(label_desc, 0, Qt::AlignTop);
@@ -45,15 +45,15 @@ void WaitFor::setItemList(QList<WaitForList> current)
         //QString z = pDBh->select("name", "SchoolSubject", "pk_id='" + a + "'").replace('"',"");
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
         QLabel *label_subj = new QLabel(pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a)));
-        label_subj->setMinimumSize(QSize(100, 50));
-        label_subj->setMaximumSize(QSize(16777215, 50));
+        label_subj->setMinimumSize(QSize(100, 25));
+        label_subj->setMaximumSize(QSize(16777215, 25));
         label_subj->setFont(font1);
 
         horizontalLayout->addWidget(label_subj, 0, Qt::AlignTop);
 
         QCheckBox *checkBox = new QCheckBox();
-        checkBox->setMinimumSize(QSize(100, 50));
-        checkBox->setMaximumSize(QSize(100, 50));
+        checkBox->setMinimumSize(QSize(100, 25));
+        checkBox->setMaximumSize(QSize(100, 25));
         checkBox->setStyleSheet(QStringLiteral("padding-left: 25px;"));
 
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignTop);

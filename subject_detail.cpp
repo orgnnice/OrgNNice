@@ -35,7 +35,7 @@ void subject_detail::setSubDet(Subject cur)
     QString dateformat = "dd.MM.yyyy";
 
     for(int i=0;i<subdet.getWrittenNotesSize();i++){
-        QPushButton *pButton = new QPushButton();
+        QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
         QIcon icon;
         icon.addFile(QStringLiteral("mitschirft.png"), QSize(), QIcon::Normal, QIcon::On);
@@ -45,7 +45,7 @@ void subject_detail::setSubDet(Subject cur)
         pButton->setMaximumWidth(60);
         pButton->setMaximumHeight(100);
         qDebug() << noteList[i].getTimestamp();
-        QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("DD"));
+        QLabel *labelFilename = new QLabel(noteList[i].getContent());
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
@@ -57,7 +57,8 @@ void subject_detail::setSubDet(Subject cur)
             line++;
             col = 0;
         }
-        ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
+        //ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
+        ui->gridLayout->addLayout(verticalLayout, line, col, 1, 1);
         col++;
         connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(pButton, i);
