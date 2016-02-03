@@ -39,8 +39,8 @@ void toDo::setItemList(QList<ToDoItem> current)
         font1.setPointSize(11);
 
         QLabel *label_date = new QLabel(toItems[i].getDeadline().toString());
-        label_date->setMinimumSize(QSize(105, 25));
-        label_date->setMaximumSize(QSize(105, 25));
+        label_date->setMinimumSize(QSize(120, 25));
+        label_date->setMaximumSize(QSize(120 , 25));
         label_date->setFont(font1);
 
         horizontalLayout->addWidget(label_date, 0, Qt::AlignVCenter);
@@ -55,15 +55,15 @@ void toDo::setItemList(QList<ToDoItem> current)
         qDebug() << "Name of Subject: " << pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a));
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
         QLabel *label_subj = new QLabel(pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a)));
-        label_subj->setMinimumSize(QSize(160, 25));
-        label_subj->setMaximumSize(QSize(16777215, 25));
+        label_subj->setMinimumSize(QSize(145, 25));
+        label_subj->setMaximumSize(QSize(145, 25));
         label_subj->setFont(font1);
 
         horizontalLayout->addWidget(label_subj, 0, Qt::AlignVCenter);
 
         QCheckBox *checkBox = new QCheckBox();
         checkBox->setMinimumSize(QSize(60, 25));
-        checkBox->setMaximumSize(QSize(50, 25));
+        checkBox->setMaximumSize(QSize(60, 25));
         checkBox->setStyleSheet(QStringLiteral("padding-left: 25px;"));
 
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignVCenter);
