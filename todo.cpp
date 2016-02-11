@@ -38,7 +38,7 @@ void toDo::setItemList(QList<ToDoItem> current)
         QFont font1;
         font1.setPointSize(11);
 
-        QLabel *label_date = new QLabel(toItems[i].getDeadline().toString());
+        QLabel *label_date = new QLabel(toItems[i].getDeadline().toString("dd.mm.yyyy"));
         label_date->setMinimumSize(QSize(120, 25));
         label_date->setMaximumSize(QSize(120 , 25));
         label_date->setFont(font1);
