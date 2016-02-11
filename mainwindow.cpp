@@ -150,3 +150,11 @@ void MainWindow::on_waitForbut_clicked()
     waitList->show();
 
 }
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+void MainWindow::on_toDo_clicked()
+{
+
+}
