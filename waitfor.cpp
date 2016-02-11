@@ -36,7 +36,7 @@ void WaitFor::setItemList(QList<WaitForList> current)
         font1.setPointSize(11);
 
         QLabel *label_desc = new QLabel(waitItems[i].getDescription());
-        label_desc->setMinimumSize(QSize(435, 25));
+        label_desc->setMinimumSize(QSize(430, 25));
         label_desc->setMaximumSize(QSize(16777215, 25));
         label_desc->setFont(font1);
 
