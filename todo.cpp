@@ -39,13 +39,10 @@ void toDo::setItemList(QList<ToDoItem> current)
         font1.setPointSize(11);
 
         QLabel *label_date = new QLabel(toItems[i].getDeadline().toString());
-<<<<<<< HEAD
         label_date->setMinimumSize(QSize(100, 25));
         label_date->setMaximumSize(QSize(100, 25));
-=======
         label_date->setMinimumSize(QSize(120, 25));
         label_date->setMaximumSize(QSize(120 , 25));
->>>>>>> b5efe11badc9e7b59173869e32d486f8d1b6931e
         label_date->setFont(font1);
 
         horizontalLayout->addWidget(label_date, 0, Qt::AlignVCenter);
