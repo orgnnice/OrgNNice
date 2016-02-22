@@ -83,7 +83,8 @@ int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, boo
                 qDebug()<<"insertiertes Note:" << note.toString();
                 dbExImport->insertWrittenNote(note);
             }
-        } else if(todo)
+        }
+        if(todo)
         {
             QList<ToDoItem> todoList = pDBh->queryWithReturnToDoItemList("select * from todo where(fk_schoolSubject = " + QString::number(subject) + ")");
             for(ToDoItem todo : todoList)
@@ -91,7 +92,8 @@ int ExportImport::exportDatabasewithSubject(bool all, bool todo, bool notes, boo
                 todo.setSubjectID(exportSubID);
                 dbExImport->insertTODOandReturnId(todo);
             }
-        } else if(waitFor)
+        }
+        if(waitFor)
         {
             QList<WaitForList> waitForList = pDBh->queryWithReturnWaitForListList("select * from waitfor where(fk_schoolSubject = " + QString::number(subject) + ")");
             for(WaitForList waitfor : waitForList)
