@@ -109,9 +109,13 @@ QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
         QString text = query.value(1).toString();
         QList<QString> attachements = attachementsFromNote(id);
         QList<QString> tags = tagsFromNote(id);
-        int saver = query.value(2).toInt();
-        QDateTime timestamp;
-        timestamp.addMSecs(saver);
+        QByteArray saver_string = query.value(2).toString().toLatin1();
+        qint64 saver = 0;
+        for(int i = 0; i < saver_string.length(); i++)
+        {
+            saver = 10*saver + (saver_string[i] - '0');
+        }
+        QDateTime timestamp = QDateTime::fromMSecsSinceEpoch(saver);
         int subjID = query.value(3).toInt();
         pNote=new WrittenNote(id,text,attachements, tags, timestamp, subjID);
         notes.append(*pNote);
@@ -140,12 +144,17 @@ QList<ToDoItem> DBHandler::queryWithReturnToDoItemList(QString statement)
         qDebug() << "adding ToDo...";
         int id = query.value(0).toInt();
         QString description = query.value(1).toString();
-        int saver = query.value(2).toInt();
-        QDateTime deadline;
-        deadline.addMSecs(saver);
+        qDebug() << "-------------------------------------------------------------------------------------------------------------";
+        QByteArray saver_string = query.value(2).toString().toLatin1();
+        qint64 saver = 0;
+        for(int i = 0; i < saver_string.length(); i++)
+        {
+            saver = 10*saver + (saver_string[i] - '0');
+        }
+        QDateTime dateTime = QDateTime::fromMSecsSinceEpoch(saver);
         bool done = (query.value(3).toInt() == 0) ? false : true;
         int subjID = query.value(4).toInt();
-        pToDo=new ToDoItem (id, description, deadline, done, subjID);
+        pToDo=new ToDoItem (id, description, dateTime, done, subjID);
         toDos.append(*pToDo);
     }
     return toDos;

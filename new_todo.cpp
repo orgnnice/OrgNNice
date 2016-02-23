@@ -32,6 +32,7 @@ void new_toDo::on_buttonBox_accepted()
     qDebug() << ui->comboBox->itemText(ui->comboBox->currentIndex());
     qDebug() << ui->textEdit->toPlainText();
     qDebug() << ui->dateTimeEdit->dateTime();
+    qDebug() << ui->dateTimeEdit->dateTime().toString("dd.MM.yyyy");
     this->close();
 }
 
