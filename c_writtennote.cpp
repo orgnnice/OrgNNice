@@ -23,7 +23,7 @@ void C_WrittenNote::on_buttonBox_rejected()
 
 void C_WrittenNote::on_buttonBox_accepted()
 {
-    WrittenNote newNote = WrittenNote("Neue Mitschrift", QDateTime(), crein.getId());
+    WrittenNote newNote = WrittenNote("Neue Mitschrift", QDateTime().currentDateTime(), crein.getId());
     newNote.addTag(ui->tags->text());
     this->close();
 }

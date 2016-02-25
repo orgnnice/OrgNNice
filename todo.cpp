@@ -36,9 +36,9 @@ void toDo::setItemList(QList<ToDoItem> current)
         horizontalLayout->setSpacing(7);
 
         QFont font1;
-        font1.setPointSize(11);
+        font1.setPointSize(9);
 
-        QLabel *label_date = new QLabel(toItems[i].getDeadline().toString(Qt::TextDate));
+        QLabel *label_date = new QLabel(toItems[i].getDeadline().toString("dd.MM.yyyy hh:mm"));
         qDebug() << "QDateTime: "<< toItems[i].getDeadline().date();
         qDebug() << "Date: " << toItems[i].getDeadline().toString(Qt::TextDate);
         label_date->setMinimumSize(QSize(120, 25));
@@ -72,5 +72,6 @@ void toDo::setItemList(QList<ToDoItem> current)
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignVCenter);
 
         ui->verticalLayout_2->addLayout(horizontalLayout);
+
     }
 }

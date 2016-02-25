@@ -23,6 +23,7 @@ ToDoItem::ToDoItem(QString subject_name, QString description, QDateTime deadline
     this->description = description;
     this->deadline = deadline;
     this->done = done;
+
     qDebug() << "DBHandler::insertTODOandReturnId"  << this->toString();
     this->id = pDBh->insertTODOandReturnId(*this);
 }

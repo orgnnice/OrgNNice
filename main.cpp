@@ -65,8 +65,8 @@ int main(int argc, char **argv)
 
 
 */
-    WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime(), "mathe");
-    WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime(), "mathe");
+    WrittenNote note = WrittenNote("Gute Mitschrift", QDateTime().currentDateTime(), "mathe");
+    WrittenNote note2 = WrittenNote("Böse Mitschrift", QDateTime().currentDateTime(), "mathe");
     mathe.setSubjectName("Chemie");
     mathe.setSubjectName("Chemie");
     mathe.setSubjectName("mathe");

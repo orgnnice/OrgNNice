@@ -45,7 +45,7 @@ void subject_detail::setSubDet(Subject cur)
         pButton->setMaximumWidth(60);
         pButton->setMaximumHeight(100);
         qDebug() << noteList[i].getTimestamp();
-        QLabel *labelFilename = new QLabel(noteList[i].getContent());
+        QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;

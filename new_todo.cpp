@@ -28,11 +28,12 @@ new_toDo::~new_toDo()
 
 void new_toDo::on_buttonBox_accepted()
 {
-    ToDoItem awsomeTodo = ToDoItem(ui->comboBox->itemText(ui->comboBox->currentIndex()),ui->textEdit->toPlainText(),ui->dateTimeEdit->dateTime(),false);
+    QDateTime date = ui->dateTimeEdit->dateTime();
+    ToDoItem awsomeTodo = ToDoItem(ui->comboBox->itemText(ui->comboBox->currentIndex()),ui->textEdit->toPlainText(),date,false);
     qDebug() << ui->comboBox->itemText(ui->comboBox->currentIndex());
     qDebug() << ui->textEdit->toPlainText();
     qDebug() << ui->dateTimeEdit->dateTime();
-    qDebug() << ui->dateTimeEdit->dateTime().toString("dd.MM.yyyy");
+    qDebug() << ui->dateTimeEdit->dateTime().toMSecsSinceEpoch();
     this->close();
 }
 
