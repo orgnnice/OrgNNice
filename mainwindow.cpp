@@ -5,6 +5,7 @@
 #include <exportdialog.h>
 #include <dbhandler.h>
 #include <QGroupBox>
+#include <main.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,6 +27,13 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::update(Subject creSub)
+{
+//this->sublist = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+qDebug() << "New Subject: " << sublist[sublist.length()-1].getName();
+qDebug() << "Real New Subject: " << creSub.getName();
 }
 
 void MainWindow::setSubList(QList<Subject> list)
@@ -101,7 +109,7 @@ void MainWindow::setSubList(QList<Subject> list)
 
 void MainWindow::openNewWindow()
 {
-    newCre = new c_subject(); // Be sure to destroy you window somewhere
+    newCre = new c_subject(this); // Be sure to destroy you window somewhere
     newCre->show();
 }
 
@@ -172,5 +180,13 @@ void MainWindow::on_waitForbut_clicked()
     waitList = new WaitFor();
     waitList->setItemList(waitItems);
     waitList->show();
+
+}
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+void MainWindow::on_toDo_clicked()
+{
 
 }

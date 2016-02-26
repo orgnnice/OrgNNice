@@ -45,7 +45,7 @@ void subject_detail::setSubDet(Subject cur)
         pButton->setMaximumWidth(60);
         pButton->setMaximumHeight(100);
         qDebug() << noteList[i].getTimestamp();
-        QLabel *labelFilename = new QLabel(noteList[i].getContent());
+        QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
@@ -124,6 +124,7 @@ void subject_detail::on_pushButton_5_clicked()
 
 void subject_detail::on_addnew_clicked()
 {
-    newWrittenNote = new C_WrittenNote(); // Be sure to destroy you window somewhere
+    newWrittenNote = new C_WrittenNote();
+    newWrittenNote->setSubject(subdet);// Be sure to destroy you window somewhere
     newWrittenNote->show();
 }
