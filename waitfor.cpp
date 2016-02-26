@@ -25,6 +25,11 @@ void WaitFor::on_addnew_waitfor_clicked()
 
 void WaitFor::setItemList(QList<WaitForList> current)
 {
+    ui->addnew_waitfor->setStyleSheet("#addnew_waitfor{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
+                              "#addnew_waitfor:hover{color: #000; border: 2px solid #446CB3;}");
+    ui->addnew_waitfor->setMinimumSize(QSize(30, 30));
+    ui->addnew_waitfor->setMaximumSize(QSize(30, 30));
+
     this->waitItems = current;
     for(int i=0;i<waitItems.length();i++)
     {
