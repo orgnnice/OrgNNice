@@ -16,6 +16,7 @@ class c_subject : public QDialog, private Ui::c_subject
 public:
     explicit c_subject(QWidget *parent = 0);
     ~c_subject();
+    //MainWindow parmain;
 
 private slots:
     void on_buttonBox_accepted();
