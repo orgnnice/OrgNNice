@@ -55,34 +55,6 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="import_2">
-        <property name="text">
-         <string>Import</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="export_2">
-        <property name="text">
-         <string>Export</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="waitForbut">
-        <property name="text">
-         <string>Wait for List</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="toDobut">
-        <property name="text">
-         <string>ToDo List</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="addnew">
         <property name="minimumSize">
          <size>
@@ -144,7 +116,25 @@
      <string>org'n'nice</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuDatenbank">
+    <property name="title">
+     <string>Datenbank</string>
+    </property>
+    <addaction name="actionImport"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport"/>
+   </widget>
+   <widget class="QMenu" name="menuListen">
+    <property name="title">
+     <string>Listen</string>
+    </property>
+    <addaction name="actionToDo_Liste"/>
+    <addaction name="separator"/>
+    <addaction name="actionWaitFor_Liste"/>
+   </widget>
    <addaction name="menuOrg_n_nice"/>
+   <addaction name="menuDatenbank"/>
+   <addaction name="menuListen"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -155,6 +145,26 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="actionToDo_Liste">
+   <property name="text">
+    <string>ToDo Liste</string>
+   </property>
+  </action>
+  <action name="actionWaitFor_Liste">
+   <property name="text">
+    <string>WaitFor Liste</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

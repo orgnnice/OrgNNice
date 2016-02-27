@@ -13,6 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+
+    connect(ui->actionExport, SIGNAL(triggered(bool)),
+            this, SLOT(on_export_2_clicked()));
+    connect(ui->actionImport, SIGNAL(triggered(bool)),
+            this, SLOT(on_import_2_clicked()));
+    connect(ui->actionToDo_Liste, SIGNAL(triggered(bool)),
+            this, SLOT(on_toDobut_clicked()));
+    connect(ui->actionWaitFor_Liste, SIGNAL(triggered(bool)),
+            this, SLOT(on_waitForbut_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +38,12 @@ qDebug() << "Real New Subject: " << creSub.getName();
 
 void MainWindow::setSubList(QList<Subject> list)
 {
+
+    ui->addnew->setStyleSheet("#addnew{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
+                              "#addnew:hover{color: #000; border: 1px solid #446CB3;}");
+    ui->addnew->setMinimumSize(QSize(30, 30));
+    ui->addnew->setMaximumSize(QSize(30, 30));
+
     this->sublist = list;
     int a = 2;
     int line = 0;
@@ -48,22 +63,31 @@ void MainWindow::setSubList(QList<Subject> list)
         font3.setPointSize(10);
 
         QSignalMapper* signalMapper = new QSignalMapper(this);
+        QLabel *subjectName = new QLabel(sublist[i].getName());
+        subjectName->setFont(font1);
         QPushButton *pButton = new QPushButton("Anzeigen");
+        pButton->setStyleSheet("QPushButton{color: #23121C; background-color: #51C185; border: 1px solid #26A65B;}"
+                                                  "QPushButton:hover{color: #000; border: 1px solid #446CB3;}");
         pButton->setFont(font3);
         pButton->setMinimumSize(QSize(100, 32));
         pButton->setMaximumSize(QSize(100, 32));
-        QGroupBox *groupbox = new QGroupBox(sublist[i].getName());
+        QGroupBox *groupbox = new QGroupBox();
+        groupbox->setObjectName(QStringLiteral("groupBox"));
+        groupbox->setStyleSheet("#groupBox{background-color: #fff; border: 1px solid #aaa; border-radius: 2px;}");
         groupbox->setFont(font1);
         groupbox->setMinimumSize(QSize(200, 225));
         groupbox->setMaximumSize(QSize(200, 225));
         groupbox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
+        anzahlnotes->setObjectName(QStringLiteral("mitschriftAnzahl"));
+        anzahlnotes->setStyleSheet("#mitschriftAnzahl{ color: #51C185;}");
         anzahlnotes->setAlignment(Qt::AlignCenter);
         anzahlnotes->setFont(font2);
         QLabel *desc = new QLabel("Mitschriften");
         desc->setFont(font3);
         desc->setAlignment(Qt::AlignCenter);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
+        verticalLayout->addWidget(subjectName, 0, Qt::AlignCenter);
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
         verticalLayout->addWidget(pButton, 0, Qt::AlignHCenter);
