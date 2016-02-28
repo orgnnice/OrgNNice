@@ -129,7 +129,9 @@ void MainWindow::on_pushButton_10_clicked()
 void MainWindow::on_addnew_clicked()
 {
     newCre = new c_subject(); // Be sure to destroy you window somewhere
+    //newCre->parmain=this;
     newCre->show();
+    //connect();
 }
 
 void MainWindow::on_pushButton_9_clicked()
