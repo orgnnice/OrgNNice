@@ -64,5 +64,12 @@ void WaitFor::setItemList(QList<WaitForList> current)
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignVCenter);
 
         ui->verticalLayout_2->addLayout(horizontalLayout);
+
+        QFrame *line_2 = new QFrame();
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        ui->verticalLayout_2->addWidget(line_2);
     }
 }
