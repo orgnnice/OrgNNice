@@ -40,10 +40,13 @@ void subject_detail::setSubDet(Subject cur)
         QIcon icon;
         icon.addFile(QStringLiteral("mitschirft.png"), QSize(), QIcon::Normal, QIcon::On);
         pButton->setIcon(icon);
+        pButton->setObjectName(QStringLiteral("mitschriftButton"));
         pButton->setIconSize(QSize(50, 100));
         pButton->setAutoExclusive(false);
-        pButton->setMaximumWidth(60);
-        pButton->setMaximumHeight(100);
+        pButton->setMinimumWidth(70);
+        pButton->setMinimumHeight(100);
+        pButton->setStyleSheet("#mitschriftButton{background-color: #fff; color: #23121C; border: 1px solid #446CB3;}"
+                                      "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
         qDebug() << noteList[i].getTimestamp();
         QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
         QSpacerItem *vSpacer;
@@ -58,7 +61,7 @@ void subject_detail::setSubDet(Subject cur)
             col = 0;
         }
         //ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
-        ui->gridLayout->addLayout(verticalLayout, line, col, 1, 1);
+        ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
         col++;
         connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(pButton, i);
