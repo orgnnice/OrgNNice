@@ -131,3 +131,16 @@ void subject_detail::on_addnew_clicked()
     newWrittenNote->setSubject(subdet);// Be sure to destroy you window somewhere
     newWrittenNote->show();
 }
+
+void subject_detail::on_pushButton_clicked()
+{
+   QList<QString> with;
+   QList<QString> without;
+   with << ui->textEdit->toPlainText();
+   without << "";
+   qDebug() << "Search for: " << ui->textEdit->toPlainText();
+   qDebug() << "QList: " << with;
+   qDebug() << "WithOut: " << without;
+   QList<WrittenNote> result= subdet.getWrittenNotesWithWithout(with, without);
+   qDebug() << "Search WrittenNote-ID: " << result[0].getTags();
+}
