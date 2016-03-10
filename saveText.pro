@@ -31,7 +31,10 @@ SOURCES += main.cpp\
     exportdialog.cpp \
     waitfor.cpp \
     new_waitfor.cpp \
-    c_writtennote.cpp
+    c_writtennote.cpp \
+    searchdialog.cpp \
+    searchresult.cpp \
+    addandremovetag.cpp
 
 HEADERS  += \
     writtennote.h \
@@ -56,7 +59,10 @@ HEADERS  += \
     waitfor.h \
     new_waitfor.h \
     c_writtennote.h \
-    ui_waitfor.h
+    ui_waitfor.h \
+    searchdialog.h \
+    searchresult.h \
+    addandremovetag.h
 
 FORMS    += \
     mrichtextedit.ui \
@@ -68,7 +74,10 @@ FORMS    += \
     exportdialog.ui \
     waitfor.ui \
     new_waitfor.ui \
-    c_writtennote.ui
+    c_writtennote.ui \
+    searchdialog.ui \
+    searchresult.ui \
+    addandremovetag.ui
 
 DISTFILES += \
     Defintions_info

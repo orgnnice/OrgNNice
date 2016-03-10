@@ -609,3 +609,10 @@ void MRichTextEdit::on_buttonBox_accepted()
     selt.setContent(f_textedit->toHtml().replace("'", "^"));
     this->parentWidget()->close();
 }
+
+void MRichTextEdit::on_pushButton_clicked()
+{
+    tagver = new AddAndRemoveTag();
+    tagver->setWrittenNote(selt);
+    tagver->show();
+}

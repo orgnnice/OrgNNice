@@ -134,13 +134,7 @@ void subject_detail::on_addnew_clicked()
 
 void subject_detail::on_pushButton_clicked()
 {
-   QList<QString> with;
-   QList<QString> without;
-   with << ui->textEdit->toPlainText();
-   without << "";
-   qDebug() << "Search for: " << ui->textEdit->toPlainText();
-   qDebug() << "QList: " << with;
-   qDebug() << "WithOut: " << without;
-   QList<WrittenNote> result= subdet.getWrittenNotesWithWithout(with, without);
-   qDebug() << "Search WrittenNote-ID: " << result[0].getTags();
+   opensearch = new SearchDialog();
+   opensearch->selsub = subdet;
+   opensearch->show();
 }

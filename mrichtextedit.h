@@ -27,6 +27,7 @@
 #include <QPointer>
 #include "ui_mrichtextedit.h"
 #include "writtennote.h"
+#include "addandremovetag.h"
 
 /**
  * @Brief A simple rich-text editor
@@ -97,6 +98,10 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
 private slots:
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
+    void on_pushButton_clicked();
+
+private:
+    AddAndRemoveTag *tagver;
 };
 
 #endif

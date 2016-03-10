@@ -5,6 +5,7 @@
 #include "mrichtextedit.h"
 #include "subject.h"
 #include "c_writtennote.h"
+#include "searchdialog.h"
 
 namespace Ui {
 class subject_detail;
@@ -44,6 +45,7 @@ private:
     Ui::subject_detail *ui;
     MRichTextEdit *rte;
     C_WrittenNote *newWrittenNote;
+    SearchDialog *opensearch;
 };
 
 #endif // SUBJECT_DETAIL_H
