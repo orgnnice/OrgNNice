@@ -415,7 +415,7 @@ bool DBHandler::updateWrittenNote(WrittenNote note)
     }
     //insert Tags
 
-    queryNoReturn("DELETE FROM noteHasTag where fk_note = " + QString::number(noteId) + ")");
+    queryNoReturn("DELETE FROM noteHasTag where (fk_note = " + QString::number(noteId) + ")");
     for (QString tempTag : note.getTags())
     {
         insertWrittenTagToNote(note.getId(), tempTag);
