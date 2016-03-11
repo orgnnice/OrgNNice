@@ -109,9 +109,20 @@ QList<WrittenNote> Subject::getWrittenNotes(QList<QString> taglist)
 QList<WrittenNote> Subject::getWrittenNotesBetween(QDateTime DateFirst, QDateTime  DateLast)
 {
     QList<WrittenNote> chosenNotes;
-//methode("select * from
+
+    for (WrittenNote wr : this->getWrittenNotes())
+    {
+        if(wr.getTimestamp().operator >(DateFirst) &&
+           wr.getTimestamp().operator <(DateLast))
+        {
+            chosenNotes.append(wr);
+        }
+    }
+
+
     return chosenNotes;
 }
+
 
 QList<WrittenNote> Subject::getWrittenNotesWithWithout(QList<QString> tagListWith, QList<QString> tagListWithout)
 {
