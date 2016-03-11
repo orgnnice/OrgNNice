@@ -33,5 +33,7 @@ void SearchDialog::on_buttonBox_accepted()
         qDebug() << "To: " << ui->dateTimeEdit_2->dateTime();
         QList<WrittenNote> result= selsub.getWrittenNotesBetween(ui->dateTimeEdit->dateTime(), ui->dateTimeEdit_2->dateTime());
         qDebug() << "Search WrittenNote-ID: " << result.length();
+        out = new SearchResult();
+        out->setResult(result, "Zeitraum: ");        out->show();
     }
 }
