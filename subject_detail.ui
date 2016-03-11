@@ -37,18 +37,28 @@
      <widget class="QPushButton" name="pushButton">
       <property name="minimumSize">
        <size>
-        <width>0</width>
-        <height>28</height>
+        <width>30</width>
+        <height>30</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
-        <height>28</height>
+        <width>30</width>
+        <height>30</height>
        </size>
       </property>
       <property name="text">
-       <string>Search</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/new/images/search_icon.png</normaloff>:/new/images/search_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -96,17 +106,30 @@
       <property name="minimumSize">
        <size>
         <width>30</width>
-        <height>28</height>
+        <height>30</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>30</width>
-        <height>28</height>
+        <height>30</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="text">
-       <string>+</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/new/images/icon_add_new.png</normaloff>:/new/images/icon_add_new.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -124,7 +147,7 @@
          <x>0</x>
          <y>0</y>
          <width>700</width>
-         <height>487</height>
+         <height>486</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout"/>
@@ -154,6 +177,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

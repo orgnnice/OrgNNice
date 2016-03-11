@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/new/images">
+        <file>1194984503648539303paper2.svg.med.png</file>
+        <file>plus-24-512.png</file>
+        <file>private-eye-lupe.png</file>
+        <file>add.png</file>
+        <file>icon_writtennote_with_text.png</file>
+        <file>icon_writtennote_with_plus.png</file>
+        <file>add_new.png</file>
+        <file>search_icon.png</file>
+        <file>icon_add_new.png</file>
+    </qresource>
+</RCC>

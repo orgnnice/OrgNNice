@@ -32,14 +32,12 @@ void subject_detail::setSubDet(Subject cur)
     int line = 0;
     int col = 0;
     noteList = subdet.getWrittenNotes();
-    QString dateformat = "dd.MM.yyyy";
 
     for(int i=0;i<subdet.getWrittenNotesSize();i++){
         QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
-        QIcon icon;
-        icon.addFile(QStringLiteral("mitschirft.png"), QSize(), QIcon::Normal, QIcon::On);
-        pButton->setIcon(icon);
+        QPixmap pixmap = QPixmap (":/new/images/icon_writtennote_with_text.png");
+        pButton->setIcon(QIcon(pixmap));
         pButton->setObjectName(QStringLiteral("mitschriftButton"));
         pButton->setIconSize(QSize(50, 100));
         pButton->setAutoExclusive(false);

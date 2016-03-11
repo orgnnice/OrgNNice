@@ -80,4 +80,8 @@ FORMS    += \
     addandremovetag.ui
 
 DISTFILES += \
-    Defintions_info
+    Defintions_info \
+    icon_writtennote_with_text.png
+
+RESOURCES += \
+    resources.qrc

@@ -27,7 +27,7 @@ void toDo::on_addnew_clicked()
 void toDo::setItemList(QList<ToDoItem> current)
 {
     ui->addnew->setStyleSheet("#addnew{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
-                              "#addnew:hover{color: #000; border: 2px solid #446CB3;}");
+                              "#addnew:hover{color: #000; border: 1px solid #446CB3;}");
     ui->addnew->setMinimumSize(QSize(30, 30));
     ui->addnew->setMaximumSize(QSize(30, 30));
 
