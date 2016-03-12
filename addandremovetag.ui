@@ -69,7 +69,13 @@
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/new/images/icon_add_new.png</normaloff>:/new/images/icon_add_new.png</iconset>
+         <normaloff>:/images/icons/icon_add_new.png</normaloff>:/images/icons/icon_add_new.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>15</width>
+         <height>15</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -92,8 +98,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>420</width>
-        <height>262</height>
+        <width>416</width>
+        <height>247</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2"/>

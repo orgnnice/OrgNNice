@@ -1,13 +1,22 @@
 <RCC>
-    <qresource prefix="/new/images">
-        <file>1194984503648539303paper2.svg.med.png</file>
-        <file>plus-24-512.png</file>
-        <file>private-eye-lupe.png</file>
-        <file>add.png</file>
-        <file>icon_writtennote_with_text.png</file>
-        <file>icon_writtennote_with_plus.png</file>
-        <file>add_new.png</file>
-        <file>search_icon.png</file>
-        <file>icon_add_new.png</file>
+    <qresource prefix="/images">
+        <file>icons/icon_add_new.png</file>
+        <file>icons/icon_undo.png</file>
+        <file>icons/icon_writtennote_with_text.png</file>
+        <file>icons/search_icon.png</file>
+        <file>icons/icon_bulletList.png</file>
+        <file>icons/icon_copy.png</file>
+        <file>icons/icon_cut.png</file>
+        <file>icons/icon_durchgestrichen.png</file>
+        <file>icons/icon_orderdList.png</file>
+        <file>icons/icon_paste.png</file>
+        <file>icons/icon_reundo.png</file>
+        <file>icons/icon_tag.png</file>
+        <file>icons/icon_decreaseIntention.png</file>
+        <file>icons/icon_increaseIntention.png</file>
+        <file>icons/icon_link.png</file>
+        <file>icons/icon_settings.png</file>
+        <file>icons/icon_image.png</file>
+        <file>icons/icon_waste.png</file>
     </qresource>
 </RCC>

@@ -16,6 +16,9 @@ AddAndRemoveTag::~AddAndRemoveTag()
 }
 
 void AddAndRemoveTag::setWrittenNote(WrittenNote cur) {
+    ui->pushButton->setObjectName(QStringLiteral("addNewTag"));
+    ui->pushButton->setStyleSheet("#addNewTag{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
+                                          "#addNewTag:hover{color: #000; border: 1px solid #446CB3;}");
     selwr = cur;
     QList<QString> tags = selwr.getTags();
     for(int i=0;i<tags.length();i++)
@@ -33,7 +36,9 @@ void AddAndRemoveTag::setWrittenNote(WrittenNote cur) {
         hSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Expanding);
         itemLayout->addSpacerItem(hSpacer);
 
-        QPushButton *pButton = new QPushButton("Löschen");
+        QPushButton *pButton = new QPushButton();
+        QPixmap pixmap = QPixmap (":/images/icons/icon_waste.png");
+        pButton->setIcon(QIcon(pixmap));
         itemLayout->addWidget(pButton);
 
         ui->verticalLayout_2->addLayout(itemLayout);

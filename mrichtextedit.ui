@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>595</height>
+    <width>880</width>
+    <height>620</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>880</width>
+    <height>620</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string notr="true"/>
@@ -49,6 +55,12 @@
       </property>
       <item>
        <widget class="QComboBox" name="f_paragraph">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>26</height>
+         </size>
+        </property>
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -82,13 +94,13 @@
          <string>Undo</string>
         </property>
         <property name="icon">
-         <iconset theme="edit-undo">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_undo.png</normaloff>:/images/icons/icon_undo.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -108,13 +120,13 @@
          <string>Redo</string>
         </property>
         <property name="icon">
-         <iconset theme="edit-redo">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_reundo.png</normaloff>:/images/icons/icon_reundo.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -131,13 +143,13 @@
          <string>Cut</string>
         </property>
         <property name="icon">
-         <iconset theme="edit-cut">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_cut.png</normaloff>:/images/icons/icon_cut.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -154,13 +166,13 @@
          <string>Copy</string>
         </property>
         <property name="icon">
-         <iconset theme="edit-copy">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_copy.png</normaloff>:/images/icons/icon_copy.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -177,13 +189,13 @@
          <string>Paste</string>
         </property>
         <property name="icon">
-         <iconset theme="edit-paste">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_paste.png</normaloff>:/images/icons/icon_paste.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -207,13 +219,13 @@
          <string>Link</string>
         </property>
         <property name="icon">
-         <iconset theme="applications-internet">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_link.png</normaloff>:/images/icons/icon_link.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
         <property name="checkable">
@@ -309,7 +321,11 @@
       <item>
        <widget class="QToolButton" name="f_strikeout">
         <property name="text">
-         <string>Strike Out</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_durchgestrichen.png</normaloff>:/images/icons/icon_durchgestrichen.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -334,10 +350,14 @@
         <property name="text">
          <string>Bullet list</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_bulletList.png</normaloff>:/images/icons/icon_bulletList.png</iconset>
+        </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
         <property name="checkable">
@@ -356,10 +376,14 @@
         <property name="text">
          <string>Ordered list</string>
         </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_orderdList.png</normaloff>:/images/icons/icon_orderdList.png</iconset>
+        </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
         <property name="checkable">
@@ -379,13 +403,13 @@
          <string>Decrease indentation</string>
         </property>
         <property name="icon">
-         <iconset theme="format-indent-less">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_decreaseIntention.png</normaloff>:/images/icons/icon_decreaseIntention.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -402,13 +426,13 @@
          <string>Increase indentation</string>
         </property>
         <property name="icon">
-         <iconset theme="format-indent-more">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_increaseIntention.png</normaloff>:/images/icons/icon_increaseIntention.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -424,14 +448,14 @@
        <widget class="QToolButton" name="f_fgcolor">
         <property name="minimumSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>27</width>
+          <height>26</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>27</width>
+          <height>26</height>
          </size>
         </property>
         <property name="focusPolicy">
@@ -445,8 +469,8 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
@@ -455,14 +479,14 @@
        <widget class="QToolButton" name="f_bgcolor">
         <property name="minimumSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>27</width>
+          <height>26</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>27</width>
+          <height>26</height>
          </size>
         </property>
         <property name="focusPolicy">
@@ -476,14 +500,20 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>16</width>
-          <height>16</height>
+          <width>20</width>
+          <height>20</height>
          </size>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QComboBox" name="f_fontsize">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>26</height>
+         </size>
+        </property>
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -503,22 +533,36 @@
        </widget>
       </item>
       <item>
+       <widget class="QToolButton" name="f_image">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_image.png</normaloff>:/images/icons/icon_image.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton">
         <property name="maximumSize">
          <size>
-          <width>80</width>
-          <height>16777215</height>
+          <width>70</width>
+          <height>26</height>
          </size>
         </property>
         <property name="text">
          <string>Tags</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="f_image">
-        <property name="text">
-         <string notr="true">...</string>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_tag.png</normaloff>:/images/icons/icon_tag.png</iconset>
         </property>
        </widget>
       </item>
@@ -537,8 +581,18 @@
       </item>
       <item>
        <widget class="QToolButton" name="f_menu">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>26</height>
+         </size>
+        </property>
         <property name="text">
          <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icons/icon_settings.png</normaloff>:/images/icons/icon_settings.png</iconset>
         </property>
        </widget>
       </item>
@@ -584,7 +638,7 @@
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Deutsch vom 10 April 2015&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -622,6 +676,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>f_image</tabstop>
   <tabstop>f_menu</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

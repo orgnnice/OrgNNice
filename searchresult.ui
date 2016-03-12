@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>666</width>
-    <height>559</height>
+    <width>650</width>
+    <height>650</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>650</width>
+    <height>550</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>SearchResult</string>
@@ -27,6 +33,8 @@
        <property name="font">
         <font>
          <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="text">
@@ -59,8 +67,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>646</width>
-        <height>508</height>
+        <width>626</width>
+        <height>589</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout"/>

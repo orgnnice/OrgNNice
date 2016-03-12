@@ -31,7 +31,7 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
     for(int i=0;i<res.length();i++){
         QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
-        QPixmap pixmap = QPixmap (":/new/images/icon_writtennote_with_text.png");
+        QPixmap pixmap = QPixmap (":/images/icons/icon_writtennote_with_text.png");
         pButton->setIcon(QIcon(pixmap));
         pButton->setObjectName(QStringLiteral("mitschriftButton"));
         pButton->setIconSize(QSize(50, 100));
