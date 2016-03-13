@@ -32,8 +32,8 @@ MainWindow::~MainWindow()
 void MainWindow::update(Subject creSub)
 {
 //this->sublist = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
-qDebug() << "New Subject: " << sublist[sublist.length()-1].getName();
-qDebug() << "Real New Subject: " << creSub.getName();
+/*qDebug() << "New Subject: " << sublist[sublist.length()-1].getName();
+qDebug() << "Real New Subject: " << creSub.getName();*/
 }
 
 void MainWindow::setSubList(QList<Subject> list)
@@ -48,6 +48,7 @@ void MainWindow::setSubList(QList<Subject> list)
     int a = 2;
     int line = 0;
     int pos = 0;
+    qDebug() << "Länge: " << sublist.length();
     for(int i=0;i<sublist.length();i++){        
         qDebug() << "Subjectname: " << sublist[i].getName();
         qDebug() << "Anzahl der Mitschriften:" << sublist[i].getWrittenNotesSize();
@@ -101,7 +102,6 @@ void MainWindow::setSubList(QList<Subject> list)
         connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(subDetail(int)));
 
     }
-    qDebug() << todoItems[0].toString();
 }
 
 void MainWindow::openNewWindow()
@@ -166,6 +166,12 @@ void MainWindow::on_toDobut_clicked()
     toList = new toDo();
     toList->setItemList(todoItems);
     toList->show();
+}
+
+void MainWindow::on_import_2_clicked()
+{
+    exportDia = new ExportDialog();
+    exportDia->show();
 }
 
 void MainWindow::on_export_2_clicked()

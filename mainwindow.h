@@ -58,6 +58,8 @@ private slots:
 
    void on_toDobut_clicked();
 
+   void on_import_2_clicked();
+
    void on_export_2_clicked();
 
    void on_waitForbut_clicked();
