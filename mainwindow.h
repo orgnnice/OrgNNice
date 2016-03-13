@@ -26,7 +26,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QList<Subject> sublist;
-    Subject selected;
     QList<ToDoItem> todoItems;
     QList<WaitForList> waitItems;
 
