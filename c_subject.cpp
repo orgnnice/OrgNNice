@@ -3,6 +3,8 @@
 #include <subject.h>
 #include <qdebug.h>
 #include <QProcess>
+#include <mainwindow.h>
+#include <main.h>
 
 c_subject::c_subject(QWidget *parent) :
     QDialog(parent),
@@ -23,9 +25,17 @@ void c_subject::on_buttonBox_accepted()
     qDebug() << "hierr" << ui->subname->text();
     Subject awesomeNewSubject = Subject(ui->subname->text());
     qDebug() << "hierr" << ui->subname->text();
-    /*MainWindow *parent1 = qobject_cast<MainWindow*>(parent());
-    qDebug() << parent1;
-    if (parent1)
-            parent1->close();
-    this->close();*/
+    connect( this, SIGNAL(), parentWidget(), SLOT(update()) );
+    MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+    // check parent is not null
+    parent->update();
+    /*QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+    QList <ToDoItem> todos =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+    QList <WaitForList> wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+    MainWindow w;
+    w.todoItems = todos;
+    w.waitItems = wfs;
+    w.setSubList(allsubs);
+    w.show();*/
+
 }

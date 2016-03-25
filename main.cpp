@@ -39,7 +39,7 @@ int main(int argc, char **argv)
         qDebug() << "waitfor:" << wf.toString();
     }
 
-//    ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
+    //ToDoItem(QString subject_name, QString description, QDateTime deadline, bool done);
     //ToDoItem("mathe", "HÜ: 419a, 420b, 422f", QDateTime(), false);
     //ToDoItem("deutsch", "faust lesen bis 143", QDateTime(), true);
     //ToDoItem("deutsch", "buchbesprechung schreiben", QDateTime(), false);

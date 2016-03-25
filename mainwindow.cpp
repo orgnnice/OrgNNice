@@ -6,6 +6,8 @@
 #include <dbhandler.h>
 #include <QGroupBox>
 #include <main.h>
+#include <QFileDialog>
+#include <exportimport.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,11 +31,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::update(Subject creSub)
+void MainWindow::update()
 {
-//this->sublist = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
-/*qDebug() << "New Subject: " << sublist[sublist.length()-1].getName();
-qDebug() << "Real New Subject: " << creSub.getName();*/
+qDebug() << "Started Update";
 }
 
 void MainWindow::setSubList(QList<Subject> list)
@@ -170,8 +170,12 @@ void MainWindow::on_toDobut_clicked()
 
 void MainWindow::on_import_2_clicked()
 {
-    exportDia = new ExportDialog();
-    exportDia->show();
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Database File"),QDir::homePath(), tr("Database Files (*.db *.db3)"));
+    qDebug() << "Selected File: " << fileName;
+    ExportImport(fileName).importDatabase();
+    QApplication::quit();
+
 }
 
 void MainWindow::on_export_2_clicked()
