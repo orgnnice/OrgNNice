@@ -33,6 +33,7 @@ void WaitFor::setItemList(QList<WaitForList> current)
     this->waitItems = current;
     for(int i=0;i<waitItems.length();i++)
     {
+        QSignalMapper* signalMapper = new QSignalMapper(this);
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(7);
@@ -41,11 +42,11 @@ void WaitFor::setItemList(QList<WaitForList> current)
         font1.setPointSize(9);
 
         QLabel *label_desc = new QLabel(waitItems[i].getDescription());
-        label_desc->setMinimumSize(QSize(430, 25));
+        label_desc->setMinimumSize(QSize(400, 25));
         label_desc->setMaximumSize(QSize(16777215, 25));
         label_desc->setFont(font1);
-
         horizontalLayout->addWidget(label_desc, 0, Qt::AlignTop);
+
         int a = waitItems[i].getSubjectID();
         //QString z = pDBh->select("name", "SchoolSubject", "pk_id='" + a + "'").replace('"',"");
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
@@ -53,15 +54,21 @@ void WaitFor::setItemList(QList<WaitForList> current)
         label_subj->setMinimumSize(QSize(145, 25));
         label_subj->setMaximumSize(QSize(145, 25));
         label_subj->setFont(font1);
-
         horizontalLayout->addWidget(label_subj, 0, Qt::AlignTop);
 
         QCheckBox *checkBox = new QCheckBox();
-        checkBox->setMinimumSize(QSize(60, 25));
-        checkBox->setMaximumSize(QSize(60, 25));
-        checkBox->setStyleSheet(QStringLiteral("padding-left: 25px;"));
+        checkBox->setMinimumSize(QSize(30, 25));
+        checkBox->setMaximumSize(QSize(30, 25));
+        checkBox->setStyleSheet(QStringLiteral("padding-left: 15px;"));
+        checkBox->setChecked(waitItems[i].getDone());
+        horizontalLayout->addWidget(checkBox, 0, Qt::AlignTop);
 
-        horizontalLayout->addWidget(checkBox, 0, Qt::AlignVCenter);
+        QPushButton *pButton = new QPushButton();
+        QPixmap pixmap = QPixmap (":/images/icons/icon_waste.png");
+        pButton->setIcon(QIcon(pixmap));
+        pButton->setMinimumSize(QSize(25, 25));
+        pButton->setMaximumSize(QSize(25, 25));
+        horizontalLayout->addWidget(pButton, 0, Qt::AlignTop);
 
         ui->verticalLayout_2->addLayout(horizontalLayout);
 
@@ -71,5 +78,20 @@ void WaitFor::setItemList(QList<WaitForList> current)
         line_2->setFrameShadow(QFrame::Sunken);
 
         ui->verticalLayout_2->addWidget(line_2);
+
+        connect(checkBox, SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(checkBox, i);
+        connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(checkWaitFor(int)));
     }
+}
+
+void WaitFor::checkWaitFor(int item){
+    if(waitItems[item].getDone()) {
+        waitItems[item].setDone(false);
+        qDebug() << waitItems[item].getDone();
+    }else{
+        waitItems[item].setDone(true);
+        qDebug() << waitItems[item].getDone();
+    }
+    waitItems[item].updateWaitFor();
 }

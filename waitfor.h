@@ -21,6 +21,7 @@ public:
 
 public slots:
     void setItemList(QList<WaitForList> current);
+        void checkWaitFor(int item);
 
 private slots:
     void on_addnew_3_clicked();

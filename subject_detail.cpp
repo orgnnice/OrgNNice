@@ -47,6 +47,7 @@ void subject_detail::setSubDet(Subject cur)
                                       "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
         qDebug() << noteList[i].getTimestamp();
         QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
+        labelFilename->setStyleSheet(QStringLiteral("padding-bottom: 25px;"));
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;
