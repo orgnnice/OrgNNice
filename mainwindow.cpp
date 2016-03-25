@@ -31,11 +31,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::update(Subject creSub)
+void MainWindow::update()
 {
-//this->sublist = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
-/*qDebug() << "New Subject: " << sublist[sublist.length()-1].getName();
-qDebug() << "Real New Subject: " << creSub.getName();*/
+qDebug() << "Started Update";
 }
 
 void MainWindow::setSubList(QList<Subject> list)
