@@ -2,6 +2,7 @@
 #define EXPORTDIALOG_H
 
 #include <QDialog>
+#include "exportimport.h"
 
 namespace Ui {
 class ExportDialog;
@@ -20,8 +21,13 @@ private slots:
 
     void on_buttonBox_accepted();
 
+    void on_radioButton_2_toggled(bool checked);
+
+    void on_radioButton_toggled(bool checked);
+
 private:
     Ui::ExportDialog *ui;
+    ExportImport *eport;
 };
 
 #endif // EXPORTDIALOG_H
