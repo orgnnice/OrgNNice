@@ -64,6 +64,8 @@ private slots:
 
    void on_waitForbut_clicked();
 
+   void on_addnew_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     c_subject *newCre;

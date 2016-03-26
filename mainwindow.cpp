@@ -39,10 +39,10 @@ qDebug() << "Started Update";
 void MainWindow::setSubList(QList<Subject> list)
 {
 
-    ui->addnew->setStyleSheet("#addnew{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
-                              "#addnew:hover{color: #000; border: 1px solid #446CB3;}");
-    ui->addnew->setMinimumSize(QSize(30, 30));
-    ui->addnew->setMaximumSize(QSize(30, 30));
+    ui->addnew_2->setStyleSheet("#addnew_2{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
+                              "#addnew_2:hover{color: #000; border: 1px solid #446CB3;}");
+    ui->addnew_2->setMinimumSize(QSize(30, 30));
+    ui->addnew_2->setMaximumSize(QSize(30, 30));
 
     this->sublist = list;
     int a = 2;
@@ -63,8 +63,10 @@ void MainWindow::setSubList(QList<Subject> list)
         QSignalMapper* signalMapper = new QSignalMapper(this);
         QLabel *subjectName = new QLabel(sublist[i].getName());
         subjectName->setFont(font1);
+        subjectName->setObjectName(QStringLiteral("subjectName"));
+        subjectName->setStyleSheet("#subjectName{background-color: #fff; font-family: 'Yu Gothic UI Semibold';}");
         QPushButton *pButton = new QPushButton("Anzeigen");
-        pButton->setStyleSheet("QPushButton{color: #23121C; background-color: #51C185; border: 1px solid #26A65B;}"
+        pButton->setStyleSheet("QPushButton{color: #23121C; background-color: #51C185; border: 1px solid #26A65B; font-family: 'Yu Gothic UI';}"
                                                   "QPushButton:hover{color: #000; border: 1px solid #446CB3;}");
         pButton->setFont(font3);
         pButton->setMinimumSize(QSize(100, 32));
@@ -78,12 +80,14 @@ void MainWindow::setSubList(QList<Subject> list)
         groupbox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         QLabel *anzahlnotes = new QLabel(QString::number(sublist[i].getWrittenNotesSize()));
         anzahlnotes->setObjectName(QStringLiteral("mitschriftAnzahl"));
-        anzahlnotes->setStyleSheet("#mitschriftAnzahl{ color: #51C185;}");
+        anzahlnotes->setStyleSheet("#mitschriftAnzahl{background-color: #fff; color: #51C185; font-family: 'Yu Gothic UI Semibold';}");
         anzahlnotes->setAlignment(Qt::AlignCenter);
         anzahlnotes->setFont(font2);
         QLabel *desc = new QLabel("Mitschriften");
         desc->setFont(font3);
         desc->setAlignment(Qt::AlignCenter);
+        desc->setObjectName(QStringLiteral("mitschriftenLabel"));
+        desc->setStyleSheet("#mitschriftenLabel{background-color: #fff; font-family: 'Yu Gothic UI';}");
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(subjectName, 0, Qt::AlignCenter);
         verticalLayout->addWidget(anzahlnotes);
@@ -104,60 +108,10 @@ void MainWindow::setSubList(QList<Subject> list)
     }
 }
 
-void MainWindow::openNewWindow()
-{
-    newCre = new c_subject(this); // Be sure to destroy you window somewhere
-    newCre->show();
-}
-
 void MainWindow::subDetail(int index){
     qDebug() << index;
     detSubject = new subject_detail();
     detSubject->setSubDet(sublist[index]);
-    detSubject->show();
-}
-
-void MainWindow::on_pushButton_10_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
-}
-
-void MainWindow::on_addnew_clicked()
-{
-    newCre = new c_subject(); // Be sure to destroy you window somewhere
-    //newCre->parmain=this;
-    newCre->show();
-    //connect();
-}
-
-void MainWindow::on_pushButton_9_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
-}
-
-void MainWindow::on_pushButton_4_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
-}
-
-void MainWindow::on_pushButton_8_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
-    detSubject->show();
-}
-
-void MainWindow::on_pushButton_5_clicked()
-{
-    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
     detSubject->show();
 }
 
@@ -191,11 +145,10 @@ void MainWindow::on_waitForbut_clicked()
     waitList->show();
 
 }
-void MainWindow::on_pushButton_clicked()
-{
 
-}
-void MainWindow::on_toDo_clicked()
+void MainWindow::on_addnew_2_clicked()
 {
-
+    newCre = new c_subject(); // Be sure to destroy you window somewhere
+    //newCre->parmain=this;
+    newCre->show();
 }

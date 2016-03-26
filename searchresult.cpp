@@ -34,14 +34,15 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
         QPixmap pixmap = QPixmap (":/images/icons/icon_writtennote_with_text.png");
         pButton->setIcon(QIcon(pixmap));
         pButton->setObjectName(QStringLiteral("mitschriftButton"));
-        pButton->setIconSize(QSize(50, 100));
+        pButton->setIconSize(QSize(70, 100));
         pButton->setAutoExclusive(false);
-        pButton->setMinimumWidth(70);
-        pButton->setMinimumHeight(100);
-        pButton->setStyleSheet("#mitschriftButton{background-color: #fff; color: #23121C; border: 1px solid #446CB3;}"
+        pButton->setMinimumWidth(80);
+        pButton->setMinimumHeight(110);
+        pButton->setStyleSheet("#mitschriftButton{background-color: #fff; color: #23121C; border: 1px solid #446CB3; border-radius: 2px;}"
                                       "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
         qDebug() << res[i].getTimestamp();
         QLabel *labelFilename = new QLabel(res[i].getTimestamp().toString("dd.MM.yyyy"));
+        labelFilename->setStyleSheet(QStringLiteral("padding-bottom: 25px; font-family: 'Yu Gothic UI';"));
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
         QVBoxLayout *verticalLayout = new QVBoxLayout;

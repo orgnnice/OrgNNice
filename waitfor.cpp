@@ -33,16 +33,19 @@ void WaitFor::setItemList(QList<WaitForList> current)
     this->waitItems = current;
     for(int i=0;i<waitItems.length();i++)
     {
-        QSignalMapper* signalMapper = new QSignalMapper(this);
+        QSignalMapper* checkedMapper = new QSignalMapper(this);
+        QSignalMapper* deleteMapper = new QSignalMapper(this);
 
-        QHBoxLayout *horizontalLayout = new QHBoxLayout();
+        QWidget *fixedWidget = new QWidget;
+        QHBoxLayout *horizontalLayout = new QHBoxLayout(fixedWidget);
         horizontalLayout->setSpacing(7);
+        fixedWidget->setFixedHeight(35);
 
         QFont font1;
         font1.setPointSize(9);
 
         QLabel *label_desc = new QLabel(waitItems[i].getDescription());
-        label_desc->setMinimumSize(QSize(400, 25));
+        label_desc->setMinimumSize(QSize(390, 25));
         label_desc->setMaximumSize(QSize(16777215, 25));
         label_desc->setFont(font1);
         horizontalLayout->addWidget(label_desc, 0, Qt::AlignTop);
@@ -51,26 +54,29 @@ void WaitFor::setItemList(QList<WaitForList> current)
         //QString z = pDBh->select("name", "SchoolSubject", "pk_id='" + a + "'").replace('"',"");
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
         QLabel *label_subj = new QLabel(pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a)));
-        label_subj->setMinimumSize(QSize(145, 25));
-        label_subj->setMaximumSize(QSize(145, 25));
+        label_subj->setMinimumSize(QSize(160, 25));
+        label_subj->setMaximumSize(QSize(160, 25));
         label_subj->setFont(font1);
         horizontalLayout->addWidget(label_subj, 0, Qt::AlignTop);
 
         QCheckBox *checkBox = new QCheckBox();
-        checkBox->setMinimumSize(QSize(30, 25));
-        checkBox->setMaximumSize(QSize(30, 25));
-        checkBox->setStyleSheet(QStringLiteral("padding-left: 15px;"));
+        checkBox->setMinimumSize(QSize(25, 25));
+        checkBox->setMaximumSize(QSize(25, 25));
         checkBox->setChecked(waitItems[i].getDone());
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignTop);
 
         QPushButton *pButton = new QPushButton();
-        QPixmap pixmap = QPixmap (":/images/icons/icon_waste.png");
+        QPixmap pixmap = QPixmap (":/images/icons/icon_waste_white.png");
         pButton->setIcon(QIcon(pixmap));
+        pButton->setIconSize(QSize(20, 20));
+        pButton->setObjectName(QStringLiteral("deleteButton"));
         pButton->setMinimumSize(QSize(25, 25));
         pButton->setMaximumSize(QSize(25, 25));
+        pButton->setStyleSheet("#deleteButton{background-color: #F22613; color: #23121C; border: 1px solid #000; border-radius: 2px;}"
+                               "#deleteButton:hover{color: #000; border: 1px solid #888;}");
         horizontalLayout->addWidget(pButton, 0, Qt::AlignTop);
 
-        ui->verticalLayout_2->addLayout(horizontalLayout);
+        ui->verticalLayout_2->addWidget(fixedWidget, 0, Qt::AlignTop);
 
         QFrame *line_2 = new QFrame();
         line_2->setObjectName(QStringLiteral("line_2"));
@@ -79,9 +85,13 @@ void WaitFor::setItemList(QList<WaitForList> current)
 
         ui->verticalLayout_2->addWidget(line_2);
 
-        connect(checkBox, SIGNAL(clicked()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(checkBox, i);
-        connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(checkWaitFor(int)));
+        connect(checkBox, SIGNAL(clicked()), checkedMapper, SLOT(map()));
+        checkedMapper->setMapping(checkBox, i);
+        connect(checkedMapper, SIGNAL(mapped(int)), this, SLOT(checkWaitFor(int)));
+
+        connect(pButton, SIGNAL(clicked()), deleteMapper, SLOT(map()));
+        deleteMapper->setMapping(pButton, i);
+        connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteWaitFor(int)));
     }
 }
 
@@ -94,4 +104,8 @@ void WaitFor::checkWaitFor(int item){
         qDebug() << waitItems[item].getDone();
     }
     waitItems[item].updateWaitFor();
+}
+
+void WaitFor::deleteWaitFor(int item){
+    waitItems[item].deleteWaitFor();
 }
