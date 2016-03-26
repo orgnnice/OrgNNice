@@ -31,7 +31,7 @@ void C_WrittenNote::on_buttonBox_accepted()
     this->close();
     subject_detail* parent = qobject_cast<subject_detail*>(this->parent());
     // check parent is not null
-    parent->update(crein);
+    parent->update();
 }
 
 void  C_WrittenNote::setSubject(Subject cur)

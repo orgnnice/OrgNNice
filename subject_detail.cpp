@@ -6,6 +6,7 @@
 #include "main.h"
 #include <QList>
 #include "subject.h"
+#include "mainwindow.h"
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -98,9 +99,13 @@ void subject_detail::on_addnew_2_clicked()
     newWrittenNote->show();
 }
 
-void subject_detail::update(Subject upd)
+void subject_detail::update()
 {
 qDebug() << "Started Update";
 qDebug() << "Name des ersten Subject";
-this->setSubDet(upd);
+subdet.updateSubject();
+this->setSubDet(subdet);
+MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+// check parent is not null
+parent->update();
 }

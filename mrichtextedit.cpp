@@ -39,6 +39,7 @@
 #include <QMenu>
 #include <QDialog>
 #include <qdebug.h>
+#include <subject_detail.h>
 
 MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     setupUi(this);
@@ -607,6 +608,9 @@ void MRichTextEdit::on_buttonBox_accepted()
     qDebug() << selt.getContent();
     qDebug() << f_textedit->toHtml();
     selt.setContent(f_textedit->toHtml().replace("'", "^"));
+    subject_detail* parent = qobject_cast<subject_detail*>(this->parent()->parent());
+    // check parent is not null
+    parent->update();
     this->parentWidget()->close();
 }
 

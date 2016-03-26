@@ -105,7 +105,7 @@ void MainWindow::setSubList(QList<Subject> list)
 
 void MainWindow::subDetail(int index){
     qDebug() << index;
-    detSubject = new subject_detail();
+    detSubject = new subject_detail(this);
     detSubject->setSubDet(sublist[index]);
     detSubject->show();
 }
