@@ -24,6 +24,7 @@ public:
     void createDatabaseIfNotExists();
     bool queryNoReturn(QString query);
     QList<WrittenNote> queryWithReturnNoteList(QString statement);
+    Subject subjectFromID(int id);
     QList<Subject> queryWithReturnSubjectList(QString statement);
     QList<ToDoItem> queryWithReturnToDoItemList(QString statement);
     QList<WaitForList> queryWithReturnWaitForListList(QString statement);
