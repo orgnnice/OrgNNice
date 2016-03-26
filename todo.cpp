@@ -4,6 +4,7 @@
 #include "dbhandler.h"
 #include "main.h"
 #include "qcheckbox.h"
+#include "mainwindow.h"
 
 toDo::toDo(QWidget *parent) :
     QDialog(parent),
@@ -20,7 +21,7 @@ toDo::~toDo()
 
 void toDo::on_addnew_clicked()
 {
-    add_toDo = new new_toDo();
+    add_toDo = new new_toDo(this);
     add_toDo->show();
 }
 
@@ -119,8 +120,36 @@ void toDo::check(int item){
         qDebug() << toItems[item].getDone();
     }
     toItems[item].updateToDoItem();
+    this->update();
 }
 
 void toDo::deleteToDo(int item){
     toItems[item].deleteToDoItem();
+    this->update();
+}
+
+void clearLayout(QLayout *layout){
+    QLayoutItem *item;
+    while((item = layout->takeAt(0))) {
+        if (item->layout()) {
+            clearLayout(item->layout());
+            delete item->layout();
+        }
+        if (item->widget()) {
+            delete item->widget();
+        }
+        delete item;
+    }
+}
+
+void toDo::update()
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+QList <ToDoItem> alltodos =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+clearLayout(ui->verticalLayout_2);
+this->setItemList(alltodos);
+MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+// check parent is not null
+parent->updateLists();
 }

@@ -4,6 +4,7 @@
 #include "main.h"
 #include "subject.h"
 #include "waitforlist.h"
+#include "waitfor.h"
 
 New_WaitFor::New_WaitFor(QWidget *parent) :
     QDialog(parent),
@@ -35,4 +36,7 @@ void New_WaitFor::on_buttonBox_accepted()
     qDebug() << ui->comboBox->itemText(ui->comboBox->currentIndex());
     qDebug() << ui->textEdit->toPlainText();
     this->close();
+    WaitFor* parent = qobject_cast<WaitFor*>(this->parent());
+    // check parent is not null
+    parent->update();
 }

@@ -23,6 +23,8 @@ public slots:
     void setItemList(QList<WaitForList> current);
     void checkWaitFor(int item);
     void deleteWaitFor(int item);
+    void update();
+    void clearLayout(QLayout *layout);
 
 private slots:
     void on_addnew_3_clicked();

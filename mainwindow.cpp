@@ -156,7 +156,7 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_toDobut_clicked()
 {
-    toList = new toDo();
+    toList = new toDo(this);
     toList->setItemList(todoItems);
     toList->show();
 }
@@ -179,7 +179,7 @@ void MainWindow::on_export_2_clicked()
 
 void MainWindow::on_waitForbut_clicked()
 {
-    waitList = new WaitFor();
+    waitList = new WaitFor(this);
     waitList->setItemList(waitItems);
     waitList->show();
 
@@ -195,7 +195,16 @@ void MainWindow::on_addnew_2_clicked()
 void MainWindow::update()
 {
 qDebug() << "Started Update";
-qDebug() << "Name des ersten Subject";
 QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 this->setSubList(allsubs);
+}
+
+
+void MainWindow::updateLists()
+{
+qDebug() << "Started Update";
+QList <WaitForList> allw =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+QList <ToDoItem> allt =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+this->waitItems = allw;
+this->todoItems = allt;
 }
