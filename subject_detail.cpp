@@ -93,7 +93,14 @@ void subject_detail::on_pushButton_2_clicked()
 
 void subject_detail::on_addnew_2_clicked()
 {
-    newWrittenNote = new C_WrittenNote();
+    newWrittenNote = new C_WrittenNote(this);
     newWrittenNote->setSubject(subdet);// Be sure to destroy you window somewhere
     newWrittenNote->show();
+}
+
+void subject_detail::update(Subject upd)
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+this->setSubDet(upd);
 }

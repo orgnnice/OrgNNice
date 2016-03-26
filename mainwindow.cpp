@@ -187,7 +187,7 @@ void MainWindow::on_waitForbut_clicked()
 
 void MainWindow::on_addnew_2_clicked()
 {
-    newCre = new c_subject(); // Be sure to destroy you window somewhere
+    newCre = new c_subject(this); // Be sure to destroy you window somewhere
     //newCre->parmain=this;
     newCre->show();
 }
@@ -196,5 +196,6 @@ void MainWindow::update()
 {
 qDebug() << "Started Update";
 qDebug() << "Name des ersten Subject";
-this->close();
+QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+this->setSubList(allsubs);
 }
