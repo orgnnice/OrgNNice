@@ -21,5 +21,6 @@
         <file>icons/icon_bold.png</file>
         <file>icons/icon_italic.png</file>
         <file>icons/icon_underline.png</file>
+        <file>icons/icon_waste_white.png</file>
     </qresource>
 </RCC>

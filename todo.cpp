@@ -37,10 +37,13 @@ void toDo::setItemList(QList<ToDoItem> current)
     {
         qDebug() << "Aufgabe: " << toItems[i].getDescription();
 
-        QSignalMapper* signalMapper = new QSignalMapper(this);
+        QSignalMapper* checkedMapper = new QSignalMapper(this);
+        QSignalMapper* deleteMapper = new QSignalMapper(this);
 
-        QHBoxLayout *horizontalLayout = new QHBoxLayout();
+        QWidget *fixedWidget = new QWidget;
+        QHBoxLayout *horizontalLayout = new QHBoxLayout(fixedWidget);
         horizontalLayout->setSpacing(7);
+        fixedWidget->setFixedHeight(35);
 
         QFont font1;
         font1.setPointSize(9);
@@ -55,8 +58,8 @@ void toDo::setItemList(QList<ToDoItem> current)
         horizontalLayout->addWidget(label_date, 0, Qt::AlignTop);
 
         QLabel *label_desc = new QLabel(toItems[i].getDescription());
-        label_desc->setMinimumSize(QSize(320, 25));
-        label_desc->setMaximumSize(QSize(16777215, 16777215));
+        label_desc->setMinimumSize(QSize(270, 25));
+        label_desc->setMaximumSize(QSize(16777215, 25));
         label_desc->setFont(font1);
         horizontalLayout->addWidget(label_desc, 0, Qt::AlignTop);
 
@@ -64,26 +67,31 @@ void toDo::setItemList(QList<ToDoItem> current)
         qDebug() << "Name of Subject: " << pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a));
         //QLabel *label_subj = new QLabel(pDBh->select("subject_name", "SchoolSubject", "id='" + toItems[i].getSubjectID() + "'"));
         QLabel *label_subj = new QLabel(pDBh->select("name", "SchoolSubject", "pk_id=" + QString::number(a)));
-        label_subj->setMinimumSize(QSize(140, 25));
-        label_subj->setMaximumSize(QSize(140, 25));
+        label_subj->setMinimumSize(QSize(150, 25));
+        label_subj->setMaximumSize(QSize(150, 25));
         label_subj->setFont(font1);
+        label_subj->setObjectName(QStringLiteral("labelSub"));
         horizontalLayout->addWidget(label_subj, 0, Qt::AlignTop);
 
         QCheckBox *checkBox = new QCheckBox();
-        checkBox->setMinimumSize(QSize(30, 25));
-        checkBox->setMaximumSize(QSize(30, 25));
+        checkBox->setMinimumSize(QSize(25, 25));
+        checkBox->setMaximumSize(QSize(25, 25));
         qDebug() << "Done: " << toItems[i].getDone();
         checkBox->setChecked(toItems[i].getDone());
         horizontalLayout->addWidget(checkBox, 0, Qt::AlignTop);
 
         QPushButton *pButton = new QPushButton();
-        QPixmap pixmap = QPixmap (":/images/icons/icon_waste.png");
+        QPixmap pixmap = QPixmap (":/images/icons/icon_waste_white.png");
         pButton->setIcon(QIcon(pixmap));
+        pButton->setIconSize(QSize(20, 20));
+        pButton->setObjectName(QStringLiteral("deleteButton"));
         pButton->setMinimumSize(QSize(25, 25));
         pButton->setMaximumSize(QSize(25, 25));
+        pButton->setStyleSheet("#deleteButton{background-color: #F22613; color: #23121C; border: 1px solid #000; border-radius: 2px;}"
+                               "#deleteButton:hover{color: #000; border: 1px solid #888;}");
         horizontalLayout->addWidget(pButton, 0, Qt::AlignTop);
 
-        ui->verticalLayout_2->addLayout(horizontalLayout);
+        ui->verticalLayout_2->addWidget(fixedWidget, 0, Qt::AlignTop);
 
         QFrame *line_2 = new QFrame();
         line_2->setObjectName(QStringLiteral("line_2"));
@@ -92,9 +100,13 @@ void toDo::setItemList(QList<ToDoItem> current)
 
         ui->verticalLayout_2->addWidget(line_2, Qt::AlignTop);
 
-        connect(checkBox, SIGNAL(clicked()), signalMapper, SLOT(map()));
-        signalMapper->setMapping(checkBox, i);
-        connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(check(int)));
+        connect(checkBox, SIGNAL(clicked()), checkedMapper, SLOT(map()));
+        checkedMapper->setMapping(checkBox, i);
+        connect(checkedMapper, SIGNAL(mapped(int)), this, SLOT(check(int)));
+
+        connect(pButton, SIGNAL(clicked()), deleteMapper, SLOT(map()));
+        deleteMapper->setMapping(pButton, i);
+        connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteToDo(int)));
     }
 }
 
@@ -107,4 +119,8 @@ void toDo::check(int item){
         qDebug() << toItems[item].getDone();
     }
     toItems[item].updateToDoItem();
+}
+
+void toDo::deleteToDo(int item){
+    toItems[item].deleteToDoItem();
 }

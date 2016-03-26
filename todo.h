@@ -21,6 +21,7 @@ public:
 public slots:
     void setItemList(QList<ToDoItem> current);
     void check(int item);
+    void deleteToDo(int item);
 
 private slots:
     void on_addnew_clicked();

@@ -37,8 +37,14 @@ void AddAndRemoveTag::setWrittenNote(WrittenNote cur) {
         itemLayout->addSpacerItem(hSpacer);
 
         QPushButton *pButton = new QPushButton();
-        QPixmap pixmap = QPixmap (":/images/icons/icon_waste.png");
+        pButton->setObjectName(QStringLiteral("deleteTagButton"));
+        QPixmap pixmap = QPixmap (":/images/icons/icon_waste_white.png");
         pButton->setIcon(QIcon(pixmap));
+        pButton->setIconSize(QSize(20, 20));
+        pButton->setMinimumSize(QSize(25, 25));
+        pButton->setMaximumSize(QSize(25, 25));
+        pButton->setStyleSheet("#deleteTagButton{background-color: #F22613; color: #23121C; border: 1px solid #000; border-radius: 2px;}"
+                               "#deleteTagButton:hover{color: #000; border: 1px solid #888;}");
         itemLayout->addWidget(pButton);
 
         ui->verticalLayout_2->addLayout(itemLayout);

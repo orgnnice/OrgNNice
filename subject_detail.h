@@ -41,6 +41,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_addnew_2_clicked();
+
 private:
     Ui::subject_detail *ui;
     MRichTextEdit *rte;
