@@ -31,11 +31,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::update()
-{
-qDebug() << "Started Update";
-}
-
 void MainWindow::setSubList(QList<Subject> list)
 {
 
@@ -125,7 +120,7 @@ void MainWindow::on_pushButton_10_clicked()
 
 void MainWindow::on_addnew_clicked()
 {
-    newCre = new c_subject(); // Be sure to destroy you window somewhere
+    newCre = new c_subject(this); // Be sure to destroy you window somewhere
     //newCre->parmain=this;
     newCre->show();
     //connect();
@@ -198,4 +193,11 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_toDo_clicked()
 {
 
+}
+
+void MainWindow::update()
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+this->close();
 }
