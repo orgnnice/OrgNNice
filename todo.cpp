@@ -153,3 +153,4 @@ MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
 // check parent is not null
 parent->updateLists();
 }
+

@@ -82,6 +82,7 @@ void subject_detail::textDet(int index){
     rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
     rte->setText(noteList[index].getContent().replace("^", "'"));
     rte->setNote(noteList[index]);
+    rte->cur = subdet;
     dialog->show();
 }
 

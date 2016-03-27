@@ -70,7 +70,7 @@ WrittenNote::WrittenNote(QString content, QDateTime ts, int subject_ID)
     this->text = content;
     this->timestamp = ts;
     this->subject_ID = subject_ID;
-    pDBh->insertWrittenNote(*this);
+    this->id = pDBh->insertWrittenNote(*this);
 }
 
 void WrittenNote::setContent(QString text){

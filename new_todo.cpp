@@ -12,7 +12,9 @@ new_toDo::new_toDo(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::new_toDo)
 {
+
     ui->setupUi(this);
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 
