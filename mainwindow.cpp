@@ -168,7 +168,7 @@ void MainWindow::on_import_2_clicked()
     qDebug() << "Selected File: " << fileName;
     ExportImport(fileName).importDatabase();
     QApplication::quit();
-
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
 void MainWindow::on_export_2_clicked()
