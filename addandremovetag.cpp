@@ -2,6 +2,7 @@
 #include "ui_addandremovetag.h"
 #include "qdebug.h"
 #include "QSignalMapper"
+#include "mrichtextedit.h"
 
 AddAndRemoveTag::AddAndRemoveTag(QWidget *parent) :
     QDialog(parent),
@@ -21,6 +22,7 @@ void AddAndRemoveTag::setWrittenNote(WrittenNote cur) {
                                           "#addNewTag:hover{color: #000; border: 1px solid #446CB3;}");
     selwr = cur;
     QList<QString> tags = selwr.getTags();
+    qDebug() << selwr.getTags().length();
     for(int i=0;i<tags.length();i++)
     {
         QSignalMapper* signalMapper = new QSignalMapper(this);
@@ -63,10 +65,16 @@ void AddAndRemoveTag::on_pushButton_clicked()
 {
     selwr.addTag(ui->lineEdit->text());
     this->close();
+    MRichTextEdit* parent = qobject_cast<MRichTextEdit*>(this->parent());
+    // check parent is not null
+    parent->update();
 }
 
 void AddAndRemoveTag::deleteTag(QString seltag) {
     qDebug() << "Delete Tag: " << seltag;
     selwr.removeTag(seltag);
     this->close();
+    MRichTextEdit* parent = qobject_cast<MRichTextEdit*>(this->parent());
+    // check parent is not null
+    parent->update();
 }

@@ -39,6 +39,9 @@
 #include <QMenu>
 #include <QDialog>
 #include <qdebug.h>
+#include <subject_detail.h>
+#include <writtennote.h>
+#include <main.h>
 
 MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     setupUi(this);
@@ -607,12 +610,33 @@ void MRichTextEdit::on_buttonBox_accepted()
     qDebug() << selt.getContent();
     qDebug() << f_textedit->toHtml();
     selt.setContent(f_textedit->toHtml().replace("'", "^"));
+    subject_detail* parent = qobject_cast<subject_detail*>(this->parent()->parent());
+    // check parent is not null
+    parent->update();
     this->parentWidget()->close();
 }
 
 void MRichTextEdit::on_pushButton_clicked()
 {
-    tagver = new AddAndRemoveTag();
+    tagver = new AddAndRemoveTag(this);
     tagver->setWrittenNote(selt);
     tagver->show();
+}
+
+void MRichTextEdit::update()
+{
+    cur.updateSubject();
+    for(int i=0;i<cur.getWrittenNotesSize();i++){
+        WrittenNote up = cur.getWrittenNotes().takeAt(i);
+        if(up.getId()==selt.getId()){
+            selt = up;
+            break;
+        }
+    }
+    qDebug() << "WrittenNotes Tags: " << selt.getTags();
+}
+
+void MRichTextEdit::on_pushButton_2_clicked()
+{
+
 }

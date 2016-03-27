@@ -24,6 +24,7 @@ public:
 public slots:
     void setSubDet(Subject cur);
     void textDet(int list);
+    void update();
 
 private slots:
 

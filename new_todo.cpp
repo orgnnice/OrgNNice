@@ -6,12 +6,15 @@
 #include "main.h"
 #include "subject.h"
 #include "todoitem.h"
+#include "todo.h"
 
 new_toDo::new_toDo(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::new_toDo)
 {
+
     ui->setupUi(this);
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 
@@ -35,6 +38,9 @@ void new_toDo::on_buttonBox_accepted()
     qDebug() << ui->dateTimeEdit->dateTime();
     qDebug() << ui->dateTimeEdit->dateTime().toMSecsSinceEpoch();
     this->close();
+    toDo* parent = qobject_cast<toDo*>(this->parent());
+    // check parent is not null
+    parent->update();
 }
 
 void new_toDo::on_buttonBox_rejected()

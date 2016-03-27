@@ -6,6 +6,7 @@
 #include "main.h"
 #include <QList>
 #include "subject.h"
+#include "mainwindow.h"
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -81,6 +82,7 @@ void subject_detail::textDet(int index){
     rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
     rte->setText(noteList[index].getContent().replace("^", "'"));
     rte->setNote(noteList[index]);
+    rte->cur = subdet;
     dialog->show();
 }
 
@@ -93,7 +95,19 @@ void subject_detail::on_pushButton_2_clicked()
 
 void subject_detail::on_addnew_2_clicked()
 {
-    newWrittenNote = new C_WrittenNote();
+    newWrittenNote = new C_WrittenNote(this);
     newWrittenNote->setSubject(subdet);// Be sure to destroy you window somewhere
     newWrittenNote->show();
 }
+
+void subject_detail::update()
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+subdet.updateSubject();
+this->setSubDet(subdet);
+MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+// check parent is not null
+parent->update();
+}
+

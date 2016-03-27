@@ -124,6 +124,29 @@ QList<WrittenNote> DBHandler::queryWithReturnNoteList(QString statement)
 }
 
 
+Subject DBHandler::subjectFromID(int id)
+{
+
+
+    QString statement = "SELECT * FROM schoolSubject WHERE (pk_id = " + QString::number(id) + ")";
+
+    Subject pSubject;
+    qDebug() << "DBHandler -> subjectFromID(" << statement << ");";
+    QSqlQuery query(db);
+    query.exec(statement);
+    qDebug()  << query.isActive();
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QList<WrittenNote> notes = queryWithReturnNoteList("SELECT * FROM note WHERE (fk_schoolSubject = " + QString::number(id) + ")");
+        QString subject_name =  query.value(1).toString();
+        return Subject(id, notes, subject_name);
+    }
+    return Subject();
+}
+
+
+
 /**
  * @brief DBHandler::queryWithReturnToDoItemList, <todo> test it
  * @param statement

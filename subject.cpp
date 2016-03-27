@@ -166,5 +166,7 @@ void Subject::deleteSubject()
 
 void Subject::updateSubject()
 {
-
+   Subject tempSubject = pDBh->subjectFromID(this->id);
+   this->subject_name = tempSubject.subject_name;
+   this->notes = tempSubject.notes;
 }

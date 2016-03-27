@@ -28,6 +28,8 @@
 #include "ui_mrichtextedit.h"
 #include "writtennote.h"
 #include "addandremovetag.h"
+#include "subject.h"
+#include "todo.h"
 
 /**
  * @Brief A simple rich-text editor
@@ -38,6 +40,7 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
     MRichTextEdit(QWidget *parent = 0);
     MRichTextEdit();
     WrittenNote selt;
+    Subject cur;
     QString toPlainText() const { return f_textedit->toPlainText(); }
     QString toHtml() const;
     QTextDocument *document() { return f_textedit->document(); }
@@ -47,6 +50,7 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
   public slots:
     void setText(const QString &text);
     void setNote(WrittenNote cur);
+    void update();
 
   protected slots:
     void setPlainText(const QString &text) { f_textedit->setPlainText(text); }
@@ -100,8 +104,11 @@ private slots:
     void on_buttonBox_accepted();
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     AddAndRemoveTag *tagver;
+    toDo *newtD;
 };
 
 #endif

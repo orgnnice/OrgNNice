@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>756</width>
-    <height>620</height>
+    <width>846</width>
+    <height>628</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -567,6 +567,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>ToDo erstellen</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -624,6 +631,7 @@
      <zorder>f_menu</zorder>
      <zorder>f_fgcolor</zorder>
      <zorder>pushButton</zorder>
+     <zorder>pushButton_2</zorder>
     </widget>
    </item>
    <item>

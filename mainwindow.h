@@ -32,6 +32,7 @@ public:
 public slots:
     void setSubList(QList<Subject> list);
     void update();
+    void updateLists();
 
 private slots:
    void openNewWindow();

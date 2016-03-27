@@ -4,6 +4,7 @@
 #include "dbhandler.h"
 #include "main.h"
 #include "subject.h"
+#include "mainwindow.h"
 
 WaitFor::WaitFor(QWidget *parent) :
     QDialog(parent),
@@ -19,7 +20,7 @@ WaitFor::~WaitFor()
 
 void WaitFor::on_addnew_waitfor_clicked()
 {
-    add_waitFor = new New_WaitFor();
+    add_waitFor = new New_WaitFor(this);
     add_waitFor->show();
 }
 
@@ -104,8 +105,36 @@ void WaitFor::checkWaitFor(int item){
         qDebug() << waitItems[item].getDone();
     }
     waitItems[item].updateWaitFor();
+    this->update();
 }
 
 void WaitFor::deleteWaitFor(int item){
     waitItems[item].deleteWaitFor();
+    this->update();
+}
+
+void WaitFor::clearLayout(QLayout *layout){
+    QLayoutItem *item;
+    while((item = layout->takeAt(0))) {
+        if (item->layout()) {
+            clearLayout(item->layout());
+            delete item->layout();
+        }
+        if (item->widget()) {
+            delete item->widget();
+        }
+        delete item;
+    }
+}
+
+void WaitFor::update()
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+QList <WaitForList> allwfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+this->clearLayout(ui->verticalLayout_2);
+this->setItemList(allwfs);
+MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+// check parent is not null
+parent->updateLists();
 }

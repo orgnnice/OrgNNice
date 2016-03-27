@@ -31,11 +31,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::update()
-{
-qDebug() << "Started Update";
-}
-
 void MainWindow::setSubList(QList<Subject> list)
 {
 
@@ -110,14 +105,58 @@ void MainWindow::setSubList(QList<Subject> list)
 
 void MainWindow::subDetail(int index){
     qDebug() << index;
-    detSubject = new subject_detail();
+    detSubject = new subject_detail(this);
     detSubject->setSubDet(sublist[index]);
+    detSubject->show();
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->show();
+}
+
+void MainWindow::on_addnew_clicked()
+{
+    newCre = new c_subject(this); // Be sure to destroy you window somewhere
+    //newCre->parmain=this;
+    newCre->show();
+    //connect();
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->show();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->show();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->show();
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
+    detSubject->show();
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    detSubject = new subject_detail(); // Be sure to destroy you window somewhere
     detSubject->show();
 }
 
 void MainWindow::on_toDobut_clicked()
 {
-    toList = new toDo();
+    toList = new toDo(this);
     toList->setItemList(todoItems);
     toList->show();
 }
@@ -129,7 +168,7 @@ void MainWindow::on_import_2_clicked()
     qDebug() << "Selected File: " << fileName;
     ExportImport(fileName).importDatabase();
     QApplication::quit();
-
+    QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
 
 void MainWindow::on_export_2_clicked()
@@ -140,7 +179,7 @@ void MainWindow::on_export_2_clicked()
 
 void MainWindow::on_waitForbut_clicked()
 {
-    waitList = new WaitFor();
+    waitList = new WaitFor(this);
     waitList->setItemList(waitItems);
     waitList->show();
 
@@ -148,7 +187,24 @@ void MainWindow::on_waitForbut_clicked()
 
 void MainWindow::on_addnew_2_clicked()
 {
-    newCre = new c_subject(); // Be sure to destroy you window somewhere
+    newCre = new c_subject(this); // Be sure to destroy you window somewhere
     //newCre->parmain=this;
     newCre->show();
+}
+
+void MainWindow::update()
+{
+qDebug() << "Started Update";
+QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+this->setSubList(allsubs);
+}
+
+
+void MainWindow::updateLists()
+{
+qDebug() << "Started Update";
+QList <WaitForList> allw =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
+QList <ToDoItem> allt =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
+this->waitItems = allw;
+this->todoItems = allt;
 }
