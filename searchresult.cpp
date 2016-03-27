@@ -27,7 +27,7 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
     int a = 2;
     int line = 0;
     int col = 0;
-
+    ui->label->setText(message);
     for(int i=0;i<res.length();i++){
         QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
