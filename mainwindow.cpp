@@ -56,6 +56,7 @@ void MainWindow::setSubList(QList<Subject> list)
         font3.setPointSize(10);
 
         QSignalMapper* signalMapper = new QSignalMapper(this);
+        QSignalMapper* deleteMapper = new QSignalMapper(this);
         QLabel *subjectName = new QLabel(sublist[i].getName());
         subjectName->setFont(font1);
         subjectName->setObjectName(QStringLiteral("subjectName"));
@@ -83,7 +84,19 @@ void MainWindow::setSubList(QList<Subject> list)
         desc->setAlignment(Qt::AlignCenter);
         desc->setObjectName(QStringLiteral("mitschriftenLabel"));
         desc->setStyleSheet("#mitschriftenLabel{background-color: #fff; font-family: 'Yu Gothic UI';}");
-        QVBoxLayout *verticalLayout = new QVBoxLayout;
+        QPushButton *deleteButton = new QPushButton("");
+        deleteButton->setObjectName(QStringLiteral("deleteButton"));
+        QPixmap pixmap = QPixmap (":/images/icons/icon_x.png");
+        deleteButton->setIcon(QIcon(pixmap));
+        deleteButton->setIconSize(QSize(15, 15));
+        deleteButton->setStyleSheet("#deleteButton{background-color: #fff; border: 0px; border-radius: 2px;}"
+                                                  "#deleteButton:hover{color: #F22613; border: 1px solid #830000;}");
+        deleteButton->setFont(font3);
+        deleteButton->setMinimumSize(QSize(20, 20));
+        deleteButton->setMaximumSize(QSize(20, 20));
+
+        QVBoxLayout *verticalLayout = new QVBoxLayout;        
+        verticalLayout->addWidget(deleteButton, 0, Qt::AlignRight);
         verticalLayout->addWidget(subjectName, 0, Qt::AlignCenter);
         verticalLayout->addWidget(anzahlnotes);
         verticalLayout->addWidget(desc);
@@ -100,6 +113,9 @@ void MainWindow::setSubList(QList<Subject> list)
         signalMapper->setMapping(pButton, i);
         connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(subDetail(int)));
 
+        connect(deleteButton, SIGNAL(clicked()), deleteMapper, SLOT(map()));
+        deleteMapper->setMapping(deleteButton, i);
+        connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteSubject(int)));
     }
 }
 
@@ -108,6 +124,11 @@ void MainWindow::subDetail(int index){
     detSubject = new subject_detail(this);
     detSubject->setSubDet(sublist[index]);
     detSubject->show();
+}
+
+void MainWindow::deleteSubject(int item){
+    qDebug() << item;
+    sublist[item].deleteSubject();
 }
 
 void MainWindow::on_pushButton_10_clicked()

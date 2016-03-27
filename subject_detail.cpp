@@ -42,8 +42,12 @@ void subject_detail::setSubDet(Subject cur)
     noteList = subdet.getWrittenNotes();
 
     for(int i=0;i<subdet.getWrittenNotesSize();i++){
+        QFont font1;
+        font1.setPointSize(12);
+
         QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
+        QSignalMapper* deleteMapper = new QSignalMapper(this);
         QPixmap pixmap = QPixmap (":/images/icons/icon_writtennote_with_text.png");
         pButton->setIcon(QIcon(pixmap));
         pButton->setObjectName(QStringLiteral("mitschriftButton"));
@@ -55,12 +59,24 @@ void subject_detail::setSubDet(Subject cur)
                                       "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
         qDebug() << noteList[i].getTimestamp();
         QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
-        labelFilename->setStyleSheet(QStringLiteral("padding-bottom: 25px; font-family: 'Yu Gothic UI';"));
+        labelFilename->setStyleSheet(QStringLiteral("font-family: 'Yu Gothic UI';"));
+        labelFilename->setFont(font1);
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QPushButton *deleteButton = new QPushButton("");
+        deleteButton->setObjectName(QStringLiteral("deleteButton"));
+        QPixmap pixmapDelete = QPixmap (":/images/icons/icon_x.png");
+        deleteButton->setIcon(QIcon(pixmapDelete));
+        deleteButton->setIconSize(QSize(15, 15));
+        deleteButton->setStyleSheet("#deleteButton{background-color: transparent; border: 0px; border-radius: 2px;}"
+                                                  "#deleteButton:hover{color: #F22613; border: 1px solid #830000;}");
+        deleteButton->setMinimumSize(QSize(20, 20));
+        deleteButton->setMaximumSize(QSize(20, 20));
+
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(pButton, 0, Qt::AlignHCenter);
-        verticalLayout->addWidget(labelFilename, 0, Qt::AlignHCenter);
+        verticalLayout->addWidget(labelFilename,0, Qt::AlignCenter);
+        verticalLayout->addWidget(deleteButton,0, Qt::AlignCenter);
         verticalLayout->addItem(vSpacer);
         if(i > a){
             a += 3;
@@ -73,6 +89,10 @@ void subject_detail::setSubDet(Subject cur)
         connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(pButton, i);
         connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(textDet(int)));
+
+        connect(deleteButton, SIGNAL(clicked()), deleteMapper, SLOT(map()));
+        deleteMapper->setMapping(deleteButton, i);
+        connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteWrittenNote(int)));
     }
 }
 
@@ -84,6 +104,10 @@ void subject_detail::textDet(int index){
     rte->setNote(noteList[index]);
     rte->cur = subdet;
     dialog->show();
+}
+
+void subject_detail::deleteWrittenNote(int item){
+    noteList[item].deleteWrittenNote();
 }
 
 void subject_detail::on_pushButton_2_clicked()

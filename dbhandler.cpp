@@ -627,7 +627,7 @@ void DBHandler::deleteUnusedTags()
     {
         if(select("COUNT(pk_id)", "noteHasTag", "fk_Tag = '"+ QString::number(tags[i]) +"'") <= 0)
         {
-            query.exec("delete * from note where (pk_id = " + QString::number(tags[i]) + ")");
+            query.exec("delete from note where (pk_id = " + QString::number(tags[i]) + ")");
         }
     }
 }
@@ -644,21 +644,21 @@ void DBHandler::deleteUnusedAttachments()
     {
         if(select("COUNT(pk_id)", "noteHasAttachement", "fk_Tag = '"+ QString::number(tags[i]) +"'") <= 0)
         {
-            query.exec("delete * from attachement where (pk_id = " + QString::number(tags[i]) + ")");
+            query.exec("delete from attachement where (pk_id = " + QString::number(tags[i]) + ")");
         }
     }
 }
 
 void DBHandler::deleteWrittenNote(int id)
 {
-    queryNoReturn("delete * from WrittenNote where (pk_id = " + QString::number(id) + ")");
-    queryNoReturn("delete * from noteHasTag where (fk_note = " + QString::number(id) + ")");
-    queryNoReturn("delete * from noteHasAttachement where (fk_note = " + QString::number(id) + ")");
+    queryNoReturn("delete from note where (pk_id = " + QString::number(id) + ")");
+    queryNoReturn("delete from noteHasTag where (fk_note = " + QString::number(id) + ")");
+    queryNoReturn("delete from noteHasAttachement where (fk_note = " + QString::number(id) + ")");
 }
 
 void DBHandler::deleteSubject(int id)
 {
-    queryNoReturn("delete * from schoolSubject where (pk_id = " + QString::number(id) + ")");
+    queryNoReturn("delete from schoolSubject where (pk_id = " + QString::number(id) + ")");
     QList<int> note;
     QSqlQuery query(db);
     query.exec("Select pk_id note where (fk_schoolSubject = " + QString::number(id) + ")");

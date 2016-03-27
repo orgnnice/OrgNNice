@@ -29,8 +29,12 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
     int col = 0;
     ui->label->setText(message);
     for(int i=0;i<res.length();i++){
+        QFont font1;
+        font1.setPointSize(12);
+
         QPushButton *pButton = new QPushButton(ui->scrollAreaWidgetContents);
         QSignalMapper* signalMapper = new QSignalMapper(this);
+        QSignalMapper* deleteMapper = new QSignalMapper(this);
         QPixmap pixmap = QPixmap (":/images/icons/icon_writtennote_with_text.png");
         pButton->setIcon(QIcon(pixmap));
         pButton->setObjectName(QStringLiteral("mitschriftButton"));
@@ -42,12 +46,23 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
                                       "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
         qDebug() << res[i].getTimestamp();
         QLabel *labelFilename = new QLabel(res[i].getTimestamp().toString("dd.MM.yyyy"));
-        labelFilename->setStyleSheet(QStringLiteral("padding-bottom: 25px; font-family: 'Yu Gothic UI';"));
+        labelFilename->setStyleSheet(QStringLiteral("font-family: 'Yu Gothic UI';"));
+        labelFilename->setFont(font1);
         QSpacerItem *vSpacer;
         vSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QPushButton *deleteButton = new QPushButton("");
+        deleteButton->setObjectName(QStringLiteral("deleteButton"));
+        QPixmap pixmapDelete = QPixmap (":/images/icons/icon_x.png");
+        deleteButton->setIcon(QIcon(pixmapDelete));
+        deleteButton->setIconSize(QSize(15, 15));
+        deleteButton->setStyleSheet("#deleteButton{background-color: transparent; border: 0px; border-radius: 2px;}"
+                                                  "#deleteButton:hover{color: #F22613; border: 1px solid #830000;}");
+        deleteButton->setMinimumSize(QSize(20, 20));
+        deleteButton->setMaximumSize(QSize(20, 20));
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(pButton, 0, Qt::AlignHCenter);
-        verticalLayout->addWidget(labelFilename, 0, Qt::AlignHCenter);
+        verticalLayout->addWidget(labelFilename, 0, Qt::AlignCenter);
+        verticalLayout->addWidget(deleteButton, 0, Qt::AlignCenter);
         verticalLayout->addItem(vSpacer);
         if(i > a){
             a += 3;
@@ -59,6 +74,10 @@ void SearchResult::setResult(QList<WrittenNote> cur, QString message)
         connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(pButton, i);
         connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(textDet(int)));
+
+        connect(deleteButton, SIGNAL(clicked()), deleteMapper, SLOT(map()));
+        deleteMapper->setMapping(deleteButton, i);
+        connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteWrittenNote(int)));
     }
 }
 
@@ -69,4 +88,8 @@ void SearchResult::textDet(int index){
     rte->setText(res[index].getContent().replace("^", "'"));
     rte->setNote(res[index]);
     dialog->show();
+}
+
+void SearchResult::deleteWrittenNote(int item){
+    res[item].deleteWrittenNote();
 }

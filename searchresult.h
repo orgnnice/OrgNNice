@@ -22,6 +22,7 @@ public:
 public slots:
     void setResult(QList<WrittenNote> cur, QString message);
     void textDet(int list);
+    void deleteWrittenNote(int item);
 
 private:
     Ui::SearchResult *ui;

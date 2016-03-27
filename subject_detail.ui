@@ -313,6 +313,9 @@
         <property name="bottomMargin">
          <number>20</number>
         </property>
+        <property name="verticalSpacing">
+         <number>25</number>
+        </property>
        </layout>
       </widget>
      </widget>
