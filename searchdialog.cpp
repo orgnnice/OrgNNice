@@ -8,6 +8,7 @@ SearchDialog::SearchDialog(QWidget *parent) :
     ui(new Ui::SearchDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 }
 
 SearchDialog::~SearchDialog()

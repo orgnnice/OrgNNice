@@ -8,6 +8,7 @@
 #include <main.h>
 #include <QFileDialog>
 #include <exportimport.h>
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +16,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+
+    QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+t")),
+                             this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_toDobut_clicked()));
+
+    QShortcut *shortcut1 = new QShortcut(QKeySequence(tr("Ctrl+w")),
+                             this);
+    connect(shortcut1, SIGNAL(activated()), this, SLOT(on_waitForbut_clicked()));
+
+    QShortcut *shortcut2 = new QShortcut(QKeySequence(tr("Ctrl+n")),
+                             this);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(on_addnew_2_clicked()));
 
     connect(ui->actionExport, SIGNAL(triggered(bool)),
             this, SLOT(on_export_2_clicked()));

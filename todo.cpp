@@ -5,6 +5,7 @@
 #include "main.h"
 #include "qcheckbox.h"
 #include "mainwindow.h"
+#include <QShortcut>
 
 toDo::toDo(QWidget *parent) :
     QDialog(parent),
@@ -12,6 +13,10 @@ toDo::toDo(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+
+    QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+n")),
+                             this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_addnew_clicked()));
 }
 
 toDo::~toDo()

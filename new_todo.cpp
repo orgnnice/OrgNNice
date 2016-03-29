@@ -13,7 +13,6 @@ new_toDo::new_toDo(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::new_toDo)
 {
-
     ui->setupUi(this);
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
     this->setWindowTitle("Org'n'Nice");
@@ -34,7 +33,7 @@ new_toDo::~new_toDo()
 void new_toDo::setSubName(QString subname)
 {
     int index = ui->comboBox->findText(subname);
-    qDebug() << "Selcktierter Index: " << index;
+    qDebug() << "Selektierter Index: " << index;
     ui->comboBox->setCurrentIndex(index);
 }
 

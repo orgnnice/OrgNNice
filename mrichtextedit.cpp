@@ -42,10 +42,24 @@
 #include <subject_detail.h>
 #include <writtennote.h>
 #include <main.h>
+#include <QShortcut>
 
 MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+
+    QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+t")),
+                             this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_pushButton_clicked()));
+
+    QShortcut *shortcut1 = new QShortcut(QKeySequence(tr("Ctrl+n")),
+                             this);
+    connect(shortcut1, SIGNAL(activated()), this, SLOT(on_pushButton_2_clicked()));
+
+    QShortcut *shortcut2 = new QShortcut(QKeySequence(tr("Ctrl+i")),
+                             this);
+    connect(shortcut2, SIGNAL(activated()), this, SLOT(insertImage()));
+
     m_lastBlockList = 0;
     f_textedit->setTabStopWidth(40);
 

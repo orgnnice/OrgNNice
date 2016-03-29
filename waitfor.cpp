@@ -5,12 +5,18 @@
 #include "main.h"
 #include "subject.h"
 #include "mainwindow.h"
+#include "QShortcut"
 
 WaitFor::WaitFor(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::WaitFor)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
+
+    QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+n")),
+                             this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_addnew_waitfor_clicked()));
 }
 
 WaitFor::~WaitFor()

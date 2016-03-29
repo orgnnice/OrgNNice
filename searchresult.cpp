@@ -14,6 +14,7 @@ SearchResult::SearchResult(QWidget *parent) :
     ui(new Ui::SearchResult)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 }
 
 SearchResult::~SearchResult()

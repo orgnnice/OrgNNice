@@ -9,6 +9,7 @@ ExportDialog::ExportDialog(QWidget *parent) :
     ui(new Ui::ExportDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 

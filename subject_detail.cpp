@@ -7,6 +7,7 @@
 #include <QList>
 #include "subject.h"
 #include "mainwindow.h"
+#include "qshortcut.h"
 
 subject_detail::subject_detail(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +15,10 @@ subject_detail::subject_detail(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+
+    QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+n")),
+                             this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_addnew_2_clicked()));
 }
 
 subject_detail::~subject_detail()
