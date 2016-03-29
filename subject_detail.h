@@ -26,6 +26,7 @@ public slots:
     void textDet(int list);
     void update();
     void deleteWrittenNote(int item);
+    void newtd(QString name);
 
 private slots:
 

@@ -638,5 +638,7 @@ void MRichTextEdit::update()
 
 void MRichTextEdit::on_pushButton_2_clicked()
 {
-
+    subject_detail* parent = qobject_cast<subject_detail*>(this->parent()->parent());
+    // check parent is not null
+    parent->newtd(cur.getName());
 }

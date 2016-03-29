@@ -154,3 +154,10 @@ MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
 parent->updateLists();
 }
 
+void toDo::new_ToDo(QString subname)
+{
+    add_toDo = new new_toDo(this);
+    add_toDo->show();
+    add_toDo->setSubName(subname);
+}
+

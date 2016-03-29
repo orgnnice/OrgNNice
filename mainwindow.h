@@ -34,6 +34,7 @@ public slots:
     void update();
     void updateLists();
     void deleteSubject(int item);
+    void new_toDo(QString subname);
 
 private slots:
    void openNewWindow();

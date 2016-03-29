@@ -7,6 +7,7 @@
 #include "subject.h"
 #include "todoitem.h"
 #include "todo.h"
+#include "qdebug.h"
 
 new_toDo::new_toDo(QWidget *parent) :
     QDialog(parent),
@@ -28,6 +29,13 @@ new_toDo::new_toDo(QWidget *parent) :
 new_toDo::~new_toDo()
 {
     delete ui;
+}
+
+void new_toDo::setSubName(QString subname)
+{
+    int index = ui->comboBox->findText(subname);
+    qDebug() << "Selcktierter Index: " << index;
+    ui->comboBox->setCurrentIndex(index);
 }
 
 void new_toDo::on_buttonBox_accepted()

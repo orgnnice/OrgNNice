@@ -132,6 +132,14 @@ void MainWindow::deleteSubject(int item){
     this->update();
 }
 
+void MainWindow::new_toDo(QString subname)
+{
+    toList = new toDo(this);
+    toList->setItemList(todoItems);
+    toList->show();
+    toList->new_ToDo(subname);
+}
+
 void MainWindow::on_pushButton_10_clicked()
 {
     detSubject = new subject_detail(); // Be sure to destroy you window somewhere

@@ -111,6 +111,13 @@ void subject_detail::deleteWrittenNote(int item){
     this->update();
 }
 
+void subject_detail::newtd(QString name)
+{
+    MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+    // check parent is not null
+    parent->new_toDo(name);
+}
+
 void subject_detail::on_pushButton_2_clicked()
 {
     opensearch = new SearchDialog(this);

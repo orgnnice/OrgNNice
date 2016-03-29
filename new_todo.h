@@ -14,6 +14,8 @@ class new_toDo : public QDialog
 public:
     explicit new_toDo(QWidget *parent = 0);
     ~new_toDo();
+public slots:
+    void setSubName(QString subname);
 
 private slots:
     void on_buttonBox_accepted();

@@ -23,6 +23,7 @@ public slots:
     void check(int item);
     void deleteToDo(int item);
     void update();
+    void new_ToDo(QString subname);
 
 private slots:
     void on_addnew_clicked();
