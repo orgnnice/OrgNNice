@@ -129,6 +129,7 @@ void MainWindow::subDetail(int index){
 void MainWindow::deleteSubject(int item){
     qDebug() << item;
     sublist[item].deleteSubject();
+    this->update();
 }
 
 void MainWindow::on_pushButton_10_clicked()
@@ -217,6 +218,12 @@ void MainWindow::update()
 {
 qDebug() << "Started Update";
 QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+int i = 0;
+while(ui->gridLayout->count() > 0) {
+            QWidget* widget = ui->gridLayout->itemAt(i)->widget();
+            ui->gridLayout->removeWidget(widget);
+            delete widget;
+    }
 this->setSubList(allsubs);
 }
 
@@ -229,3 +236,4 @@ QList <ToDoItem> allt =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo")
 this->waitItems = allw;
 this->todoItems = allt;
 }
+

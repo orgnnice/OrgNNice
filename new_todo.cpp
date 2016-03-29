@@ -15,6 +15,7 @@ new_toDo::new_toDo(QWidget *parent) :
 
     ui->setupUi(this);
     ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    this->setWindowTitle("Org'n'Nice");
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 

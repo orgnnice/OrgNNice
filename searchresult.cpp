@@ -7,6 +7,7 @@
 #include <QList>
 #include "subject.h"
 #include <QPushButton>
+#include <subject_detail.h>
 
 SearchResult::SearchResult(QWidget *parent) :
     QDialog(parent),
@@ -23,6 +24,7 @@ SearchResult::~SearchResult()
 void SearchResult::setResult(QList<WrittenNote> cur, QString message)
 {
     this->res = cur;
+    this->curmess = message;
     //ui->label_2->setText(message);
     int a = 2;
     int line = 0;
@@ -92,4 +94,30 @@ void SearchResult::textDet(int index){
 
 void SearchResult::deleteWrittenNote(int item){
     res[item].deleteWrittenNote();
+    res.removeAt(item);
+    this->update();
+}
+
+void SearchResult::update()
+{
+qDebug() << "Started Update";
+qDebug() << "Name des ersten Subject";
+while(ui->gridLayout->count() > 0) {
+            QLayout* layout = ui->gridLayout->itemAt(0)->layout();
+
+            QLayoutItem * item;
+            QLayout * sublayout;
+            QWidget * widget;
+            while ((item = layout->takeAt(0))) {
+                if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+                else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+                else {delete item;}
+            }
+            // then finally
+            delete layout;
+    }
+this->setResult(res, curmess);
+subject_detail* parent = qobject_cast<subject_detail*>(this->parent()->parent());
+// check parent is not null
+parent->update();
 }

@@ -29,13 +29,5 @@ void c_subject::on_buttonBox_accepted()
     MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
     // check parent is not null
     parent->update();
-    /*QList<Subject> allsubs = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
-    QList <ToDoItem> todos =  pDBh->queryWithReturnToDoItemList("SELECT * FROM todo");
-    QList <WaitForList> wfs =  pDBh->queryWithReturnWaitForListList("SELECT * FROM waitfor");
-    MainWindow w;
-    w.todoItems = todos;
-    w.waitItems = wfs;
-    w.setSubList(allsubs);
-    w.show();*/
 
 }

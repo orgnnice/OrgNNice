@@ -1,47 +1,35 @@
-#include "subject_detail.h"
-#include "ui_subject_detail.h"
+#include "searchresult.h"
+#include "ui_searchresult.h"
 #include <QDebug>
 #include <QDialog>
 #include <QSignalMapper>
 #include "main.h"
 #include <QList>
 #include "subject.h"
-#include "mainwindow.h"
+#include <QPushButton>
+#include <subject_detail.h>
 
-subject_detail::subject_detail(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::subject_detail)
+SearchResult::SearchResult(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::SearchResult)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Org'n'Nice");
 }
 
-subject_detail::~subject_detail()
+SearchResult::~SearchResult()
 {
     delete ui;
 }
 
-void subject_detail::setSubDet(Subject cur)
+void SearchResult::setResult(QList<WrittenNote> cur, QString message)
 {
-    this->subdet = cur;
-    qDebug() << "Subjectname: " << subdet.getName();
-    qDebug() << "Anzahl der Mitschriften:" << subdet.getWrittenNotesSize();
-    ui->label_2->setText(subdet.getName());
-    ui->label_3->setText(QString::number(subdet.getWrittenNotesSize()) + " Mitschriften");
-
-    ui->addnew_2->setStyleSheet("#addnew_2{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
-                              "#addnew_2:hover{color: #000; border: 1px solid #446CB3;}");
-
-    ui->pushButton_2->setStyleSheet("#pushButton_2{background-color: #ddd; color: #23121C; border: 1px solid #bbb;}"
-                              "#pushButton_2:hover{color: #000; border: 1px solid #446CB3;}");
-
-    //QList<Subject> all = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
+    this->res = cur;
+    //ui->label_2->setText(message);
     int a = 2;
     int line = 0;
     int col = 0;
-    noteList = subdet.getWrittenNotes();
-
-    for(int i=0;i<subdet.getWrittenNotesSize();i++){
+    ui->label->setText(message);
+    for(int i=0;i<res.length();i++){
         QFont font1;
         font1.setPointSize(12);
 
@@ -57,8 +45,8 @@ void subject_detail::setSubDet(Subject cur)
         pButton->setMinimumHeight(110);
         pButton->setStyleSheet("#mitschriftButton{background-color: #fff; color: #23121C; border: 1px solid #446CB3; border-radius: 2px;}"
                                       "#mitschriftButton:hover{background-color: #446CB3; border: 1px solid #fff;}");
-        qDebug() << noteList[i].getTimestamp();
-        QLabel *labelFilename = new QLabel(noteList[i].getTimestamp().toString("dd.MM.yyyy"));
+        qDebug() << res[i].getTimestamp();
+        QLabel *labelFilename = new QLabel(res[i].getTimestamp().toString("dd.MM.yyyy"));
         labelFilename->setStyleSheet(QStringLiteral("font-family: 'Yu Gothic UI';"));
         labelFilename->setFont(font1);
         QSpacerItem *vSpacer;
@@ -72,18 +60,16 @@ void subject_detail::setSubDet(Subject cur)
                                                   "#deleteButton:hover{color: #F22613; border: 1px solid #830000;}");
         deleteButton->setMinimumSize(QSize(20, 20));
         deleteButton->setMaximumSize(QSize(20, 20));
-
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(pButton, 0, Qt::AlignHCenter);
-        verticalLayout->addWidget(labelFilename,0, Qt::AlignCenter);
-        verticalLayout->addWidget(deleteButton,0, Qt::AlignCenter);
+        verticalLayout->addWidget(labelFilename, 0, Qt::AlignCenter);
+        verticalLayout->addWidget(deleteButton, 0, Qt::AlignCenter);
         verticalLayout->addItem(vSpacer);
         if(i > a){
             a += 3;
             line++;
             col = 0;
         }
-        //ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
         ui->gridLayout->addLayout(verticalLayout,line,col,1,1);
         col++;
         connect(pButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
@@ -96,40 +82,24 @@ void subject_detail::setSubDet(Subject cur)
     }
 }
 
-void subject_detail::textDet(int index){
+void SearchResult::textDet(int index){
     QDialog *dialog = new QDialog(this);
     dialog->setWindowTitle("Org'n'Nice");
     rte = new MRichTextEdit(dialog); // Be sure to destroy you window somewhere
-    rte->setText(noteList[index].getContent().replace("^", "'"));
-    rte->setNote(noteList[index]);
-    rte->cur = subdet;
+    rte->setText(res[index].getContent().replace("^", "'"));
+    rte->setNote(res[index]);
     dialog->show();
 }
 
-void subject_detail::deleteWrittenNote(int item){
-    noteList[item].deleteWrittenNote();
-    this->update();
+void SearchResult::deleteWrittenNote(int item){
+    res[item].deleteWrittenNote();
+    res.removeAt(item);
 }
 
-void subject_detail::on_pushButton_2_clicked()
-{
-    opensearch = new SearchDialog(this);
-    opensearch->selsub = subdet;
-    opensearch->show();
-}
-
-void subject_detail::on_addnew_2_clicked()
-{
-    newWrittenNote = new C_WrittenNote(this);
-    newWrittenNote->setSubject(subdet);// Be sure to destroy you window somewhere
-    newWrittenNote->show();
-}
-
-void subject_detail::update()
+void SearchResult::update()
 {
 qDebug() << "Started Update";
 qDebug() << "Name des ersten Subject";
-subdet.updateSubject();
 while(ui->gridLayout->count() > 0) {
             QLayout* layout = ui->gridLayout->itemAt(0)->layout();
 
@@ -144,10 +114,8 @@ while(ui->gridLayout->count() > 0) {
             // then finally
             delete layout;
     }
-
-this->setSubDet(subdet);
-MainWindow* parent = qobject_cast<MainWindow*>(this->parent());
+this->setResult(res);
+subject_detail* parent = qobject_cast<subject_detail*>(this->parent()->parent());
 // check parent is not null
 parent->update();
 }
-

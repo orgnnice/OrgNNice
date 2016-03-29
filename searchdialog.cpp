@@ -25,7 +25,7 @@ void SearchDialog::on_buttonBox_accepted()
     QList<WrittenNote> result= selsub.getWrittenNotesWithWithout(with, without);
     if(result.length() > 0){
     qDebug() << "Search WrittenNote-ID: " << result[0].getTags();
-    out = new SearchResult();
+    out = new SearchResult(this);
     out->setResult(result, "Hat Tags: " + with.join(", ")  + ", Ohne Tags: "+ without.join(", "));
     out->show();
     }else{
@@ -39,7 +39,7 @@ void SearchDialog::on_buttonBox_accepted()
         qDebug() << "To: " << ui->dateTimeEdit_2->dateTime();
         QList<WrittenNote> result= selsub.getWrittenNotesBetween(ui->dateTimeEdit->dateTime(), ui->dateTimeEdit_2->dateTime());
         qDebug() << "Search WrittenNote-ID: " << result.length();
-        out = new SearchResult();
+        out = new SearchResult(this);
         out->setResult(result, "Zeitraum von: " + ui->dateTimeEdit->dateTime().toString("dd.MM.yyyy") + ", bis: "+ ui->dateTimeEdit_2->dateTime().toString("dd.MM.yyyy"));
         out->show();
     }

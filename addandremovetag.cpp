@@ -9,6 +9,7 @@ AddAndRemoveTag::AddAndRemoveTag(QWidget *parent) :
     ui(new Ui::AddAndRemoveTag)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 }
 
 AddAndRemoveTag::~AddAndRemoveTag()

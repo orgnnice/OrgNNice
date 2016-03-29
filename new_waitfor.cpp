@@ -11,6 +11,7 @@ New_WaitFor::New_WaitFor(QWidget *parent) :
     ui(new Ui::New_WaitFor)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 
     QList<Subject> allsubjects = pDBh->queryWithReturnSubjectList("SELECT * FROM schoolsubject");
 

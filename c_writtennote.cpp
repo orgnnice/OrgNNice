@@ -10,6 +10,7 @@ C_WrittenNote::C_WrittenNote(QWidget *parent) :
     ui(new Ui::C_WrittenNote)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Org'n'Nice");
 }
 
 C_WrittenNote::~C_WrittenNote()

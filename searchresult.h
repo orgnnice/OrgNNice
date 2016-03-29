@@ -18,11 +18,13 @@ public:
     explicit SearchResult(QWidget *parent = 0);
     ~SearchResult();
     QList<WrittenNote> res;
+    QString curmess;
 
 public slots:
     void setResult(QList<WrittenNote> cur, QString message);
     void textDet(int list);
     void deleteWrittenNote(int item);
+    void update();
 
 private:
     Ui::SearchResult *ui;
