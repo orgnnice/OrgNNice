@@ -20,6 +20,9 @@ public:
 public slots:
     void setWrittenNote(WrittenNote cur);
 
+    void clearLayout(QLayout *layout);
+
+    void update();
 private slots:
     void on_pushButton_clicked();
     void deleteTag(QString seltag);

@@ -60,6 +60,10 @@ MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
                              this);
     connect(shortcut2, SIGNAL(activated()), this, SLOT(insertImage()));
 
+    QShortcut *shortcut3 = new QShortcut(QKeySequence(tr("Ctrl+s")),
+                             this);
+    connect(shortcut3, SIGNAL(activated()), this, SLOT(on_buttonBox_accepted()));
+
     m_lastBlockList = 0;
     f_textedit->setTabStopWidth(40);
 

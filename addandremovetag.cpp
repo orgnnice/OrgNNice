@@ -60,12 +60,25 @@ void AddAndRemoveTag::setWrittenNote(WrittenNote cur) {
     ui->verticalLayout_2->addSpacerItem(vSpacer);
 }
 
-
+void AddAndRemoveTag::clearLayout(QLayout *layout){
+    QLayoutItem *item;
+    while((item = layout->takeAt(0))) {
+        if (item->layout()) {
+            clearLayout(item->layout());
+            delete item->layout();
+        }
+        if (item->widget()) {
+            delete item->widget();
+        }
+        delete item;
+    }
+}
 
 void AddAndRemoveTag::on_pushButton_clicked()
 {
     selwr.addTag(ui->lineEdit->text());
-    this->close();
+    ui->lineEdit->setText("");
+    this->update();
     MRichTextEdit* parent = qobject_cast<MRichTextEdit*>(this->parent());
     // check parent is not null
     parent->update();
@@ -74,8 +87,31 @@ void AddAndRemoveTag::on_pushButton_clicked()
 void AddAndRemoveTag::deleteTag(QString seltag) {
     qDebug() << "Delete Tag: " << seltag;
     selwr.removeTag(seltag);
-    this->close();
+    this->update();
     MRichTextEdit* parent = qobject_cast<MRichTextEdit*>(this->parent());
     // check parent is not null
     parent->update();
+}
+
+void AddAndRemoveTag::update() {
+while(ui->verticalLayout_2->count() > 0) {
+        if(ui->verticalLayout_2->itemAt(0)->layout()){
+            QLayout* layout = ui->verticalLayout_2->itemAt(0)->layout();
+            qDebug() << "Taken Layout: " << ui->verticalLayout_2->itemAt(0)->layout();
+            QLayoutItem * item;
+            QLayout * sublayout;
+            QWidget * widget;
+            while ((item = layout->takeAt(0))) {
+                if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+                else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+                else {delete item;}
+            }
+            // then finally
+            delete layout;
+        }else{
+            ui->verticalLayout_2->removeItem(ui->verticalLayout_2->itemAt(0));
+        }
+
+    }
+this->setWrittenNote(selwr);
 }

@@ -19,6 +19,10 @@ subject_detail::subject_detail(QWidget *parent) :
     QShortcut *shortcut = new QShortcut(QKeySequence(tr("Ctrl+n")),
                              this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_addnew_2_clicked()));
+
+    QShortcut *shortcut1 = new QShortcut(QKeySequence(tr("Ctrl+f")),
+                             this);
+    connect(shortcut1, SIGNAL(activated()), this, SLOT(on_pushButton_2_clicked()));
 }
 
 subject_detail::~subject_detail()

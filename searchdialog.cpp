@@ -9,6 +9,8 @@ SearchDialog::SearchDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Org'n'Nice");
+    ui->dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    ui->dateTimeEdit_2->setDateTime(QDateTime::currentDateTime());
 }
 
 SearchDialog::~SearchDialog()
